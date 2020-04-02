@@ -1,35 +1,49 @@
-<!-- Team Rust Outdoors Page -->
+<!-- Team Rust Art Page (User Logged In) -->
 <!DOCTYPE html>
 <html>
 
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Makaleha Recreation Page</title>
-  <link rel="stylesheet" type="text/css" href="stylesheets/default.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/searchbar.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/login.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/table.css" />
-  <script src="javascripts/searchbar_rec.js"></script>
-  <script src="javascripts/logout.js"></script>
-  <script src="javascripts/outdoor.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Makaleha Art Page</title>
+    <!-- stylesheets -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/default.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/searchbar.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/login.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/table.css" />
+    <!-- end stylesheets -->
+
+    <!-- script files -->
+    <script src="javascripts/category_template.js"></script> <!-- TODO: change this for other files -->
+    <script src="javascripts/logout.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIhUvaxHgXK-X8iRqfSYzaRy-I0-QNsoY&callback=initMap"
+        async defer></script> <!-- google map API -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- map styling -->
+    <style>
+        .map {
+            height: 500px;
+            width: 100%;
+            padding: 0px;
+        }
+    </style>
 </head>
 
-<body onload='init()'>
+<body class='category' onload="init('outdoor')" id='outdoor'>
+    <!-- when page loads, call init() function -->
 
     <!-- top buttons: "write a review", log in, and sign up -->
     <div class="left">
         <button type="button" style="width:100px" id="review" onclick="window.location.href = 'reviewpage.html';">
-            Write a
-            review
+            Write a review
         </button>
     </div>
 
     <div class="right">
-        <button onclick="window.location.href = 'accountpage.html';" class="top-btn" type="button" id="account">Account</button><br><br><br>
+        <button onclick="window.location.href = 'accountpage.html';" class="top-btn" type="button"
+            id="account">Account</button><br><br><br>
         <button onclick="logout()" class="top-btn" type="button" id="logout">Log out</button>
-      </div> <!-- set log out to go back to index.html -->
+    </div> <!-- set log out to go back to index.html -->
 
     <!-- log in pop up -->
     <div id="id01" class="modal">
@@ -37,7 +51,7 @@
         <form class="modal-content animate" action="/action_page.php" method="post">
             <div class="imgcontainer">
                 <span onclick="document.getElementById('id01').style.display='none'" class="close"
-                      title="Close Modal">&times;</span>
+                    title="Close Modal">&times;</span>
                 <img src="images/img_avatar2.png" alt="Avatar" class="avatar">
             </div>
 
@@ -55,8 +69,7 @@
             </div>
 
             <div class="container" style="background-color:#f1f1f1">
-                <button type="button" onclick="document.getElementById('id01').style.display='none'"
-                        class="cancelbtn">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">
                     Cancel
                 </button>
                 <span class="psw">Forgot <a href="#">password?</a></span>
@@ -66,8 +79,8 @@
 
     <center>
         <!-- logo -->
-        <input onclick="window.location.href='indexUser.html'" type="image" id="makalehalogo" src="images/makaleha_logo__v2.png" alt="Makaleha Logo" width="300"
-               height="140" />
+        <input onclick="window.location.href='indexUser.html'" type="image" id="makalehalogo"
+            src="images/makaleha_logo__v2.png" alt="Makaleha Logo" width="300" height="140" />
     </center>
     <!-- navigation bar i.e. page menu -->
     <div class="navbar">
@@ -77,30 +90,27 @@
         <a href="servicepageUser.html">Community Service</a>
     </div>
 
-    <!-- search bar recreation page -->
+    <!-- search bar artpage -->
     <br>
-    <div id="cover_rec">
+    <div id="cover_art">
         <form method="get" action="">
             <div class="tb">
-                <div class="td"><input id="searchbar_input_rec" type="text" placeholder="Search" required></div>
+                <div class="td"><input id="searchbar_input" type="text" onkeyup="search_table()" placeholder="Search"
+                        required></div>
                 <div class="td" id="s-cover">
-                    <button type="submit" id="submitSearch" onclick="searchRec()">
-                        <div id="s-circle"></div>
-                        <span></span>
-                    </button>
                 </div>
             </div>
         </form>
     </div>
-
-    <div style="height: 500px; display: flex" id="recdisplay">
-        <div style="height: 500px; width:25%; overflow-y: scroll; display:flex">
-            <table class="displaytable" id="rectable" rules="rows" frame="void">
+    <!-- table that displays menu for art -->
+    <div style="height: 500px; display:flex; position: relative" id="display">
+        <div style="height: 500px; overflow-y: scroll; display:flex">
+            <table class="displaytable" id="categorytable" rules="rows" frame="void">
             </table>
         </div>
-
-        <div id="displaytext">
-        </div>
+        <div id="map" style="height: 100%; width:100%"></div>
+        <span class="favoriteButton" onClick="toggleFavoritesButton()" id="toggleFavoritesButton"
+            style="position:absolute;right:4%;top:-1%;font-size: 300%;" title="Toggle Favorites"></span>
     </div>
 </body>
 

@@ -14,7 +14,7 @@
     <!-- end stylesheets -->
 
     <!-- script files -->
-    <script src="javascripts/art.js"></script> <!-- TODO: change this for other files -->
+    <script src="javascripts/category_template.js"></script> <!-- TODO: change this for other files -->
     <script src="javascripts/logout.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIhUvaxHgXK-X8iRqfSYzaRy-I0-QNsoY&callback=initMap"
         async defer></script> <!-- google map API -->
@@ -29,7 +29,8 @@
     </style>
 </head>
 
-<body onload=init()> <!-- when page loads, call init() function -->
+<body class='category' onload="init('art')" id='art'>
+    <!-- when page loads, call init() function -->
 
     <!-- top buttons: "write a review", log in, and sign up -->
     <div class="left">
@@ -91,22 +92,20 @@
 
     <!-- search bar artpage -->
     <br>
-    <div id="cover_art"> <!-- TODO: change this -->
+    <div id="cover_art">
         <form method="get" action="">
             <div class="tb">
-                <div class="td"><input id="searchbar_input_art" type="text" onkeyup="search_art()" placeholder="Search"
+                <div class="td"><input id="searchbar_input" type="text" onkeyup="search_table()" placeholder="Search"
                         required></div>
                 <div class="td" id="s-cover">
                 </div>
             </div>
         </form>
     </div>
-
     <!-- table that displays menu for art -->
-    <!-- TODO: change this -->
-    <div style="height: 500px; display:flex; position: relative" id="artdisplay">
+    <div style="height: 500px; display:flex; position: relative" id="display">
         <div style="height: 500px; overflow-y: scroll; display:flex">
-            <table class="displaytable" id="arttable" rules="rows" frame="void">
+            <table class="displaytable" id="categorytable" rules="rows" frame="void">
             </table>
         </div>
         <div id="map" style="height: 100%; width:100%"></div>
@@ -116,11 +115,3 @@
 </body>
 
 </html>
-
-<!-- 
-  version: 23 FEB 2020
-  TODO:
-  - link user log in to this page
-  - add search bar to look up specific art
-  - add search bar search for discipline i.e. mural, sculpture
--->

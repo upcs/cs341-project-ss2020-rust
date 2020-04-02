@@ -386,7 +386,7 @@ function loadFavorites() {
         if (result[0].FAVORITES != null) {
             var favoriteList = (result[0].FAVORITES).split(",");
             for (var i = 0; i < favoriteList.length; i++) {
-                if (favoriteList[i][0] == '0') {
+                if (favoriteList[i][0] == '0') { // TODO: implement with varying category not hardcoded
                     var titleName = favoriteList[i].substring(1);
                     artFavorites.push(titleName);
                 }
@@ -421,8 +421,3 @@ function toggleFavoritesButton() {
         loadFavorites();
     }
 }
-
-/*
-    version: 23 FEB 2020
-    TODO: have list scrollable, while info display is fixed on page
-*/
