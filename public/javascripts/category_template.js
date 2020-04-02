@@ -312,6 +312,7 @@ function getOutdoorContent(name, island, length, elevation, start, end, difficul
     if(amenities != ''){
         content += '<p>Amenities: ' + amenities + '</p>';
     }
+    content += favoriteButton + '</div>' + '</div>';
     return content; 
 }
 
@@ -325,6 +326,7 @@ function getEventContent(name, addr, description, startdate, enddate, starttime,
     '<h1 id="firstHeading" class="firstHeading">' + name + '</h1>' + '<div id="bodyContent">';
     content += '<p>' + addr + '</p>'
     content += '<p>' + description + '</p>';
+    content += favoriteButton + '</div>' + '</div>';
     return content; 
 }
 
@@ -338,6 +340,7 @@ function getServiceContent(name, description, phone, website) {
     '<h1 id="firstHeading" class="firstHeading">' + name + '</h1>' + '<div id="bodyContent">';
     content += '<p>' + description + '</p>';
     content += '<p>' + phone + ' ' + website + '</p>';
+    content += favoriteButton + '</div>' + '</div>';
     return content; 
 }
 
@@ -382,11 +385,24 @@ function loadFavorites() {
     document.getElementById("toggleFavoritesButton").innerHTML = '&starf;';
     var user = localStorage.getItem('username');
     var artFavorites = [];
+    var catValue;
+    if(cat == 'art'){ // TODO: LAST THING I DID DOOO THIS!!!!!!
+        catValue = "0";
+    }
+    else if(cat == 'service'){
+        catValue = "2";
+    }
+    else if (cat == 'outdoor'){
+        catValue = "1";
+    }
+    else if(cat == 'events'){
+        catValue = "3";
+    }
     $.post("/retrieveFavorite?user=" + user, function (result) {
         if (result[0].FAVORITES != null) {
             var favoriteList = (result[0].FAVORITES).split(",");
             for (var i = 0; i < favoriteList.length; i++) {
-                if (favoriteList[i][0] == '0') { // TODO: implement with varying category not hardcoded
+                if (favoriteList[i][0] == catValue) { // TODO: implement when
                     var titleName = favoriteList[i].substring(1);
                     artFavorites.push(titleName);
                 }

@@ -10,7 +10,7 @@ router.post('/', function (req, res, next) {
     if(cat == "art"){
         num = "0"; 
     }
-    else if(cat == "rec"){
+    else if(cat == "outdoor"){
         num = "1";
     }
     else if(cat == "service"){

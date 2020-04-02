@@ -113,21 +113,26 @@ function getFavorites(){
 			var table = document.getElementById('myTable');
 			var cat = "-1"; 
 			for(var i = 0; i < list.length; i++){
-				var entry = splitList(list[i], /([0-3]+)/);
-				if(entry[1] == "0"){
+				alert(list[i][0]);
+				var entry = list[i][0];
+				var title = '';
+				for(var j = 1; j < list[i].length; j++){
+					title += list[i][j]; 
+				}
+				if(entry == "0"){
 					cat = "Artwork";
 				}
-				else if(entry[1] == "1"){
+				else if(entry == "1"){
 					cat = "Outdoor Activities";
 				}
-				else if(entry[1] == "2"){
+				else if(entry == "2"){
 					cat = "Community Service";
 				}
 				else{
 					cat = "Events";
 				}
 				table.innerHTML += "<tr> <td>" + cat + "</td> <td>" + 
-				entry[2] + "</td></tr>";
+				title + "</td></tr>";
 			}
 		}
 	});
