@@ -5,24 +5,31 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Makaleha Event Page</title> 
+  <title>Makaleha Community Service Page</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/default.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/searchbar.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/login.css" /> 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.0/css/ol.css" type="text/css">
-  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.0/build/ol.js"></script>
+  <link rel="stylesheet" type="text/css" href="stylesheets/login.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/table.css" />
   <script src="javascripts/logout.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+  <script src="javascripts/events.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIhUvaxHgXK-X8iRqfSYzaRy-I0-QNsoY&callback=initMap"
+        async defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <style>
-    .map {
-      height: 500px;
-      width: 100%;
-      padding: 0px;
+    #map {
+      height: 200px;
+    }
+
+    html,
+    h3 {
+      height: 100%;
+      margin: 0;
+      padding: 10;
     }
   </style>
 </head>
 
-<body>
+<body onload="init()">
 
   <!-- top buttons: "write a review", log in, and sign up -->
   <div class="left">
@@ -31,7 +38,8 @@
   </div>
 
   <div class="right">
-    <button onclick="window.location.href = 'accountpage.html';" class="top-btn" type="button" id="account">Account</button><br><br><br>
+    <button onclick="window.location.href = 'accountpage.html';" class="top-btn" type="button"
+      id="account">Account</button><br><br><br>
     <button onclick="logout()" class="top-btn" type="button" id="logout">Log out</button>
   </div> <!-- set log out to go back to index.html -->
 
@@ -68,8 +76,8 @@
 
   <center>
     <!-- logo -->
-    <input onclick="window.location.href='indexUser.html'" type="image" id="makalehalogo" src="images/makaleha_logo__v2.png" alt="Makaleha Logo" width="300"
-      height="140" />
+    <input onclick="window.location.href='indexUser.html'" type="image" id="makalehalogo"
+      src="images/makaleha_logo__v2.png" alt="Makaleha Logo" width="300" height="140" />
   </center>
   <!-- navigation bar i.e. page menu -->
   <div class="navbar">
@@ -78,21 +86,26 @@
     <a href="recreationpageUser.html">Outdoor Activities</a>
     <a href="servicepageUser.html">Community Service</a>
   </div>
-  <div id="map" class="map"></div>
-  <script type="text/javascript">
-    var map = new ol.Map({
-      target: 'map',
-      layers: [
-          new ol.layer.Tile({
-              source: new ol.source.OSM()
-          })
-      ],
-      view: new ol.View({
-        center: ol.proj.fromLonLat([-158.0001, 21.4389]),
-        zoom: 10.0
-      })
-    });
-  </script>
+<!-- search bar community service -->
+<br>
+    <div id="cover_event">
+        <form method="get" action="">
+            <div class="tb">
+                <div class="td"><input id="searchbar_input_event" type="text" onkeyup="search_art()" placeholder="Search" required></div>
+                <div class="td" id="s-cover">
+                </div>
+            </div>
+        </form>
+    </div>
+<!-- table that displays menu for art -->
+<div style="height: 500px; display: flex" id="eventdisplay">
+  <div style="height: 500px; width:25%; overflow-y: scroll; display:flex">
+      <table class="displaytable" id="eventtable" rules="rows" frame="void">
+      </table>
+  </div>
+
+  <div id="map" style="height: 100%; width:100%"></div>
+</div>
 </body>
 
 </html>

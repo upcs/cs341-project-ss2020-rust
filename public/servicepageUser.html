@@ -12,7 +12,21 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/table.css" />
   <script src="javascripts/logout.js"></script>
   <script src="javascripts/service.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIhUvaxHgXK-X8iRqfSYzaRy-I0-QNsoY&callback=initMap"
+        async defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <style>
+    #map {
+      height: 200px;
+    }
+
+    html,
+    h3 {
+      height: 100%;
+      margin: 0;
+      padding: 10;
+    }
+  </style>
 </head>
 
 <body onload="init()">
@@ -73,32 +87,28 @@
     <a href="servicepageUser.html">Community Service</a>
   </div>
   <div>
-    <center>
-      <h3> E malama ʻoe i ka ʻāina, e malama ka ʻāina ia ʻoe </h3>
-      <p> Take care of the land and the land will take care of you. </p>
-    </center>
+    <center><h3> E malama ʻoe i ka ʻāina, e malama ka ʻāina ia ʻoe </h3>
+    <p> Take care of the land and the land will take care of you. </p></center>
   </div>
-  <!-- search bar community service -->
-  <br>
-  <div id="cover_serv">
-    <form method="get" action="">
-      <div class="tb">
-        <div class="td"><input id="searchbar_input_serv" type="text" placeholder="Search" required></div>
-        <div class="td" id="s-cover">
-        </div>
-      </div>
-    </form>
-  </div>
-  <!-- table that displays menu for art -->
-  <div style="height: 500px; display: flex" id="servicedisplay">
-    <div style="height: 500px; width:25%; overflow-y: scroll; display:flex">
+<!-- search bar community service -->
+    <div id="cover_serv">
+        <form method="get" action="">
+            <div class="tb">
+                <div class="td"><input id="searchbar_input_serv" type="text" onkeyup="search_service()" placeholder="Search" required></div>
+                <div class="td" id="s-cover">
+                </div>
+            </div>
+        </form>
+    </div>
+<!-- table that displays menu for art -->
+<div style="height: 500px; display: flex" id="servicedisplay">
+  <div style="height: 500px; width:25%; overflow-y: scroll; display:flex">
       <table class="displaytable" id="servicetable" rules="rows" frame="void">
       </table>
-    </div>
-
-    <div id="displaytext">
-    </div>
   </div>
+
+  <div id="map" style="height: 100%; width:100%"></div>
+</div>
 </body>
 
 </html>

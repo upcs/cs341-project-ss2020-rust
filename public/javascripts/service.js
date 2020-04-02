@@ -1,28 +1,35 @@
 var map;
 function init() {
-    $.post('/retrieve?type=service', function (service) { // POST for service info
-        // loop through all service objects 
+    $.post('/retrieve?type=service', function (service) { // POST for art info
+        // loop through all art objects 
         var titleList = new Array();
+
         for (var i = 0; i < service.length; i++) {
-            if (service[i].NAME != '') { // don't want sercice with no title
+            if (service[i].NAME != '') { // don't want art with no title
                 // object title
                 var title = service[i].NAME;
 
+
                 if (!titleList.includes(title)) {
+
                     titleList.push(title);
 
                     // create row
                     var x = document.createElement("TR");
                     x.setAttribute("id", "'entry" + i + "'");
 
+                    var latitude = service[i].LATITUDE;
+                    var longitude = service[i].LONGITUDE;
+                    var location = {lat: latitude, lng: longitude};
+                    addRowListener(x, location);
+
                     // add to table
                     document.getElementById("servicetable").appendChild(x);
-
 
                     // create column w/ info
                     var y = document.createElement("TD");
 
-                    // put newly created element in the service class
+                    // put newly created element in the art class
                     y.className = "serviceclass";
 
                     var t = document.createTextNode(title);
@@ -32,18 +39,7 @@ function init() {
 
             }
         }
-        // add eventlistener to all service rows
-        var allRowsOnPage = document.querySelectorAll('TD');
-        allRowsOnPage.forEach(function (row, index) {
-            row.addEventListener('click', function () {
-                displayInfo(row.innerHTML); // when clicked display service info
-            });
-        });
-        /*
-        Purpose: To add event listener to all service, not just last one
-        https://www.nickang.com/add-event-listener-for-loop-problem-in-javascript/
-        */
-        // add table to display service info
+        // add table to display art info
         var infoTable = document.createElement("TABLE");
         infoTable.setAttribute("width", "700");
         infoTable.setAttribute("id", "infotable");
@@ -59,42 +55,81 @@ function init() {
     });
 }
 
-function displayInfo(title) { // display service info
-    /* BEGINNING: ADD THIS PORTION TO OTHER RETRIEVAL PAGES FOR ESCAPE CHAR ISSUE */
-    var newtitle = '';
-    for (var i = 0; i < title.length; i++) { // needed this because & is a reserved character
-        if (title[i] == "&") {
-            newtitle += "%26";
-            i += 4;
-        }
-        else {
-            newtitle += title[i];
-        }
-    }
-    /* END OF ADDING */
-    /*
-    CITATION: https://stackoverflow.com/questions/16622504/escaping-ampersand-in-url
-    Needed to understand why & was not passing through URL parameter. 
-    */
-    $.post("/retrieveInfo?type=service&title=" + newtitle, function (info) {
-        document.getElementById('textinfo').innerHTML = '';
+function addRowListener(row, location) {
+    row.addEventListener('click', function () {
+        if (map.getZoom() < 20)
+            map.setZoom(20);
+        map.panTo(location);
+    });
+}
+var activeInfoWindow;
 
-
-        if (info[0] != null) { // NEED TO CHANGE THIS DEPENDING ON SERVICE TABLE
-            // FAVORITES BUTTON FUNCTIONALITY TO BE ADDED LATER
-            var user = localStorage.getItem('username');
-            if (user != null) {
-                checkFavorites(user, newtitle);
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 21.4689, lng: -158.0001 },
+        zoom: 10.25
+    });
+    $.post('/retrieve?type=service', function (service) { // POST for art info
+        // loop through all art objects 
+        for (var i = 0; i < service.length; i++) {
+            if (service[i].NAME != '') { // don't want art with no title
+                // object title
+                var longitude = service[i].LONGITUDE;
+                var latitude = service[i].LATITUDE;
+                var location = { lat: latitude, lng: longitude };
+                var address = service[i].LOCATION;
+                var description = service[i].DESCRIPTION;
+                var title = service[i].NAME;
+                var phone = service[i].PHONE; 
+                var website = service[i].WEBSITE; 
+                createMarker(title, location, description, address, phone, website);
             }
-            var location = "<p> " + info[0].LOCATION + " " + info[0].PHONE + "</p>";
-            var website = "<a href='https://" + info[0].WEBSITE + "'> Visit page for more info. </a>";
-            var description = "<p>" + info[0].DESCRIPTION +  "</p>";
-            document.getElementById('textinfo').innerHTML = "<h2>" + title + "</h2>" + location + website + description;
         }
     });
 }
 
-//search service function
+function createMarker(name, location, description, address, phone, website) {
+    var marker = new google.maps.Marker({ title: name, position: location, map: map });
+    var favoriteButton = "";
+    var user = localStorage.getItem('username');
+    if (user != null) {
+        favoriteButton = '<span class="favoriteButton" onclick="favoriteButton(\'' + user + '\', \'' + name + '\')">&star;</span>';
+    }
+    var content = '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading" class="firstHeading">' +
+        name +
+        '</h1>' +
+        '<div id="bodyContent">' +
+        '<p>' + address + '</p>' +
+        '<p>' +
+        description +
+        '</p>' +
+        '<p>' + phone + '</p>' +
+        '<p>' + website + '</p>' + 
+        favoriteButton +
+        '</div>' +
+        '</div>';
+    var infowindow = new google.maps.InfoWindow({
+        content: content
+    });
+    google.maps.event.addListener(marker, 'click', function () {
+        if (map.getZoom() < 15)
+            map.setZoom(15);
+        map.panTo(marker.getPosition());
+        if (activeInfoWindow) {
+            activeInfoWindow.close();
+        }
+        infowindow.open(map, marker);
+        activeInfoWindow = infowindow;
+        if (user != null) {
+            initFavorite(user, name);
+        }
+    });
+}
+
+//search art function
 function search_service() {
     let input = document.getElementById('searchbar_input_serv').value
     input = input.toLowerCase();
@@ -139,133 +174,12 @@ function checkFavorites(user, title) {
 FIXED ISSUE WITH NOT GOING IN ADDITEM AND REMOVEITEM FUNCTION
 https://stackoverflow.com/questions/256754/how-to-pass-arguments-to-addeventlistener-listener-function.
 */
-function addItem(evt) {
-    var user = evt.currentTarget.username;
-    var title = evt.currentTarget.title;
-    $.post("/changeFavorites?type=add&user=" + user + "&title=" + title, function (result) {
+function addItem(user, title) {
+    $.post("/changeFavorites?type=add&cat=service&user=" + user + "&title=" + title, function (result) {
     });
-    displayInfo(title);
 }
 
-function removeItem(evt) {
-    var user = evt.currentTarget.username;
-    var title = evt.currentTarget.title;
+function removeItem(user, title) {
     $.post("/changeFavorites?type=remove&user=" + user + "&title=" + title, function (result) {
     });
-    displayInfo(title);
 }
-
-function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 21.4689, lng: -158.0001},
-        zoom: 10.25
-    });
-    $.post('/retrieve?type=art', function (art) { // POST for art info
-        // loop through all art objects 
-        for (var i = 1; i < art.length; i++) {
-            if (art[i].TITLE != '') { // don't want art with no title
-                // object title
-                var title = art[i].TITLE;
-                var latitude = art[i].LATITUDE;
-                var longitude = art[i].LONGITUDE;
-                var location = {lat: latitude, lng: longitude};
-                var description = art[i].DESCRIPTION;
-                var access = art[i].ACCESS;
-                var creator = art[i].CREATOR;
-                var credit = art[i].CREDIT;
-                var date = art[i].DATE;
-                createMarker(location, title, description, access, creator, credit, date);
-            }
-        }
-    });
-}
-function createMarker(pos, name, description, access, creator, credit, date){
-    var marker = new google.maps.Marker({title: name, position: pos, map: map});
-    var creatorCreditDate = "";
-    if(creator != ""){
-        if(credit !=""){
-            if(date != ""){
-                creatorCreditDate = '<p>'+
-                creator+ ', '+ credit+ ', '+ date+
-                '</p>';
-            } else{
-                creatorCreditDate = '<p>'+
-                creator+ ', '+ credit+
-                '</p>';
-            }
-        } else{
-            if(date != ""){
-                creatorCreditDate = '<p>'+
-                creator+ ', '+ date+
-                '</p>';
-            } else{
-                creatorCreditDate = '<p>'+
-                creator+
-                '</p>';
-            }
-        }
-    } else{
-        if(credit !=""){
-            if(date != ""){
-                creatorCreditDate = '<p>'+
-                credit+ ', '+ date+
-                '</p>';
-            } else{
-                creatorCreditDate = '<p>'+
-                credit+
-                '</p>';
-            }
-        } else{
-            if(date != ""){
-                creatorCreditDate = '<p>'+
-                date+
-                '</p>';
-            }
-        }
-    }
-    var favoriteButton = "";
-    var user = localStorage.getItem('username');
-    if (user != null) {
-        favoriteButton = '<span class="favoriteButton" onclick="favoriteButton(\''+user+'\', \''+name+'\')">&star;</span>';
-    }
-    var content = '<div id="content">'+
-    '<div id="siteNotice">'+
-    '</div>'+
-    '<h1 id="firstHeading" class="firstHeading">'+
-    name+
-    '</h1>'+
-    '<div id="bodyContent">'+
-    '<p>'+
-    description+
-    '</p>'+
-    creatorCreditDate+
-    '<p>'+
-    " Access: "+
-    access+
-    '</p>'+
-    favoriteButton+
-    '</div>'+
-    '</div>'
-    var infowindow = new google.maps.InfoWindow({
-        content: content
-    });
-    google.maps.event.addListener(marker, 'click', function() {
-        if(map.getZoom() < 15)
-            map.setZoom(15);
-        map.panTo(marker.getPosition());
-        if (activeInfoWindow){
-            activeInfoWindow.close();
-        }
-        infowindow.open(map, marker);
-        activeInfoWindow = infowindow;
-        if (user != null) {
-            initFavorite(user, name);
-        }
-    }); 
-}
-
-
-/*
-    version: 23 FEB 2020
-    TODO: have list scrollable, while info display is fixed on page
-*/
