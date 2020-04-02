@@ -14,25 +14,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="javascripts/account.js"></script>
     <script src="javascripts/login.js"></script>
-    <script src="javascripts/art.js"></script>
+    <script src="javascripts/category_template.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIhUvaxHgXK-X8iRqfSYzaRy-I0-QNsoY&callback=initMap"
         async defer></script>
-
-    <style>
-        #map {
-            height: 200px;
-        }
-
-        html,
-        h3 {
-            height: 100%;
-            margin: 0;
-            padding: 10;
-        }
-    </style>
+        <style>
+            .map {
+                height: 500px;
+                width: 100%;
+                padding: 0px;
+            }
+        </style>
 </head>
 
-<body onload="init()">
+<body class='category' onload="init('art')" id='art'>
 
     <!-- top buttons: "write a review", log in, and sign up -->
     <div class="left">
@@ -133,7 +127,7 @@
     <div id="cover_art">
         <form method="get" action="">
             <div class="tb">
-                <div class="td"><input id="searchbar_input_art" type="text" onkeyup="search_art()" placeholder="Search"
+                <div class="td"><input id="searchbar_input" type="text" onkeyup="search_table()" placeholder="Search"
                         required></div>
                 <div class="td" id="s-cover">
                 </div>
@@ -142,22 +136,15 @@
     </div>
 
     <!-- table that displays menu for art -->
-    <div style="height: 500px; display: flex" id="artdisplay">
-        <div style="height: 500px; width:25%; overflow-y: scroll; display:flex">
-            <table class="displaytable" id="arttable" rules="rows" frame="void">
+    <div style="height: 500px; display:flex; position: relative" id="display">
+        <div style="height: 500px; overflow-y: scroll; display:flex">
+            <table class="displaytable" id="categorytable" rules="rows" frame="void">
             </table>
         </div>
-
         <div id="map" style="height: 100%; width:100%"></div>
+        <span class="favoriteButton" onClick="toggleFavoritesButton()" id="toggleFavoritesButton"
+            style="position:absolute;right:4%;top:-1%;font-size: 300%;" title="Toggle Favorites"></span>
     </div>
 </body>
 
 </html>
-
-<!-- 
-  version: 23 FEB 2020
-  TODO:
-  - link user log in to this page
-  -x add search bar to look up specific art
-  - add search bar search for discipline i.e. mural, sculpture
--->
