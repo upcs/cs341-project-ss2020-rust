@@ -1,8 +1,6 @@
-/* team rust index.css file */
+/* team rust login.css file */
 
 /* Full-width input fields */
-
-/* this is conflicting with the search bar */
 
 input[type=text], input[type=password] {
   width: 100%;
