@@ -4,7 +4,7 @@
  * @version 02April2020
  */
 
- // global variables 
+// global variables 
 var map; // google map
 var cat; // page category (i.e. art, service, events, outdoor)
 var activeInfoWindow;
@@ -16,7 +16,35 @@ var markers = []; // map marker array
  */
 function init(category) {
     cat = category; // initialize global variable
-
+    var user = localStorage.getItem('username');
+    var curr = window.location.pathname; 
+    var next; 
+    if (user != null) { // only can access user pages 
+        switch (category) {
+            case "art": next = "/artpageUser.html"; 
+            break; 
+            case "outdoor": next = "/recreationpageUser.html"; 
+            break; 
+            case "events": next = "/eventpageUser.html"; 
+            break; 
+            case "service": next = "/servicepageUser.html"; 
+            break; 
+        }
+        if(curr != next){
+            window.location.replace(next);
+        }
+    }
+    else{ // only can access non-user pages 
+        switch(category){
+            case "art": next = "/artpage.html"; 
+            case "outdoor": next = "/recreationpage.html"; 
+            case "events": next = "/eventpage.html"; 
+            case "service": next = "/servicepage.html"; 
+        }
+        if(curr != next){
+            window.location.replace(next);
+        }
+    }
     // post to retrieve table entries 
     $.post('/retrieve?type=' + cat, function (list) { // POST for art info
         // loop through all art objects 
@@ -190,7 +218,7 @@ function loadFavorites() {
     var user = localStorage.getItem('username');
     var artFavorites = [];
     var catValue;
-    if (cat == 'art') { 
+    if (cat == 'art') {
         catValue = "0";
     }
     else if (cat == 'service') {
@@ -206,7 +234,7 @@ function loadFavorites() {
         if (result[0].FAVORITES != null) {
             var favoriteList = (result[0].FAVORITES).split(",");
             for (var i = 0; i < favoriteList.length; i++) {
-                if (favoriteList[i][0] == catValue) { 
+                if (favoriteList[i][0] == catValue) {
                     var titleName = favoriteList[i].substring(1);
                     artFavorites.push(titleName);
                 }

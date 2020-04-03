@@ -89,6 +89,9 @@ function initUser() {
 		document.getElementById("default").click();
 		getFavorites();
 	} //retrieve info needed
+	else{
+		window.location.replace("/404.html");
+	}
 }
 
 /**
