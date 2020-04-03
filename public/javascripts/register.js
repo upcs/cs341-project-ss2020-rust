@@ -1,3 +1,12 @@
+/**
+ * register.js
+ * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
+ * @version 02April2020
+ */
+
+ /**
+  * @desc attempt to register new user 
+  */
 function register() {
     var username = document.getElementById('signupUsername').value;
     var firstName = document.getElementById('signupFirstName').value;
@@ -40,6 +49,7 @@ function register() {
     } //do nothing
 }
 
+/** BELOW ARE VALIDATION FUNCTIONS TO MAKE SURE THAT USER INPUT IS VALID */
 function validUsername(a) {
     if (a.length < 4) {
         alert("minimum username length of 4");
@@ -81,3 +91,4 @@ function validPassword(a) {
     }
     return true;
 }
+// end of register.js

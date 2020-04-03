@@ -1,7 +1,23 @@
-var map;
-var cat;
+/**
+ * category_template.js
+ * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
+ * @version 02April2020
+ */
+
+ // global variables 
+var map; // google map
+var cat; // page category (i.e. art, service, events, outdoor)
+var activeInfoWindow;
+var markers = []; // map marker array 
+
+/**
+ * @desc initializes page with table entries from db tables
+ * @param {*} category the page category 
+ */
 function init(category) {
-    cat = category;
+    cat = category; // initialize global variable
+
+    // post to retrieve table entries 
     $.post('/retrieve?type=' + cat, function (list) { // POST for art info
         // loop through all art objects 
         var titleList = new Array();
@@ -49,6 +65,11 @@ function init(category) {
     });
 }
 
+/**
+ * @desc adding event listener to specific locations 
+ * @param {*} row table row entry on click
+ * @param {*} location the longitude and latitude value of row entry 
+ */
 function addRowListener(row, location) {
     row.addEventListener('click', function () {
         if (map.getZoom() < 20)
@@ -57,7 +78,9 @@ function addRowListener(row, location) {
     });
 }
 
-//search art function
+/**
+ * @desc search function to find entries in table
+ */
 function search_table() {
     let input = document.getElementById('searchbar_input').value
     input = input.toLowerCase();
@@ -71,12 +94,13 @@ function search_table() {
             x[i].style.display = "table-cell";
         }
     }
-
-
 }
 
-var activeInfoWindow;
-
+/**
+ * @desc adding favorite button (star) to infoWindow
+ * @param {*} user username
+ * @param {*} title the title to retrieve 
+ */
 function favoriteButton(user, title) {
     $.post("/retrieveFavorite?user=" + user, function (result) {
         var foundTitle = false;
@@ -117,6 +141,11 @@ function waitForChange(prevResult) {
     });
 }
 
+/**
+ * @desc initializing favorites 
+ * @param {*} user 
+ * @param {*} title 
+ */
 function initFavorite(user, title) {
     $.post("/retrieveFavorite?user=" + user, function (result) {
         var foundTitle = false;
@@ -142,17 +171,99 @@ function initFavorite(user, title) {
         }
     });
 }
+/**
+ * @desc loading favorites on map 
+ */
+function loadFavorites() {
+    var showFavorites = localStorage.getItem('showFavorites');
+    if (showFavorites == "false") {
+        document.getElementById("toggleFavoritesButton").innerHTML = '&star;';
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+        }
+        return;
+    }
+    if (showFavorites == null) {
+        localStorage.setItem("showFavorites", "true");
+    }
+    document.getElementById("toggleFavoritesButton").innerHTML = '&starf;';
+    var user = localStorage.getItem('username');
+    var artFavorites = [];
+    var catValue;
+    if (cat == 'art') { 
+        catValue = "0";
+    }
+    else if (cat == 'service') {
+        catValue = "2";
+    }
+    else if (cat == 'outdoor') {
+        catValue = "1";
+    }
+    else if (cat == 'events') {
+        catValue = "3";
+    }
+    $.post("/retrieveFavorite?user=" + user, function (result) {
+        if (result[0].FAVORITES != null) {
+            var favoriteList = (result[0].FAVORITES).split(",");
+            for (var i = 0; i < favoriteList.length; i++) {
+                if (favoriteList[i][0] == catValue) { 
+                    var titleName = favoriteList[i].substring(1);
+                    artFavorites.push(titleName);
+                }
+            }
+            var artFavoritesLength = artFavorites.length;
+            var match;
+            for (var i = 0; i < markers.length; i++) {
+                match = false;
+                for (var j = 0; j < artFavorites.length; j++) {
+                    if (markers[i].getTitle() == artFavorites[j]) {
+                        match = true;
+                    }
+                }
+                if (match) {
+                    markers[i].setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
+                } else {
+                    markers[i].setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+                }
+            }
+        } else {
+        } // do nothing no favorites
+    });
+}
+
+/**
+ * @desc add toggle favorite functionality on top of map, either shows favorites or not 
+ */
+function toggleFavoritesButton() {
+    var showFavorites = localStorage.getItem('showFavorites');
+    if (showFavorites == "true") {
+        localStorage.setItem("showFavorites", "false");
+        loadFavorites();
+    } else if (showFavorites == "false") {
+        localStorage.setItem("showFavorites", "true");
+        loadFavorites();
+    }
+}
 
 /*
 FIXED ISSUE WITH NOT GOING IN ADDITEM AND REMOVEITEM FUNCTION
 https://stackoverflow.com/questions/256754/how-to-pass-arguments-to-addeventlistener-listener-function.
 */
+/**
+ * @desc adding item to user favorites 
+ * @param {*} user username
+ * @param {*} title title to add
+ */
 function addItem(user, title) {
     $.post("/changeFavorites?type=add&cat=" + cat + "&user=" + user + "&title=" + title, function (result) {
     });
-
 }
 
+/**
+ * @desc removing item from user favorites 
+ * @param {*} user username
+ * @param {*} title title to remove
+ */
 function removeItem(user, title) {
     var catValue;
     switch (cat) {
@@ -167,11 +278,11 @@ function removeItem(user, title) {
     }
     $.post("/changeFavorites?type=remove&user=" + user + "&title=" + catValue + title, function (result) {
     });
-
 }
 
-var markers = [];
-
+/**
+ * @desc initializes map on page 
+ */
 function initMap() {
     cat = document.getElementsByClassName("category")[0].id;
 
@@ -238,6 +349,53 @@ function initMap() {
     });
 }
 
+/**
+ * @desc creates marker on map 
+ * @param {*} pos location of marker
+ * @param {*} name name of marker
+ * @param {*} text text to input in infoWindow
+ */
+function createMarker(pos, name, text) {
+    var marker = new google.maps.Marker({
+        title: name, position: pos, map: map, icon: {
+            url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+        }
+    });
+    markers.push(marker);
+    var favoriteButton = "";
+    var user = localStorage.getItem('username');
+    if (user != null) {
+        favoriteButton = '<span class="favoriteButton" onclick="favoriteButton(\'' + user + '\', \'' + name + '\')">&star;</span>';
+    }
+    var content = '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading" class="firstHeading">' +
+        name +
+        '</h1>' +
+        '<div id="bodyContent">' + text + '</p>' +
+        favoriteButton +
+        '</div>' +
+        '</div>';
+    var infowindow = new google.maps.InfoWindow({
+        content: content
+    });
+    google.maps.event.addListener(marker, 'click', function () {
+        if (map.getZoom() < 15)
+            map.setZoom(15);
+        map.panTo(marker.getPosition());
+        if (activeInfoWindow) {
+            activeInfoWindow.close();
+        }
+        infowindow.open(map, marker);
+        activeInfoWindow = infowindow;
+        if (user != null) {
+            initFavorite(user, name);
+        }
+    });
+}
+
+/** BELOW ARE THE FUNCTIONS RELATED TO CREATING THE TEXT CONTENT TO PLACE IN INFOWINDOW  */
 function getArtContent(name, description, access, creator, credit, date) {
     var creatorCreditDate = "";
     var content = '';
@@ -326,111 +484,4 @@ function getServiceContent(name, description, phone, website) {
     content += '<p>' + phone + ' ' + website + '</p>';
     return content;
 }
-
-function createMarker(pos, name, text) {
-    var marker = new google.maps.Marker({
-        title: name, position: pos, map: map, icon: {
-            url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-        }
-    });
-    markers.push(marker);
-    var favoriteButton = "";
-    var user = localStorage.getItem('username');
-    if (user != null) {
-        favoriteButton = '<span class="favoriteButton" onclick="favoriteButton(\'' + user + '\', \'' + name + '\')">&star;</span>';
-    }
-    var content = '<div id="content">' +
-        '<div id="siteNotice">' +
-        '</div>' +
-        '<h1 id="firstHeading" class="firstHeading">' +
-        name +
-        '</h1>' +
-        '<div id="bodyContent">' + text + '</p>' +
-        favoriteButton +
-        '</div>' +
-        '</div>';
-    var infowindow = new google.maps.InfoWindow({
-        content: content
-    });
-    google.maps.event.addListener(marker, 'click', function () {
-        if (map.getZoom() < 15)
-            map.setZoom(15);
-        map.panTo(marker.getPosition());
-        if (activeInfoWindow) {
-            activeInfoWindow.close();
-        }
-        infowindow.open(map, marker);
-        activeInfoWindow = infowindow;
-        if (user != null) {
-            initFavorite(user, name);
-        }
-    });
-}
-
-function loadFavorites() {
-    var showFavorites = localStorage.getItem('showFavorites');
-    if (showFavorites == "false") {
-        document.getElementById("toggleFavoritesButton").innerHTML = '&star;';
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
-        }
-        return;
-    }
-    if (showFavorites == null) {
-        localStorage.setItem("showFavorites", "true");
-    }
-    document.getElementById("toggleFavoritesButton").innerHTML = '&starf;';
-    var user = localStorage.getItem('username');
-    var artFavorites = [];
-    var catValue;
-    if (cat == 'art') { // TODO: LAST THING I DID DOOO THIS!!!!!!
-        catValue = "0";
-    }
-    else if (cat == 'service') {
-        catValue = "2";
-    }
-    else if (cat == 'outdoor') {
-        catValue = "1";
-    }
-    else if (cat == 'events') {
-        catValue = "3";
-    }
-    $.post("/retrieveFavorite?user=" + user, function (result) {
-        if (result[0].FAVORITES != null) {
-            var favoriteList = (result[0].FAVORITES).split(",");
-            for (var i = 0; i < favoriteList.length; i++) {
-                if (favoriteList[i][0] == catValue) { // TODO: implement when
-                    var titleName = favoriteList[i].substring(1);
-                    artFavorites.push(titleName);
-                }
-            }
-            var artFavoritesLength = artFavorites.length;
-            var match;
-            for (var i = 0; i < markers.length; i++) {
-                match = false;
-                for (var j = 0; j < artFavorites.length; j++) {
-                    if (markers[i].getTitle() == artFavorites[j]) {
-                        match = true;
-                    }
-                }
-                if (match) {
-                    markers[i].setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
-                } else {
-                    markers[i].setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
-                }
-            }
-        } else {
-        } // do nothing no favorites
-    });
-}
-
-function toggleFavoritesButton() {
-    var showFavorites = localStorage.getItem('showFavorites');
-    if (showFavorites == "true") {
-        localStorage.setItem("showFavorites", "false");
-        loadFavorites();
-    } else if (showFavorites == "false") {
-        localStorage.setItem("showFavorites", "true");
-        loadFavorites();
-    }
-}
+// end of category_template.js

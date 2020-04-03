@@ -1,3 +1,12 @@
+/**
+ * review.js
+ * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
+ * @version 02April2020
+ */
+
+ /**
+  * @desc attempt to submit review to REVIEW table on db 
+  */
 function submitReview() {
     var reviewerName = (document.getElementById('name')).value;
     var category = (document.getElementById('categoryOptions')).value; // TODO: how to select category
@@ -13,6 +22,10 @@ function submitReview() {
 
 }
 
+/**
+ * @desc determine if review submission is valid 
+ * @return bool: true if valid, false if invalid entry 
+ */
 function validSubmission(){
     var category = (document.getElementById('categoryOptions')).value;
     var item = (document.getElementById('titleOptions')).value;
@@ -27,6 +40,10 @@ function validSubmission(){
     return true; 
 }
 
+/**
+ * @desc converting star rating to computable value 
+ * @return the int value rating 
+ */
 function getRating() {
     var total = 0;
     var star5 = document.getElementById('5');
@@ -56,6 +73,10 @@ function getRating() {
     return total;
 }
 
+/**
+ * @desc populate selection dropdown menu for different titles 
+ * @param {*} value page category 
+ */
 function getItems(value) {
     var items = document.getElementById('titleOptions');
     if (value == "art") {
@@ -98,3 +119,4 @@ function getItems(value) {
     }
 }
 
+// end of review.js

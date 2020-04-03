@@ -1,3 +1,12 @@
+/**
+ * account.js
+ * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
+ * @version 02April2020
+ */
+
+ /**
+  * @desc updates display when edit/save button is clicked
+  */
 function editMode() {
 	// div variables 
 	var btn = document.getElementById('edit-btn');
@@ -51,6 +60,11 @@ function editMode() {
 	}
 }
 
+/**
+ * @desc displays tabs on left side (profile, favorite, password)
+ * @param {*} event 
+ * @param {*} tab specifies tab name
+ */
 function openAccTab(event, tab) {
 	var i, tabcontent, tablinks;
 	tabcontent = document.getElementsByClassName("tabcontent");
@@ -77,41 +91,47 @@ function initUser() {
 	} //retrieve info needed
 }
 
-function init() {
-	if (localStorage.getItem('username') != null) {
-		var currentPage = window.location.href;
-		console.log(currentPage);
-		if (currentPage == "http://localhost:3000/") {
-			window.location = currentPage + "indexUser.html";
-		} else {
-			window.location = currentPage.replace(".html", "User.html");
-		}
-	} //redirect to logged in page if logged in
-}
-
+/**
+ * @desc changes user password when button is clicked 
+ */
 function changePassword() {
+	// retrieve input by account user 
 	var oldpw = document.getElementById('old-pw').value;
 	var newpw = document.getElementById('new-pw').value;
+	if(oldpw == newpw){
+		alert("Current password entry is the same as new password. Hana hou!"); 
+		return; 
+	}
+	// post to change password from USER table 
 	$.post("/changePassword?username=" + localStorage.getItem('username') + "&old=" + oldpw + "&new=" + newpw,
 		function (user) {
 			if (user == null) {
-				alert("Incorrect password. Hana hou!");
+				alert("Incorrect password. Hana hou!"); // notify user that incorrect password was entered 
 			}
 			else {
-				alert("Maika'i! You've successfully changed password.");
-				document.getElementById('old-pw').value = '';
+				alert("Maika'i! You've successfully changed password."); // notify user that correct password was entered
+				// reset input area 
+				document.getElementById('old-pw').value = ''; 
 				document.getElementById('new-pw').value = '';
 			}
 		});
 }
 
+/**
+ * @desc retrieves users favorite's list 
+ */
 function getFavorites() {
-	var username = localStorage.getItem('username');
+	var username = localStorage.getItem('username'); // saved username 
+
+	// post to retrieve favorites 
 	$.post('/retrieveFavorite?user=' + username, function (result) {
 		if (result[0].FAVORITES != null) {
+			// split list 
 			var list = splitList(result[0].FAVORITES, ",");
 			var table = document.getElementById('myTable');
 			var cat = "-1";
+
+			// visually display favorites list
 			for (var i = 0; i < list.length; i++) {
 				var entry = list[i][0];
 				var title = '';
@@ -137,11 +157,21 @@ function getFavorites() {
 	});
 }
 
+/**
+ * @desc list splitter function
+ * @param {*} list the list you want to split
+ * @param {*} splitter the string to split at (i.e. every space make a split)
+ * @return the splitted list 
+ */
 function splitList(list, splitter) {
 	var l = list.split(splitter);
 	return l;
 }
 
+/**
+ * @desc table sorter 
+ * @param {*} n index
+ */
 function sortTable(n) {
 	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 	table = document.getElementById("myTable");
@@ -197,10 +227,4 @@ function sortTable(n) {
 	}
 }
 
-/*
-	version: 23 FEB 2020
-	TODO:
-	- function for email/notif
-	- function for privacy
-	- function for favorites
-*/
+// end of account.js
