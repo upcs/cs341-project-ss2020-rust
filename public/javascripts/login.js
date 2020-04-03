@@ -1,12 +1,12 @@
-function login(){
+function login() {
     var username = document.getElementById('loginUsername').value;
     var password = document.getElementById('loginPassword').value;
-    $.post("/login?username=" +username +'&password=' +password, function(data){
-        if(data == null){
+    $.post("/login?username=" + username + '&password=' + password, function (data) {
+        if (data == null) {
             document.getElementById('loginPassword').value = '';
             document.getElementById('invalidLogin').innerHTML = "Invalid Username or Password!";
-        } else{
-            document.getElementById('id01').style.display='none';
+        } else {
+            document.getElementById('id01').style.display = 'none';
             localStorage.setItem('username', username);
             window.location.href = "indexUser.html";
             //redirect to homepage going to index.html will just redirect to indexUser.html so I just set it so it doesn't require an extra step

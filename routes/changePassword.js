@@ -14,16 +14,16 @@ router.post('/', function (req, res, next) {
             return;
         }
         const found = bcrypt.compareSync(oldpw, result[0].PASSWORD);
-        if(found){
+        if (found) {
             const hashedPassword = bcrypt.hashSync(newpw, 10);
-            db.dbquery("UPDATE USERS SET PASSWORD = '" + hashedPassword + "' WHERE USERNAME = '" + username + "'", function(err, result){
+            db.dbquery("UPDATE USERS SET PASSWORD = '" + hashedPassword + "' WHERE USERNAME = '" + username + "'", function (err, result) {
                 if (err) { // error handling
                     console.log(err);
                     return;
                 }
             });
             res.json(result);
-        } else{
+        } else {
             res.json(null);
         }
     });

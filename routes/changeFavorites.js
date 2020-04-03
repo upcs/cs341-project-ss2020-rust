@@ -7,17 +7,17 @@ router.post('/', function (req, res, next) {
     var type = req.query.type;
     var cat = req.query.cat;
     var num = "-1";
-    if(cat == "art"){
-        num = "0"; 
+    if (cat == "art") {
+        num = "0";
     }
-    else if(cat == "outdoor"){
+    else if (cat == "outdoor") {
         num = "1";
     }
-    else if(cat == "service"){
+    else if (cat == "service") {
         num = "2";
     }
-    else if(cat == "events"){
-        num = "3"; 
+    else if (cat == "events") {
+        num = "3";
     }
     db.dbquery("SELECT * FROM USERS WHERE USERNAME = '" + user + "'", function (err, result) {
         if (type == "add") {
@@ -34,10 +34,10 @@ router.post('/', function (req, res, next) {
                     }
                 }
                 db.dbquery("UPDATE USERS SET FAVORITES='" + newlist + "' WHERE USERNAME='" + user + "'", function (err, result) {
-                    if(err){
+                    if (err) {
                         console.log("Unable to add favorite: " + title);
                     }
-                    else{
+                    else {
                         console.log("Successfully added new favorite: " + title);
                     }
                 });
@@ -52,13 +52,13 @@ router.post('/', function (req, res, next) {
         else if (type == "remove") { // need to do removal !!
             var favoriteList = (result[0].FAVORITES).split(",");
             var removeList = '';
-            for(var i = 0; i < favoriteList.length; i++){
-                if(favoriteList[i] != title){
-                    if(removeList == ''){
+            for (var i = 0; i < favoriteList.length; i++) {
+                if (favoriteList[i] != title) {
+                    if (removeList == '') {
                         removeList += favoriteList[i];
                     }
-                    else{
-                        removeList += "," + favoriteList[i]; 
+                    else {
+                        removeList += "," + favoriteList[i];
                     }
                 }
             }

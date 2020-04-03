@@ -14,7 +14,7 @@ router.post('/', function (req, res, next) {
             res.json(result);
         });
     }
-    else if(type == 'outdoor'){
+    else if (type == 'outdoor') {
         db.dbquery("SELECT * FROM OUTDOOR WHERE NAME = '" + title + "'", function (err, result) { // looks at users
             if (err) { // error handling
                 console.log(err);
@@ -24,7 +24,7 @@ router.post('/', function (req, res, next) {
             res.json(result);
         });
     }
-    else if(type == 'service'){
+    else if (type == 'service') {
         db.dbquery("SELECT * FROM SERVICE WHERE NAME = '" + title + "'", function (err, result) { // looks at users
             if (err) { // error handling
                 console.log(err);
@@ -34,9 +34,9 @@ router.post('/', function (req, res, next) {
             res.json(result);
         });
     }
-    else if(type == 'events'){
-        db.dbquery("SELECT * FROM EVENTS WHERE TITLE ='" + title + "'", function(err, result){
-            if(err){
+    else if (type == 'events') {
+        db.dbquery("SELECT * FROM EVENTS WHERE TITLE ='" + title + "'", function (err, result) {
+            if (err) {
                 console.log(err);
                 return;
             }
