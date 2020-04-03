@@ -113,7 +113,6 @@ function getFavorites(){
 			var table = document.getElementById('myTable');
 			var cat = "-1"; 
 			for(var i = 0; i < list.length; i++){
-				alert(list[i][0]);
 				var entry = list[i][0];
 				var title = '';
 				for(var j = 1; j < list[i].length; j++){

@@ -154,7 +154,18 @@ function addItem(user, title) {
 }
 
 function removeItem(user, title) {
-    $.post("/changeFavorites?type=remove&user=" + user + "&title=0" + title, function (result) {
+    var catValue;
+    switch (cat) {
+        case "art": catValue = 0;
+            break;
+        case "service": catValue = 2;
+            break;
+        case "events": catValue = 3;
+            break;
+        case "outdoor": catValue = 1;
+            break;
+    }
+    $.post("/changeFavorites?type=remove&user=" + user + "&title=" + catValue + title, function (result) {
     });
 
 }
@@ -192,10 +203,10 @@ function initMap() {
                     createMarker(location, title, content);
                 }
                 else if (cat == "service") {
-                   var phone = list[i].PHONE;
-                   var website = list[i].WEBSITE;
-                   content = getServiceContent(title, description, phone, website);
-                   createMarker(location, title, content); 
+                    var phone = list[i].PHONE;
+                    var website = list[i].WEBSITE;
+                    content = getServiceContent(title, description, phone, website);
+                    createMarker(location, title, content);
                 }
                 else if (cat == "outdoor") {
                     var island = list[i].ISLAND;
@@ -205,7 +216,7 @@ function initMap() {
                     var end = list[i].END;
                     var difficulty = list[i].DIFFICULTY;
                     var amenities = list[i].AMENITIES;
-                    content = getOutdoorContent(title, island, length, elevation, start, end, difficulty, amenities); 
+                    content = getOutdoorContent(title, island, length, elevation, start, end, difficulty, amenities);
                     // TODO: NEED TO ADD GEOLOCATION
                     //createMarker(location, title, )
                 }
@@ -215,8 +226,8 @@ function initMap() {
                     var enddate = list[i].ENDDATE;
                     var starttime = list[i].STARTTIME;
                     var endtime = list[i].ENDTIME;
-                    content = getEventContent(title, addr, description, startdate, enddate, starttime, endtime); 
-                    createMarker(location, title, content); 
+                    content = getEventContent(title, addr, description, startdate, enddate, starttime, endtime);
+                    createMarker(location, title, content);
                 }
             }
         }
@@ -271,87 +282,73 @@ function getArtContent(name, description, access, creator, credit, date) {
             }
         }
     }
-    var favoriteButton = "";
-    var user = localStorage.getItem('username');
-    if (user != null) {
-        favoriteButton = '<span class="favoriteButton" onclick="favoriteButton(\'' + user + '\', \'' + name + '\')">&star;</span>';
-    }
-    var content = '<div id="content">' + '<div id="siteNotice">' + '</div>' +
-        '<h1 id="firstHeading" class="firstHeading">' + name + '</h1>' + '<div id="bodyContent">' +
-        '<p>' + description + '</p>' + creatorCreditDate + '<p>' + " Access: " + access +
-        '</p>' + favoriteButton + '</div>' + '</div>';
+    var content = '<p>' + description + '</p>' + creatorCreditDate + '<p>' + " Access: " + access +
+        '</p>';
     return content;
 }
 
-function getOutdoorContent(name, island, length, elevation, start, end, difficulty, amenities){
-    var favoriteButton = "";
-    var user = localStorage.getItem('username');
-    if (user != null) {
-        favoriteButton = '<span class="favoriteButton" onclick="favoriteButton(\'' + user + '\', \'' + name + '\')">&star;</span>';
+function getOutdoorContent(name, island, length, elevation, start, end, difficulty, amenities) {
+    var content = '';
+    if (island != '') {
+        content += '<p>Island: ' + island + '</p>';
     }
-    var content = '<div id="content">' + '<div id="siteNotice">' + '</div>' +
-    '<h1 id="firstHeading" class="firstHeading">' + name + '</h1>' + '<div id="bodyContent">'; 
-    if(island != ''){
-        content += '<p>Island: ' + island + '</p>'; 
+    if (length != '') {
+        content += '<p>Distance: ' + length + ' mi</p>';
     }
-    if(length != ''){
-        content += '<p>Distance: ' + length + ' mi</p>'; 
-    }
-    if(elevation != ''){
+    if (elevation != '') {
         content += '<p>Elevation: ' + elevation + ' ft</p>';
     }
-    if(start != ''){
+    if (start != '') {
         content += '<p>Starting Point: ' + start + '</p>';
-        if(end != ''){
+        if (end != '') {
             content += '<p>End Point: ' + end + '</p>';
         }
     }
-    if(difficulty != ''){
+    if (difficulty != '') {
         content += '<p>Difficulty Level: ' + difficulty + '</p>';
     }
-    if(amenities != ''){
+    if (amenities != '') {
         content += '<p>Amenities: ' + amenities + '</p>';
     }
-    content += favoriteButton + '</div>' + '</div>';
-    return content; 
+    return content;
 }
 
 function getEventContent(name, addr, description, startdate, enddate, starttime, endtime) { // TODO: need to implement startdate and enddate
-    var favoriteButton = "";
-    var user = localStorage.getItem('username');
-    if (user != null) {
-        favoriteButton = '<span class="favoriteButton" onclick="favoriteButton(\'' + user + '\', \'' + name + '\')">&star;</span>';
-    }
-    var content = '<div id="content">' + '<div id="siteNotice">' + '</div>' +
-    '<h1 id="firstHeading" class="firstHeading">' + name + '</h1>' + '<div id="bodyContent">';
+    var content = '';
     content += '<p>' + addr + '</p>'
     content += '<p>' + description + '</p>';
-    content += favoriteButton + '</div>' + '</div>';
-    return content; 
+    return content;
 }
 
 function getServiceContent(name, description, phone, website) {
-    var favoriteButton = "";
-    var user = localStorage.getItem('username');
-    if (user != null) {
-        favoriteButton = '<span class="favoriteButton" onclick="favoriteButton(\'' + user + '\', \'' + name + '\')">&star;</span>';
-    }
-    var content = '<div id="content">' + '<div id="siteNotice">' + '</div>' +
-    '<h1 id="firstHeading" class="firstHeading">' + name + '</h1>' + '<div id="bodyContent">';
+    var content = '';
     content += '<p>' + description + '</p>';
     content += '<p>' + phone + ' ' + website + '</p>';
-    content += favoriteButton + '</div>' + '</div>';
-    return content; 
+    return content;
 }
 
-function createMarker(pos, name, content) {
+function createMarker(pos, name, text) {
     var marker = new google.maps.Marker({
         title: name, position: pos, map: map, icon: {
             url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
         }
     });
     markers.push(marker);
-
+    var favoriteButton = "";
+    var user = localStorage.getItem('username');
+    if (user != null) {
+        favoriteButton = '<span class="favoriteButton" onclick="favoriteButton(\'' + user + '\', \'' + name + '\')">&star;</span>';
+    }
+    var content = '<div id="content">' +
+        '<div id="siteNotice">' +
+        '</div>' +
+        '<h1 id="firstHeading" class="firstHeading">' +
+        name +
+        '</h1>' +
+        '<div id="bodyContent">' + text + '</p>' +
+        favoriteButton +
+        '</div>' +
+        '</div>';
     var infowindow = new google.maps.InfoWindow({
         content: content
     });
@@ -386,16 +383,16 @@ function loadFavorites() {
     var user = localStorage.getItem('username');
     var artFavorites = [];
     var catValue;
-    if(cat == 'art'){ // TODO: LAST THING I DID DOOO THIS!!!!!!
+    if (cat == 'art') { // TODO: LAST THING I DID DOOO THIS!!!!!!
         catValue = "0";
     }
-    else if(cat == 'service'){
+    else if (cat == 'service') {
         catValue = "2";
     }
-    else if (cat == 'outdoor'){
+    else if (cat == 'outdoor') {
         catValue = "1";
     }
-    else if(cat == 'events'){
+    else if (cat == 'events') {
         catValue = "3";
     }
     $.post("/retrieveFavorite?user=" + user, function (result) {
