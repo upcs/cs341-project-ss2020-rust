@@ -1,7 +1,7 @@
 /**
  * category_template.js
  * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
- * @version 02April2020
+ * @version 03April2020
  */
 
 // global variables 
@@ -17,31 +17,35 @@ var markers = []; // map marker array
 function init(category) {
     cat = category; // initialize global variable
     var user = localStorage.getItem('username');
-    var curr = window.location.pathname; 
-    var next; 
+    var curr = window.location.pathname;
+    var next;
     if (user != null) { // only can access user pages 
         switch (category) {
-            case "art": next = "/artpageUser.html"; 
-            break; 
-            case "outdoor": next = "/recreationpageUser.html"; 
-            break; 
-            case "events": next = "/eventpageUser.html"; 
-            break; 
-            case "service": next = "/servicepageUser.html"; 
-            break; 
+            case "art": next = "/artpageUser.html";
+                break;
+            case "outdoor": next = "/recreationpageUser.html";
+                break;
+            case "events": next = "/eventpageUser.html";
+                break;
+            case "service": next = "/servicepageUser.html";
+                break;
         }
-        if(curr != next){
+        if (curr != next) {
             window.location.replace(next);
         }
     }
-    else{ // only can access non-user pages 
-        switch(category){
-            case "art": next = "/artpage.html"; 
-            case "outdoor": next = "/recreationpage.html"; 
-            case "events": next = "/eventpage.html"; 
-            case "service": next = "/servicepage.html"; 
+    else { // only can access non-user pages 
+        switch (category) {
+            case "art": next = "/artpage.html";
+                break;
+            case "outdoor": next = "/recreationpage.html";
+                break;
+            case "events": next = "/eventpage.html";
+                break;
+            case "service": next = "/servicepage.html";
+                break;
         }
-        if(curr != next){
+        if (curr != next) {
             window.location.replace(next);
         }
     }
@@ -70,10 +74,6 @@ function init(category) {
                         var location = { lat: latitude, lng: longitude };
                         addRowListener(x, location);
                     }
-                    else {
-                        // TODO: IMPLEMENT GEOLOCATION SPECIFICALLY FOR OUTDOOR ACTIVITIES 
-                    }
-
                     // add to table
                     document.getElementById("categorytable").appendChild(x);
 
@@ -319,6 +319,7 @@ function initMap() {
         zoom: 10.25
     });
     $.post('/retrieve?type=' + cat, function (list) { // POST for art info
+        alert(cat);
         // loop through all art objects 
         for (var i = 0; i < list.length; i++) {
             if (list[i].TITLE != '') { // don't want art with no title
@@ -327,24 +328,23 @@ function initMap() {
                 var location;
                 var description;
                 var content;
-                if (cat != "outdoor") {
-                    var latitude = list[i].LATITUDE;
-                    var longitude = list[i].LONGITUDE;
-                    location = { lat: latitude, lng: longitude };
-                    var description = list[i].DESCRIPTION;
-                }
+                var latitude = list[i].LATITUDE;
+                var longitude = list[i].LONGITUDE;
+                location = { lat: latitude, lng: longitude };
                 if (cat == "art") {
+                    description = list[i].DESCRIPTION;
                     var access = list[i].ACCESS;
                     var creator = list[i].CREATOR;
                     var credit = list[i].CREDIT;
                     var date = list[i].DATE;
-                    content = getArtContent(title, description, access, creator, credit, date);
+                    content = getArtContent(description, access, creator, credit, date);
                     createMarker(location, title, content);
                 }
                 else if (cat == "service") {
+                    description = list[i].DESCRIPTION;
                     var phone = list[i].PHONE;
                     var website = list[i].WEBSITE;
-                    content = getServiceContent(title, description, phone, website);
+                    content = getServiceContent(description, phone, website);
                     createMarker(location, title, content);
                 }
                 else if (cat == "outdoor") {
@@ -355,17 +355,17 @@ function initMap() {
                     var end = list[i].END;
                     var difficulty = list[i].DIFFICULTY;
                     var amenities = list[i].AMENITIES;
-                    content = getOutdoorContent(title, island, length, elevation, start, end, difficulty, amenities);
-                    // TODO: NEED TO ADD GEOLOCATION
-                    //createMarker(location, title, )
+                    content = getOutdoorContent(island, length, elevation, start, end, difficulty, amenities);
+                    createMarker(location, title, content);
                 }
                 else if (cat == "events") {
+                    description = list[i].DESCRIPTION;
                     var addr = list[i].LOCATION;
                     var startdate = list[i].STARTDATE;
                     var enddate = list[i].ENDDATE;
                     var starttime = list[i].STARTTIME;
                     var endtime = list[i].ENDTIME;
-                    content = getEventContent(title, addr, description, startdate, enddate, starttime, endtime);
+                    content = getEventContent(addr, description, startdate, enddate, starttime, endtime);
                     createMarker(location, title, content);
                 }
             }
@@ -424,7 +424,7 @@ function createMarker(pos, name, text) {
 }
 
 /** BELOW ARE THE FUNCTIONS RELATED TO CREATING THE TEXT CONTENT TO PLACE IN INFOWINDOW  */
-function getArtContent(name, description, access, creator, credit, date) {
+function getArtContent(description, access, creator, credit, date) {
     var creatorCreditDate = "";
     var content = '';
     if (creator != "") {
@@ -473,7 +473,7 @@ function getArtContent(name, description, access, creator, credit, date) {
     return content;
 }
 
-function getOutdoorContent(name, island, length, elevation, start, end, difficulty, amenities) {
+function getOutdoorContent(island, length, elevation, start, end, difficulty, amenities) {
     var content = '';
     if (island != '') {
         content += '<p>Island: ' + island + '</p>';
@@ -499,14 +499,14 @@ function getOutdoorContent(name, island, length, elevation, start, end, difficul
     return content;
 }
 
-function getEventContent(name, addr, description, startdate, enddate, starttime, endtime) { // TODO: need to implement startdate and enddate
+function getEventContent(addr, description, startdate, enddate, starttime, endtime) { // TODO: need to implement startdate and enddate
     var content = '';
     content += '<p>' + addr + '</p>'
     content += '<p>' + description + '</p>';
     return content;
 }
 
-function getServiceContent(name, description, phone, website) {
+function getServiceContent(description, phone, website) {
     var content = '';
     content += '<p>' + description + '</p>';
     content += '<p>' + phone + ' ' + website + '</p>';

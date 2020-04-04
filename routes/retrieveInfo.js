@@ -15,7 +15,7 @@ router.post('/', function (req, res, next) {
         });
     }
     else if (type == 'outdoor') {
-        db.dbquery("SELECT * FROM OUTDOOR WHERE NAME = '" + title + "'", function (err, result) { // looks at users
+        db.dbquery("SELECT * FROM OUTDOOR WHERE TITLE = '" + title + "'", function (err, result) { // looks at users
             if (err) { // error handling
                 console.log(err);
                 return;
@@ -25,7 +25,7 @@ router.post('/', function (req, res, next) {
         });
     }
     else if (type == 'service') {
-        db.dbquery("SELECT * FROM SERVICE WHERE NAME = '" + title + "'", function (err, result) { // looks at users
+        db.dbquery("SELECT * FROM SERVICE WHERE TITLE = '" + title + "'", function (err, result) { // looks at users
             if (err) { // error handling
                 console.log(err);
                 return;
