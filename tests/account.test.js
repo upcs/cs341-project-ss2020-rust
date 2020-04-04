@@ -29,3 +29,19 @@ test('test list splitter return', () => {
     var splitter = " "; 
     expect((f.splitList(str, splitter)).length).toBe(5); 
 }); 
+
+test('getting saved username', () => {
+    var username = f.getUsername(); 
+    expect(username).toBe(null);
+}); 
+
+test('check that each entry leads to specific category', () => {
+    var art = f.selectCategory('0'); 
+    expect(art).toBe('Artwork');
+    var out = f.selectCategory('1');
+    expect(out).toBe('Outdoor Activities');
+    var serv = f.selectCategory('2');
+    expect(serv).toBe('Community Service');
+    var ev = f.selectCategory('3');
+    expect(ev).toBe('Events');
+}); 
