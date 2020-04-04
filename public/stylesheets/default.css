@@ -1,4 +1,7 @@
+/* team rust default.css file */
+
 /* general button design*/
+
 button {
     position: absolute;
     color: white;
@@ -10,16 +13,19 @@ button {
 }
 
 /* specific button modifications */
+
 #login:hover {
     background-color: white;
     font-style: italic;
     color: black;
 }
+
 #signup:hover {
     background-color: white;
     font-style: italic;
     color: black;
 }
+
 #review:hover {
     background-color: white;
     font-style: italic;
@@ -33,7 +39,7 @@ h1 {
 
 body {
     background: #add8e6;
-    background: linear-gradient(90deg, rgba(153,255,255,1) 0%, rgba(153,255,153,1) 35%, rgba(0,212,255,1) 100%);
+    background: linear-gradient(90deg, rgba(153, 255, 255, 1) 0%, rgba(153, 255, 153, 1) 35%, rgba(0, 212, 255, 1) 100%);
     border-style: dashed;
     border-radius: all;
 }
@@ -55,11 +61,9 @@ body {
 .bg {
     /* The image used */
     background-image: url("diamond_head.jpg");
-
     /* Full height */
     height: 100%;
     width: 100%;
-
     /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
@@ -75,41 +79,42 @@ body {
     width: 100%;
     background-color: rgb(34, 32, 32);
     overflow: auto;
-  }
-  
-  .navbar a {
+}
+
+.navbar a {
     float: left;
     padding: 10px;
     color: white;
     text-decoration: none;
     font-size: 17px;
-    width: 23.4%; /* Four links of equal widths */
+    width: 23.4%;
+    /* Four links of equal widths */
     text-align: center;
-  }
-  
-  .navbar a:hover {
-    background-color: black;
-  }
-  
-  @media screen and (max-width: 500px) {
-    .navbar a {
-      float: none;
-      display: block;
-      width: 100%;
-      text-align: left;
-    }
-  }
+}
 
-  .saved-btn {
-    background-color:yellow;
-    color: black; 
-    border: none; 
+.navbar a:hover {
+    background-color: black;
+}
+
+@media screen and (max-width: 500px) {
+    .navbar a {
+        float: none;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+}
+
+.saved-btn {
+    background-color: yellow;
+    color: black;
+    border: none;
 }
 
 .unsaved-btn {
     background-color: #f6f7df;
     color: black;
-    border: none; 
+    border: none;
 }
 
 .favoriteButton {

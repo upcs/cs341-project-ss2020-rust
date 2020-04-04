@@ -1,3 +1,12 @@
+/**
+ * account.js
+ * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
+ * @version 02April2020
+ */
+
+ /**
+  * @desc updates display when edit/save button is clicked
+  */
 function editMode() {
 	// div variables 
 	var btn = document.getElementById('edit-btn');
@@ -51,6 +60,11 @@ function editMode() {
 	}
 }
 
+/**
+ * @desc displays tabs on left side (profile, favorite, password)
+ * @param {*} event 
+ * @param {*} tab specifies tab name
+ */
 function openAccTab(event, tab) {
 	var i, tabcontent, tablinks;
 	tabcontent = document.getElementsByClassName("tabcontent");
@@ -67,136 +81,153 @@ function openAccTab(event, tab) {
 
 function initUser() {
 	username = localStorage.getItem('username');
-	if(username != null){
+	if (username != null) {
 		$.post("/initacct?username=" + username, function (user) {
 			document.getElementById('name').innerHTML = user[0].FIRSTNAME + " " + user[0].LASTNAME;
 			document.getElementById('bio').innerHTML = user[0].BIO;
 		});
 		document.getElementById("default").click();
-		getFavorites(); 
+		getFavorites();
 	} //retrieve info needed
+	else{
+		window.location.replace("/404.html");
+	}
 }
 
-function init(){
-	if(localStorage.getItem('username') != null){
-		var currentPage = window.location.href;
-		console.log(currentPage);
-		if(currentPage == "http://localhost:3000/"){
-			window.location = currentPage +"indexUser.html";
-		}else{
-			window.location = currentPage.replace(".html", "User.html");
-		}
-	} //redirect to logged in page if logged in
-}
-
+/**
+ * @desc changes user password when button is clicked 
+ */
 function changePassword() {
+	// retrieve input by account user 
 	var oldpw = document.getElementById('old-pw').value;
 	var newpw = document.getElementById('new-pw').value;
+	if(oldpw == newpw){
+		alert("Current password entry is the same as new password. Hana hou!"); 
+		return; 
+	}
+	// post to change password from USER table 
 	$.post("/changePassword?username=" + localStorage.getItem('username') + "&old=" + oldpw + "&new=" + newpw,
 		function (user) {
 			if (user == null) {
-				alert("Incorrect password. Hana hou!");
+				alert("Incorrect password. Hana hou!"); // notify user that incorrect password was entered 
 			}
 			else {
-				alert("Maika'i! You've successfully changed password.");
-				document.getElementById('old-pw').value = '';
+				alert("Maika'i! You've successfully changed password."); // notify user that correct password was entered
+				// reset input area 
+				document.getElementById('old-pw').value = ''; 
 				document.getElementById('new-pw').value = '';
 			}
 		});
 }
 
-function getFavorites(){
-	var username = localStorage.getItem('username');
-	$.post('/retrieveFavorite?user=' + username, function(result){
-		if(result[0].FAVORITES != null){
+/**
+ * @desc retrieves users favorite's list 
+ */
+function getFavorites() {
+	var username = localStorage.getItem('username'); // saved username 
+
+	// post to retrieve favorites 
+	$.post('/retrieveFavorite?user=' + username, function (result) {
+		if (result[0].FAVORITES != null) {
+			// split list 
 			var list = splitList(result[0].FAVORITES, ",");
 			var table = document.getElementById('myTable');
-			var cat = "-1"; 
-			for(var i = 0; i < list.length; i++){
-				var entry = splitList(list[i], /([0-3]+)/);
-				if(entry[1] == "0"){
+			var cat = "-1";
+
+			// visually display favorites list
+			for (var i = 0; i < list.length; i++) {
+				var entry = list[i][0];
+				var title = '';
+				for (var j = 1; j < list[i].length; j++) {
+					title += list[i][j];
+				}
+				if (entry == "0") {
 					cat = "Artwork";
 				}
-				else if(entry[1] == "1"){
+				else if (entry == "1") {
 					cat = "Outdoor Activities";
 				}
-				else if(entry[1] == "2"){
+				else if (entry == "2") {
 					cat = "Community Service";
 				}
-				else{
+				else {
 					cat = "Events";
 				}
-				table.innerHTML += "<tr> <td>" + cat + "</td> <td>" + 
-				entry[2] + "</td></tr>";
+				table.innerHTML += "<tr> <td>" + cat + "</td> <td>" +
+					title + "</td></tr>";
 			}
 		}
 	});
 }
 
-function splitList(list, splitter){
+/**
+ * @desc list splitter function
+ * @param {*} list the list you want to split
+ * @param {*} splitter the string to split at (i.e. every space make a split)
+ * @return the splitted list 
+ */
+function splitList(list, splitter) {
 	var l = list.split(splitter);
-	return l; 
+	return l;
 }
 
+/**
+ * @desc table sorter 
+ * @param {*} n index
+ */
 function sortTable(n) {
 	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 	table = document.getElementById("myTable");
 	switching = true;
 	//Set the sorting direction to ascending:
-	dir = "asc"; 
+	dir = "asc";
 	/*Make a loop that will continue until
 	no switching has been done:*/
 	while (switching) {
-	  //start by saying: no switching is done:
-	  switching = false;
-	  rows = table.rows;
-	  /*Loop through all table rows (except the
-	  first, which contains table headers):*/
-	  for (i = 1; i < (rows.length - 1); i++) {
-		//start by saying there should be no switching:
-		shouldSwitch = false;
-		/*Get the two elements you want to compare,
-		one from current row and one from the next:*/
-		x = rows[i].getElementsByTagName("TD")[n];
-		y = rows[i + 1].getElementsByTagName("TD")[n];
-		/*check if the two rows should switch place,
-		based on the direction, asc or desc:*/
-		if (dir == "asc") {
-		  if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-			//if so, mark as a switch and break the loop:
-			shouldSwitch= true;
-			break;
-		  }
-		} else if (dir == "desc") {
-		  if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-			//if so, mark as a switch and break the loop:
-			shouldSwitch = true;
-			break;
-		  }
+		//start by saying: no switching is done:
+		switching = false;
+		rows = table.rows;
+		/*Loop through all table rows (except the
+		first, which contains table headers):*/
+		for (i = 1; i < (rows.length - 1); i++) {
+			//start by saying there should be no switching:
+			shouldSwitch = false;
+			/*Get the two elements you want to compare,
+			one from current row and one from the next:*/
+			x = rows[i].getElementsByTagName("TD")[n];
+			y = rows[i + 1].getElementsByTagName("TD")[n];
+			/*check if the two rows should switch place,
+			based on the direction, asc or desc:*/
+			if (dir == "asc") {
+				if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+					//if so, mark as a switch and break the loop:
+					shouldSwitch = true;
+					break;
+				}
+			} else if (dir == "desc") {
+				if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+					//if so, mark as a switch and break the loop:
+					shouldSwitch = true;
+					break;
+				}
+			}
 		}
-	  }
-	  if (shouldSwitch) {
-		/*If a switch has been marked, make the switch
-		and mark that a switch has been done:*/
-		rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-		switching = true;
-		//Each time a switch is done, increase this count by 1:
-		switchcount ++;      
-	  } else {
-		/*If no switching has been done AND the direction is "asc",
-		set the direction to "desc" and run the while loop again.*/
-		if (switchcount == 0 && dir == "asc") {
-		  dir = "desc";
-		  switching = true;
+		if (shouldSwitch) {
+			/*If a switch has been marked, make the switch
+			and mark that a switch has been done:*/
+			rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+			switching = true;
+			//Each time a switch is done, increase this count by 1:
+			switchcount++;
+		} else {
+			/*If no switching has been done AND the direction is "asc",
+			set the direction to "desc" and run the while loop again.*/
+			if (switchcount == 0 && dir == "asc") {
+				dir = "desc";
+				switching = true;
+			}
 		}
-	  }
 	}
-  }
+}
 
-/*
-	version: 23 FEB 2020
-	TODO:
-	- function for email/notif
-	- function for privacy
-	- function for favorites
-*/
+// end of account.js

@@ -1,23 +1,30 @@
-<!-- Team Rust Outdoors Page -->
+<!-- Team Rust Outdoor Page -->
 <!DOCTYPE html>
 <html>
-
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Makaleha Recreation Page</title>
+    <title>Makaleha Outdoor Activities Page</title>
+
     <link rel="stylesheet" type="text/css" href="stylesheets/default.css" />
     <link rel="stylesheet" type="text/css" href="stylesheets/searchbar.css" />
     <link rel="stylesheet" type="text/css" href="stylesheets/login.css" />
     <link rel="stylesheet" type="text/css" href="stylesheets/table.css" />
-    <script src="javascripts/searchbar_rec.js"></script>
-    <script src="javascripts/account.js"> </script>
-    <script src="javascripts/login.js"></script>
-    <script src="javascripts/outdoor.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="javascripts/account.js"></script>
+    <script src="javascripts/login.js"></script>
+    <script src="javascripts/category_template.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIhUvaxHgXK-X8iRqfSYzaRy-I0-QNsoY&callback=initMap"
+        async defer></script>
+    <style>
+        .map {
+            height: 500px;
+            width: 100%;
+            padding: 0px;
+        }
+    </style>
 </head>
 
-<body onload="init()">
+<body class='category' onload="init('outdoor')" id='outdoor'>
 
     <!-- top buttons: "write a review", log in, and sign up -->
     <div class="left">
@@ -25,7 +32,6 @@
             Write a review
         </button>
     </div>
-
     <div id="loginbtns" class="right">
         <button onclick="document.getElementById('id01').style.display='block'" style="width:100px" id="login">Log
             in</button><br><br><br>
@@ -114,27 +120,30 @@
         <a href="servicepage.html">Community Service</a>
     </div>
 
-    <!-- search bar recreation page -->
+    <!-- search bar artpage -->
     <br>
-    <div id="cover_rec">
+    <div id="cover_art">
         <form method="get" action="">
             <div class="tb">
-                <div class="td"><input id="searchbar_input_rec" type="text" onkeyup="search_outdoor()" placeholder="Search" required></div>
+                <div class="td"><input id="searchbar_input" type="text" onkeyup="search_table()" placeholder="Search"
+                        required></div>
                 <div class="td" id="s-cover">
                 </div>
             </div>
         </form>
     </div>
 
-    <div style="height: 500px; display: flex" id="recdisplay">
-        <div style="height: 500px; width:25%; overflow-y: scroll; display:flex">
-            <table class="displaytable" id="rectable" rules="rows" frame="void">
+    <!-- table that displays menu for art -->
+    <div style="height: 500px; display:flex; position: relative" id="display">
+        <div style="height: 500px; overflow-y: scroll; display:flex">
+            <table class="displaytable" id="categorytable" rules="rows" frame="void">
             </table>
         </div>
-
-        <div id="displaytext">
-        </div>
+        <div id="map" style="height: 100%; width:100%"></div>
+        <span class="favoriteButton" onClick="toggleFavoritesButton()" id="toggleFavoritesButton"
+            style="position:absolute;right:4%;top:-1%;font-size: 300%;" title="Toggle Favorites"></span>
     </div>
 </body>
 
 </html>
+<!-- end of recreationpage.html -->
