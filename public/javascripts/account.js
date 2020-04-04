@@ -230,4 +230,5 @@ function sortTable(n) {
 	}
 }
 
+module.exports = {splitList}; 
 // end of account.js

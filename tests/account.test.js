@@ -1,4 +1,7 @@
 var fs = require('fs');
+var $ = require('jquery');
+window.$ = $;
+var f = require('../public/javascripts/account');
 
 test('test tab bar default', () => {
     var html = fs.readFileSync('public/accountpage.html', 'utf8');
@@ -21,7 +24,8 @@ test('test old password auto empty', () => {
     expect($('#old-pw').html()).toBe('');
 }); 
 
-/*
-    TODO:
-    - not sure how to test script functions
-*/
+test('test list splitter return', () => {
+    var str = "Hello my name is John.";
+    var splitter = " "; 
+    expect((f.splitList(str, splitter)).length).toBe(5); 
+}); 
