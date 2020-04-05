@@ -1,9 +1,10 @@
-<!-- Team Rust Outdoor Page -->
+<!-- Team Rust Art Page -->
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Makaleha Outdoor Activities Page</title>
+    <title>Makaleha | Outdoor Activities</title>
 
     <link rel="stylesheet" type="text/css" href="stylesheets/default.css" />
     <link rel="stylesheet" type="text/css" href="stylesheets/searchbar.css" />
@@ -26,19 +27,39 @@
 
 <body class='category' onload="init('outdoor')" id='outdoor'>
 
-    <!-- top buttons: "write a review", log in, and sign up -->
-    <div class="left">
-        <button type="button" style="width:100px" id="review" onclick="window.location.href = 'reviewpage.html';">
-            Write a review
-        </button>
+    <!-- header divider -->
+    <!-- Should look like this: 
+    Makaleha      Events  Community Service  Outdoor Activities  Artwork  About     #(3 lines)
+  -->
+    <div class='header-div'>
+        <!-- divider containing 'Makaleha' title -->
+        <div class='title-div'>
+            <a href='index.html'>
+                <h1 class='title'>Makaleha</h1>
+            </a>
+        </div>
+        <!-- divider containing navigation menu -->
+        <div class='nav-div'>
+            <a class='nav' href='eventpage.html'>Events</a>
+            <a class='nav' href='servicepage.html'>Community Service</a>
+            <a class='nav' href='recreationpage.html'>Outdoor Activities</a>
+            <a class='nav' href='artpage.html'>Artwork</a>
+            <a class='nav' href='about.html'>About</a>
+        </div>
+        <!-- divider containing account tab -->
+        <div class='account-div'>
+            <div class='menu' onclick='openMenu(this)'>
+                <div class='bar1'></div>
+                <div class='bar2'></div>
+                <div class='bar3'></div>
+                <div id='dropdwn' class='dropdwn-content'>
+                    <a onclick="document.getElementById('id01').style.display='block'" class='nav' href='#'>Log In</a>
+                    <a onclick="document.getElementById('id02').style.display='block'" class='nav' href='#'>Register</a>
+                    <a class='nav' href='reviewpage.html'>Write a Review</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="loginbtns" class="right">
-        <button onclick="document.getElementById('id01').style.display='block'" style="width:100px" id="login">Log
-            in</button><br><br><br>
-        <button onclick="document.getElementById('id02').style.display='block'" type="button" style="width:100px"
-            id="signup">Register</button>
-    </div>
-
     <!-- log in pop up -->
     <div id="id01" class="modal">
 
@@ -106,44 +127,57 @@
             </div>
         </div>
     </div>
-
-    <center>
-        <!-- logo -->
-        <input onclick="window.location.href='index.html'" type="image" id="makalehalogo"
-            src="images/makaleha_logo__v2.png" alt="Makaleha Logo" width="300" height="140" />
-    </center>
-    <!-- navigation bar i.e. page menu -->
-    <div class="navbar">
-        <a href="eventpage.html">Events</a>
-        <a href="artpage.html">Artwork</a>
-        <a href="recreationpage.html">Outdoor Activities</a>
-        <a href="servicepage.html">Community Service</a>
-    </div>
-
-    <!-- search bar artpage -->
-    <br>
-    <div id="cover_art">
-        <form method="get" action="">
-            <div class="tb">
-                <div class="td"><input id="searchbar_input" type="text" onkeyup="search_table()" placeholder="Search"
-                        required></div>
-                <div class="td" id="s-cover">
+    <!-- end of header divider -->
+    <!-- rest of page divider -->
+    <div class='map-div'>
+        <!-- search bar artpage -->
+        <br>
+        <div id="cover_art">
+            <form method="get" action="">
+                <div class="tb">
+                    <div class="td"><input id="searchbar_input" type="text" onkeyup="search_table()"
+                            placeholder="Search" required></div>
+                    <div class="td" id="s-cover">
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-
-    <!-- table that displays menu for art -->
-    <div style="height: 500px; display:flex; position: relative" id="display">
-        <div style="height: 500px; overflow-y: scroll; display:flex">
-            <table class="displaytable" id="categorytable" rules="rows" frame="void">
-            </table>
+            </form>
         </div>
-        <div id="map" style="height: 100%; width:100%"></div>
-        <span class="favoriteButton" onClick="toggleFavoritesButton()" id="toggleFavoritesButton"
-            style="position:absolute;right:4%;top:-1%;font-size: 300%;" title="Toggle Favorites"></span>
+        <!-- table that displays menu for art -->
+        <div style="height: 700px; display:flex; position: relative" id="display">
+            <div style="width: 40%; height: 700px; overflow-y: scroll; display:flex">
+                <table class="displaytable" id="categorytable" rules="rows" frame="void">
+                </table>
+            </div>
+            <div id="map" style="height: 100%; width:100%"></div>
+            <span class="favoriteButton" onClick="toggleFavoritesButton()" id="toggleFavoritesButton"
+                style="position:absolute;right:4%;top:-1%;font-size: 300%;" title="Toggle Favorites"></span>
+        </div>
+    </div>
+    <!-- footer divider -->
+    <div class='foot-div'>
+        <div class='cmp-info'>
+            <img class='logo' src='images/makaleha_logo__v2.png'>
+            <p> Makaleha is an online tool to help locals and visitors embrace the beauty of Hawai'i by
+                learning about the free opportunities and events in the islands. Come and take a walk
+                through the ʻāina with us.</p>
+        </div>
+        <div class='footer'>
+            <p class='footer'>Makaleha &copy; 2020</p>
+            <a class='footer' href='about.html'>About</a>
+            <a class='footer' href='privpolicy.html'>Privacy Policy</a>
+            <a class='footer' href='https://github.com/upcs/cs341-project-ss2020-rust'>GitHub</a>
+        </div>
+
     </div>
 </body>
+<!-- script to open three line menu -->
+<script>
+    function openMenu(x) {
+      x.classList.toggle("change");
+  
+      document.getElementById('dropdwn').style.display = document.getElementById('dropdwn').style.display == 'block' ? 'none' : 'block';
+    }
+  </script>
 
 </html>
-<!-- end of recreationpage.html -->
+<!-- end of artpage.html -->

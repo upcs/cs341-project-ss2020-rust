@@ -67,7 +67,6 @@ function init(category) {
                     // create row
                     var x = document.createElement("TR");
                     x.setAttribute("id", "'entry" + i + "'");
-
                     if (list[i].hasOwnProperty('LATITUDE') && list[i].hasOwnProperty('LONGITUDE')) {
                         var latitude = list[i].LATITUDE;
                         var longitude = list[i].LONGITUDE;
@@ -319,7 +318,6 @@ function initMap() {
         zoom: 10.25
     });
     $.post('/retrieve?type=' + cat, function (list) { // POST for art info
-        alert(cat);
         // loop through all art objects 
         for (var i = 0; i < list.length; i++) {
             if (list[i].TITLE != '') { // don't want art with no title
