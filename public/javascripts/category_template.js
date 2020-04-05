@@ -319,7 +319,6 @@ function initMap() {
         zoom: 10.25
     });
     $.post('/retrieve?type=' + cat, function (list) { // POST for art info
-        alert(cat);
         // loop through all art objects 
         for (var i = 0; i < list.length; i++) {
             if (list[i].TITLE != '') { // don't want art with no title

@@ -95,7 +95,7 @@ function getItems(value) {
         var itemOptions = "";
         $.post('/retrieve?type=outdoor', function (list) {
             for (var i = 1; i < list.length; i++) {
-                itemOptions += "<option>" + list[i].NAME + "</option>";
+                itemOptions += "<option>" + list[i].TITLE + "</option>";
             }
             items.innerHTML = itemOptions;
         });
@@ -104,7 +104,7 @@ function getItems(value) {
         var itemOptions = "";
         $.post('/retrieve?type=service', function (list) {
             for (var i = 0; i < list.length; i++) {
-                itemOptions += "<option>" + list[i].NAME + "</option>";
+                itemOptions += "<option>" + list[i].TITLE + "</option>";
             }
             items.innerHTML = itemOptions;
         });

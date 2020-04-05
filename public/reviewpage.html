@@ -1,34 +1,54 @@
-<!-- Team Rust Review Page -->
+<!-- Team Rust Art Page -->
 <!DOCTYPE html>
 <html>
 
-
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Makaleha Review Page</title>
+  <title>Makaleha | Reviews</title>
+
   <link rel="stylesheet" type="text/css" href="stylesheets/default.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/login.css" />
+  <link rel='stylesheet' type='text/css' href='stylesheets/rating.css'/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="javascripts/login.js"></script>
   <script src="javascripts/review.js"></script>
-  <link rel="stylesheet" type="text/css" href="stylesheets/rating.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
 
-  <!-- top buttons: "write a review", log in, and sign up -->
-  <div class="left">
-    <button type="button" style="width:100px" id="review" onclick="window.location.href = 'reviewpage.html';">Write a
-      review</button>
+  <!-- header divider -->
+  <!-- Should look like this: 
+    Makaleha      Events  Community Service  Outdoor Activities  Artwork  About     #(3 lines)
+  -->
+  <div class='header-div'>
+    <!-- divider containing 'Makaleha' title -->
+    <div id='rev-title' class='title-div'>
+      <a href='index.html'>
+        <h1 class='title'>Makaleha</h1>
+      </a>
+    </div>
+    <!-- divider containing navigation menu -->
+    <div class='nav-div'>
+      <a class='nav' href='eventpage.html'>Events</a>
+      <a class='nav' href='servicepage.html'>Community Service</a>
+      <a class='nav' href='recreationpage.html'>Outdoor Activities</a>
+      <a class='nav' href='artpage.html'>Artwork</a>
+      <a class='nav' href='about.html'>About</a>
+    </div>
+    <!-- divider containing account tab -->
+    <div class='account-div'>
+      <div class='menu' onclick='openMenu(this)'>
+        <div class='bar1'></div>
+        <div class='bar2'></div>
+        <div class='bar3'></div>
+        <div id='dropdwn' class='dropdwn-content'>
+          <a onclick="document.getElementById('id01').style.display='block'" class='nav' href='#'>Log In</a>
+          <a onclick="document.getElementById('id02').style.display='block'" class='nav' href='#'>Register</a>
+          <a class='nav' href='reviewpage.html'>Write a Review</a>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div id="loginbtns" class="right">
-    <button onclick="document.getElementById('id01').style.display='block'" style="width:100px" id="login">Log
-      in</button><br><br><br>
-    <button onclick="document.getElementById('id02').style.display='block'" type="button" style="width:100px"
-      id="signup">Register</button>
-  </div>
-
   <!-- log in pop up -->
   <div id="id01" class="modal">
 
@@ -96,79 +116,93 @@
       </div>
     </div>
   </div>
+  <!-- end of header divider -->
+  <!-- rest of page divider -->
+  <div class='review-div'>
 
-  <center>
-    <!-- logo -->
-    <input onclick="window.location.href='index.html'" type="image" id="makalehalogo" src="images/makaleha_logo__v2.png"
-      alt="Makaleha Logo" width="300" height="140" />
-  </center>
-  <!-- navigation bar i.e. page menu -->
-  <div class="navbar">
-    <a href="eventpage.html">Events</a>
-    <a href="artpage.html">Artwork</a>
-    <a href="recreationpage.html">Outdoor Activities</a>
-    <a href="servicepage.html">Community Service</a>
+      <h2> Write a Review </h2>
+      <form>
+        <table>
+          <tr>
+            <td>
+              Name:
+            </td>
+            <td>
+              <input id='name' type="text" name="">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Select Category:</label>
+              <select id="categoryOptions" onChange="getItems(this.value);">
+                <option value="" disabled selected> Select </option>
+                <option value='art'> Artwork </option>
+                <option value='service'> Community Service </option>
+                <option value='outdoor'> Outdoor Activities </option>
+                <option value='events'> Events </option>
+              </select>
+            </td>
+            <td>
+              <label>Select one:</label>
+              <select id="titleOptions">
+                <option value="" disabled selected> Select </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Rating
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="rate">
+                <input type="radio" id="star5" name="rate" value="5" />
+                <label id="5" for="star5" title="text">5 stars</label>
+                <input type="radio" id="star4" name="rate" value="4" />
+                <label id="4" for="star4" title="text">4 stars</label>
+                <input type="radio" id="star3" name="rate" value="3" />
+                <label id="3" for="star3" title="text">3 stars</label>
+                <input type="radio" id="star2" name="rate" value="2" />
+                <label id="2" for="star2" title="text">2 stars</label>
+                <input type="radio" id="star1" name="rate" value="1" />
+                <label id="1" for="star1" title="text">1 star</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button onclick="submitReview()"> Submit </button>
+            </td>
+          </tr>
+        </table>
+      </form>
   </div>
-  <div>
-    <h2> Write a Review </h2>
-    <form>
-      <table>
-        <tr>
-          <td>
-            Name:
-          </td>
-          <td>
-            <input id='name' type="text" name="">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label>Select Category:</label>
-            <select id="categoryOptions" onChange="getItems(this.value);">
-              <option value="" disabled selected> Select </option>
-              <option value='art'> Artwork </option>
-              <option value='service'> Community Service </option>
-              <option value='outdoor'> Outdoor Activities </option>
-              <option value='events'> Events </option>
-            </select>
-          </td>
-          <td>
-            <label>Select one:</label>
-            <select id="titleOptions">
-              <option value="" disabled selected> Select </option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Rating
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="rate">
-              <input type="radio" id="star5" name="rate" value="5" />
-              <label id="5" for="star5" title="text">5 stars</label>
-              <input type="radio" id="star4" name="rate" value="4" />
-              <label id="4" for="star4" title="text">4 stars</label>
-              <input type="radio" id="star3" name="rate" value="3" />
-              <label id="3" for="star3" title="text">3 stars</label>
-              <input type="radio" id="star2" name="rate" value="2" />
-              <label id="2" for="star2" title="text">2 stars</label>
-              <input type="radio" id="star1" name="rate" value="1" />
-              <label id="1" for="star1" title="text">1 star</label>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <button onclick="submitReview()"> Submit </button>
-          </td>
-        </tr>
-      </table>
-    </form>
+  <!-- footer divider -->
+  <div class='foot-div'>
+    <div class='cmp-info'>
+      <img class='logo' src='images/makaleha_logo__v2.png'>
+      <p> Makaleha is an online tool to help locals and visitors embrace the beauty of Hawai'i by
+        learning about the free opportunities and events in the islands. Come and take a walk
+        through the ʻāina with us.</p>
+    </div>
+    <div class='footer'>
+      <p class='footer'>Makaleha &copy; 2020</p>
+      <a class='footer' href='about.html'>About</a>
+      <a class='footer' href='#'>Privacy Policy</a>
+      <a class='footer' href='https://github.com/upcs/cs341-project-ss2020-rust'>GitHub</a>
+    </div>
+
   </div>
 </body>
+<!-- script to open three line menu -->
+<script>
+  function openMenu(x) {
+    x.classList.toggle("change");
+
+    document.getElementById('dropdwn').style.display = document.getElementById('dropdwn').style.display == 'block' ? 'none' : 'block';
+  }
+</script>
 
 </html>
-<!-- end of reviewpage.html -->
+<!-- end of artpage.html -->
