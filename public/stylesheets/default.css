@@ -1,110 +1,228 @@
-/* team rust default.css file */
+/* default.css */
 
-/* general button design*/
+/* user for element debugging */
 
-button {
-    position: absolute;
-    color: white;
-    background: black;
-    border: 2px solid black;
-    border-radius: 5px;
-    width: 100px;
-    height: 50px;
-}
+/** { border: 1px solid red; }*/
 
-/* specific button modifications */
+/* default setting for html and body */
 
-#login:hover {
-    background-color: white;
-    font-style: italic;
-    color: black;
-}
-
-#signup:hover {
-    background-color: white;
-    font-style: italic;
-    color: black;
-}
-
-#review:hover {
-    background-color: white;
-    font-style: italic;
-    color: black;
-}
-
-h1 {
-    font-family: Georgia, serif;
-    font-style: italic;
-}
-
-body {
-    background: #add8e6;
-    background: linear-gradient(90deg, rgba(153, 255, 255, 1) 0%, rgba(153, 255, 153, 1) 35%, rgba(0, 212, 255, 1) 100%);
-    border-style: dashed;
-    border-radius: all;
-}
-
-.right {
-    position: absolute;
-    right: 25px;
-    width: 100px;
-    padding: 10px;
-}
-
-.left {
-    position: absolute;
-    left: 25px;
-    width: 100px;
-    padding: 10px;
-}
-
-.bg {
-    /* The image used */
-    background-image: url("diamond_head.jpg");
-    /* Full height */
+html, body {
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    outline: 0;
+    font-size: 100%;
+    width: 100%;
     height: 100%;
-    width: 100%;
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: transparent;
 }
 
-.full {
-    height: 100%;
+/* main dividers */
+
+/*************** header *****************/
+
+.header-div {
+    font-family: "Bookman Old Style";
     width: 100%;
+    height: 10%;
+    display: flex;
+    position: fixed;
+    z-index: 5; 
+    background-color: white;
 }
 
-.navbar {
-    width: 100%;
-    background-color: rgb(34, 32, 32);
-    overflow: auto;
+/* styling for the title 'MAKALEHA' */
+
+.title {
+    /*font-family: "Bookman Old Style";*/
+    font-size: 40px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+    line-height: 24px;
+    padding-left: 10%;
 }
 
-.navbar a {
-    float: left;
-    padding: 10px;
-    color: white;
-    text-decoration: none;
-    font-size: 17px;
-    width: 23.4%;
-    /* Four links of equal widths */
+.title-div {
+    width: 25%;
+    display: inline-block;
+}
+
+/* navigation bar divider */
+
+.nav-div {
+    width: 50%;
+    display: inline-block;
     text-align: center;
+    margin-top: 2%;
 }
 
-.navbar a:hover {
-    background-color: black;
+a.nav {
+    text-decoration: none;
+    color: black;
+    padding-left: 2%;
+    padding-right: 2%;
+    cursor: pointer;
 }
 
-@media screen and (max-width: 500px) {
-    .navbar a {
-        float: none;
-        display: block;
-        width: 100%;
-        text-align: left;
-    }
+a.nav:hover {
+    color: #dbd9d9;
 }
 
+/* three line bar styling */
+
+.account-div {
+    width: 25%;
+    display: inline-block;
+    text-align: right;
+    margin-top: 1%;
+}
+
+/*  https://stackoverflow.com/questions/44207293/adding-a-drop-down-menu-to-three-line-menu-icon  */
+
+.menu {
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 10%;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+/* Rotate first bar */
+
+.change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+/* Fade out the second bar */
+
+.change .bar2 {
+    opacity: 0;
+}
+
+/* Rotate last bar */
+
+.change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+    transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.dropdwn-content {
+    display: none;
+}
+
+/*************** page *****************/
+
+.page-div {
+    padding-top: 5%;
+    background-color: #ebebeb;
+    height: 100%;
+    width: 100%;
+}
+
+.ft-text {
+    font-family: "Bookman Old Style";
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 2.7%;
+    padding-top: 2%;
+}
+
+.ft-div {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+
+/* image styling */ 
+.img-div {
+    text-align: center;
+    display: flex;
+    width: 100%;
+    height: 80%;
+}
+
+.img-lft {
+    height: 20%;
+    border: 10px solid white;
+    cursor: pointer;
+}
+
+.img {
+    height: 30%;
+    display: inline-block;
+    border: 10px solid white;
+}
+
+/* feature text styling */
+.event-div {
+    width: 25%;
+    height: 80%;
+}
+
+.event-text {
+    padding-left: 3%;
+    padding-right: 3%;
+    text-align: left;
+    height: 50;
+}
+
+/*************** footer *****************/
+
+.foot-div {
+    height: 30%;
+    width: 100%;
+    background-color: #b0b0b0;
+}
+
+.logo {
+    height: 40%;
+    width: 40%;
+    margin-bottom: 0;
+    display: inline-block;
+}
+
+.cmp-info {
+    width: 30%;
+    margin-left: 5%;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    text-align: center;
+    margin: auto;
+}
+
+a.footer {
+    text-decoration: none;
+    color: black;
+    margin: auto;
+    padding-left: 2%;
+    padding-right: 2%;
+    cursor: pointer;
+}
+
+p.footer {
+    text-decoration: none;
+    color: black;
+    padding-left: 15%;
+    padding-right: 2%;
+    cursor: pointer;
+}
+
+a.footer:hover {
+    color: #dbd9d9;
+}
+
+/* favorite button styling */
 .saved-btn {
     background-color: yellow;
     color: black;

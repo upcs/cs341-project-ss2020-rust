@@ -23,44 +23,6 @@ input, #submitSearch {
 
 #cover_art {
     position: relative;
-    top: 30%;
-    /*left: -400px;*/
-    left: -30%;
-    right: 0;
-    width: 1000px;
-    padding: 5px;
-    margin: -30px auto 0 auto;
-    /* color of search bar */
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px #87ceeb;
-    transform: scale(0.5);
-    opacity: 75%;
-    /* change max width to format well on Grants computer */
-    max-width: 75%;
-}
-
-#cover_rec {
-    position: relative;
-    top: 30%;
-    /*left: -400px;*/
-    left: -30%;
-    right: 0;
-    width: 1000px;
-    padding: 5px;
-    margin: -30px auto 0 auto;
-    /* color of search bar */
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px #87ceeb;
-    transform: scale(0.5);
-    opacity: 75%;
-    /* change max width to format well on Grants computer */
-    max-width: 75%;
-}
-
-#cover_event {
-    position: relative;
     top: 0%;
     /*left: -400px;*/
     left: -30%;
@@ -77,42 +39,12 @@ input, #submitSearch {
     /* change max width to format well on Grants computer */
     max-width: 75%;
 }
-
-#cover_serv {
-    position: relative;
-    top: 30%;
-    /*left: -400px;*/
-    left: -30%;
-    right: 0;
-    width: 1000px;
-    padding: 5px;
-    margin: -30px auto 0 auto;
-    /* color of search bar */
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px #87ceeb;
-    transform: scale(0.5);
-    opacity: 75%;
-    /* change max width to format well on Grants computer */
-    max-width: 75%;
-}
-
-#cover {
-    position: absolute;
-    top: 50%;
-    left: -250px;
-    right: 0;
-    width: 2000px;
-    padding: 15px;
-    margin: -30px auto 0 auto;
-    /* color of search bar */
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px #87ceeb;
-    transform: scale(0.5);
-    opacity: 75%;
-    /* change max width to format well on Grants computer */
-    max-width: 135%;
+.map-div{
+    text-align: left; 
+    padding-top: 5%;
+    background-color: #ebebeb;
+    height: auto;
+    width: 100%;
 }
 
 form {

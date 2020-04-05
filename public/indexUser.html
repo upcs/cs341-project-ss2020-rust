@@ -2,134 +2,132 @@
 <!DOCTYPE html>
 <html>
 
-
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Makaleha Home Page</title>
-  <script src="javascripts/login.js"></script>
-  <script src="javascripts/register.js"></script>
+  <title>Makaleha</title>
+  <script src="javascripts/account.js"></script>
+  <script src="javascripts/logout.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="stylesheets/default.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/searchbar.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/login.css" />
-  <script src="javascripts/searchbar.js"></script>
+  <link rel='stylesheet' type='text/css' href='stylesheets/default.css' />
+  <link rel='stylesheet' type='text/css' href='stylesheets/login.css'/>
   <script src="javascripts/logout.js"></script>
 </head>
 
 <body>
-
-  <!-- top buttons: "write a review", log in, and sign up -->
-  <div class="left">
-    <button type="button" style="width:100px" id="review" onclick="window.location.href = 'reviewpage.html';">Write a
-      review</button>
-  </div>
-
-  <div class="right">
-    <button onclick="window.location.href = 'accountpage.html';" class="top-btn" type="button"
-      id="account">Account</button><br><br><br>
-    <button onclick="logout()" class="top-btn" type="button" id="logout">Log out</button>
-  </div> <!-- set log out to go back to index.html -->
-
-  <!-- log in pop up -->
-  <div id="id01" class="modal">
-
-    <div class="modal-content animate">
-      <div class="imgcontainer">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close"
-          title="Close Modal">&times;</span>
-        <img src="images/img_avatar2.png" alt="Avatar" class="avatar">
-      </div>
-
-      <div class="container">
-        <label><b>Username</b></label>
-        <input type="text" class="inputText" placeholder="Enter Username" id="loginUsername">
-
-        <label><b>Password</b></label>
-        <input type="password" class="inputText" placeholder="Enter Password" id="loginPassword">
-
-        <label>
-          <input type="checkbox" checked="checked" name="remember"> Remember me
-        </label>
-        <span class="psw">
-          <font color="red" id="invalidLogin"></font>
-        </span>
-      </div>
-
-      <div class="container">
-        <button onclick="login()">Login</button>
-        <span class="psw"><a href="#">Forgot password?</a></span>
-      </div>
+  <!-- header divider -->
+  <!-- Should look like this: 
+    Makaleha      Events  Community Service  Outdoor Activities  Artwork  About     #(3 lines)
+  -->
+  <div class='header-div'>
+    <!-- divider containing 'Makaleha' title -->
+    <div class='title-div'>
+      <h1 class='title'>Makaleha</h1>
     </div>
-  </div>
-
-  <!-- sign up pop up -->
-  <div id="id02" class="modal">
-
-    <div class="modal-content animate">
-      <div class="imgcontainer">
-        <h><b>Create Your Makaleha Account</b></h>
-        <span onclick="document.getElementById('id02').style.display='none'" class="close"
-          title="Close Modal">&times;</span>
-      </div>
-
-      <div class="container">
-        <label><b>Username</b></label>
-        <input type="text" class="inputText" placeholder="Enter Username" id="signupUsername">
-
-        <label><b>First Name</b></label>
-        <input type="text" class="inputText" placeholder="Enter First Name" id="signupFirstName">
-
-        <label><b>Last Name</b></label>
-        <input type="text" class="inputText" placeholder="Enter Last Name" id="signupLastName">
-
-        <label><b>Email</b></label>
-        <input type="text" class="inputText" placeholder="Enter Email" id="signupEmail">
-
-        <label><b>Password</b></label>
-        <input type="password" class="inputText" placeholder="Enter Password" id="signupPassword">
-      </div>
-
-      <div class="container">
-        <span class="su">
-          <font color="red" id="invalidSignUp"></font>
-        </span>
-        <span class="registrationButton"><button onclick="register()">Complete Registration</button></span>
-      </div>
+    <!-- divider containing navigation menu -->
+    <div class='nav-div'>
+      <a class='nav' href='eventpageUser.html'>Events</a>
+      <a class='nav' href='servicepageUser.html'>Community Service</a>
+      <a class='nav' href='recreationpageUser.html'>Outdoor Activities</a>
+      <a class='nav' href='artpageUser.html'>Artwork</a>
+      <a class='nav' href='#'>About</a>
     </div>
-  </div>
-
-  <!-- search bar -->
-  <div id="cover">
-    <form method="get" action="">
-      <div class="tb">
-
-        <div class="td"><input id="searchbar_input" type="text" placeholder="Search" required></div>
-        <div class="td" id="s-cover">
-          <button type="submit" id="submitSearch" onclick="search()">
-            <div id="s-circle"></div>
-            <span></span>
-          </button>
+    <!-- divider containing account tab -->
+    <div class='account-div'>
+      <div class='menu' onclick='openMenu(this)'>
+        <div class='bar1'></div>
+        <div class='bar2'></div>
+        <div class='bar3'></div>
+        <div id='dropdwn' class='dropdwn-content'>
+          <a class='nav' href='accountpage.html'>Account</a>
+          <a class='nav' onclick='logout()'>Log Out</a>
+          <a class='nav' href='reviewpage.html'>Write a Review</a>
         </div>
       </div>
-    </form>
+    </div>
   </div>
+  <!-- end of header divider -->
 
-  <center>
-    <!-- logo -->
-    <input onclick="window.location.href='indexUser.html'" type="image" id="makalehalogo"
-      src="images/makaleha_logo__v2.png" alt="Makaleha Logo" width="300" height="140" />
-  </center>
-  <!-- navigation bar i.e. page menu -->
-  <div class="navbar">
-    <a href="eventpageUser.html">Events</a>
-    <a href="artpageUser.html">Artwork</a>
-    <a href="recreationpageUser.html">Outdoor Activities</a>
-    <a href="servicepageUser.html">Community Service</a>
+  <!-- rest of page divider -->
+  <div class='page-div'>
+    <!-- feature divider -->
+    <div class='ft-div'>
+      <p class='ft-text'>Featured Destinations</p>
+      <!-- images/info divider -->
+      <div class='img-div'>
+        <!-- holds events feature -->
+        <div class='event-div'>
+          <a href='eventpage.html'>
+            <img class='img' src="images/event.jpg">
+          </a>
+          <h3> Featured Event </h3>
+          <p class='event-text'>The 43rd Annual Prince Lot Hula Festival is the largest non-competitive
+            hula celebration in Hawaii. It honors Prince Lot Kapuaiwa, who helped reprise
+            hula in the 1850s and reigned as Kamehameha V from 1863 to 1872. The festival will
+            also feature a Hawaiian craft fair, and cultural demonstrations.</p>
+          <p class='event-text'>Where? 364 S King St, Honolulu, HI 96813</p>
+          <p class='event-text'>When? July 18 9 am to 4 pm and July 19 9 am to 3 pm</p>
+        </div>
+        <!-- end of events feature -->
+        <!-- holds community service feature -->
+        <div class='event-div'>
+          <a href='servicepage.html'><img class='img' src="images/service.jpg"></a>
+          <h3> Featured Community Service </h3>
+          <p class='event-text'>Ka Papa Lo'i o Kanewai - Get dirty in the lo‘i every first Saturday of the month.
+            Refreshments provided. Or you can organize a private work day with the lo‘i staff.</p>
+          <p class='event-text'>Contact Info: (808) 956-0640 </p>
+          <p class='event-text'>Visit their website: manoa.hawaii.edu/hshk/ka-papa-loi-o-kanewai/ </p>
+        </div>
+        <!-- end of community service feature -->
+        <!-- holds outdoor activity feature -->
+        <div class='event-div'>
+          <a href='recreationpage.html'><img class='img' src="images/diamond_head.jpg"></a>
+          <h3> Featured Outdoor Activity </h3>
+          <p class='event-text'>Kuliouou Ridge Trail located on the island of O'ahu is 2.5 miles
+            long at an elevation of 2000 feet.</p>
+        </div>
+        <!-- end of outdoor activity feature -->
+        <!-- holds artwork feature -->
+        <div class='event-div'>
+          <a href='artpage.html'>
+            <img class='img' src="images/art.jpg">
+          </a>
+          <h3> Featured Artwork </h3>
+          <p class='event-text'>A larger than life bronze sculpture of Duke Paoa Kahanamoku with his surfboard.
+            Located on Kuhio Beach at Uluniu Street.</p>
+          <p class='event-text'>Jan Gordon Fisher, Gift of the Waikiki Improvement Association, 1990</p>
+          <p class='event-text'>Access: Full</p>
+        </div>
+        <!-- end of artwork feature -->
+      </div>
+    </div>
   </div>
-  <!-- home page image -->
-  <img class="full" src="images/diamond_head.jpg" alt="Diamond Head"><br>
+  <!-- end of page divider -->
 
+  <!-- footer divider -->
+  <div class='foot-div'>
+    <div class='cmp-info'>
+      <img class='logo' src='images/makaleha_logo__v2.png'>
+      <p> Makaleha is an online tool to help locals and visitors embrace the beauty of Hawai'i by
+        learning about the free opportunities and events in the islands. Come and take a walk
+        through the ʻāina with us.</p>
+    </div>
+    <div class='footer'>
+      <p class='footer'>Makaleha &copy; 2020</p>
+      <a class='footer' href='#'>About</a>
+      <a class='footer' href='#'>Privacy Policy</a>
+      <a class='footer' href='#'>FAQ</a>
+    </div>
+
+  </div>
 </body>
+<!-- script to open three line menu -->
+<script>
+  function openMenu(x) {
+    x.classList.toggle("change");
+
+    document.getElementById('dropdwn').style.display = document.getElementById('dropdwn').style.display == 'block' ? 'none' : 'block';
+  }
+</script>
 
 </html>
-<!-- end of indexUser.html -->
+<!-- end of index.html -->
