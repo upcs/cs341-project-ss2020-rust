@@ -2,7 +2,7 @@
 
 /* user for element debugging */
 
-/** { border: 1px solid red; }*/
+/* { border: 1px solid red; }*/
 
 /* default setting for html and body */
 
@@ -132,7 +132,6 @@ a.nav:hover {
 }
 
 .pol-div {
-    padding: 5%; 
     background-color: #ebebeb;
     height: auto;
     width: 100%;
