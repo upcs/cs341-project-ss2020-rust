@@ -8,8 +8,8 @@
   * @desc attempt to login  
   */
 function login() {
-    var username = document.getElementById('loginUsername').value;
-    var password = document.getElementById('loginPassword').value;
+    var username = getUsername();
+    var password = getPassword(); 
     $.post("/login?username=" + username + '&password=' + password, function (data) {
         if (data == null) {
             document.getElementById('loginPassword').value = '';
@@ -22,4 +22,14 @@ function login() {
     });
 }
 
+function getUsername(){
+    var username = document.getElementById('loginUsername').value; 
+    return username; 
+}
+
+function getPassword(){
+    var password = document.getElementById('loginPassword').value;
+    return password; 
+}
+module.exports = {login, getUsername, getPassword};
 // end of login.js
