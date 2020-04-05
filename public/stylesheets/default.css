@@ -131,6 +131,13 @@ a.nav:hover {
     width: 100%;
 }
 
+.pol-div {
+    padding: 5%; 
+    background-color: #ebebeb;
+    height: auto;
+    width: 100%;
+}
+
 .review-div {
     padding-top: 6%;
     background-color: #ebebeb;
@@ -188,7 +195,7 @@ a.nav:hover {
 /*************** footer *****************/
 
 .foot-div {
-    height: 30%;
+    height: auto;
     width: 100%;
     background-color: #b0b0b0;
 }
