@@ -67,7 +67,6 @@ function init(category) {
                     // create row
                     var x = document.createElement("TR");
                     x.setAttribute("id", "'entry" + i + "'");
-
                     if (list[i].hasOwnProperty('LATITUDE') && list[i].hasOwnProperty('LONGITUDE')) {
                         var latitude = list[i].LATITUDE;
                         var longitude = list[i].LONGITUDE;

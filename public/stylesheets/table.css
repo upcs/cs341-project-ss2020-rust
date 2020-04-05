@@ -16,3 +16,13 @@
 .categoryclass {
     display: table-cell;
 }
+td,tr {
+    background-color: #3b3b3b;
+    color: #e8e8e8;
+    padding-left: 10%; 
+    cursor: pointer;
+}
+
+td:hover,tr:hover{
+    background-color: #292929;
+}
