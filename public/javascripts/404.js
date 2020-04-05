@@ -10,5 +10,5 @@
 function goBack() {
     window.history.back();
   }
-
+module.exports = {goBack}; 
   // end of 404.js
