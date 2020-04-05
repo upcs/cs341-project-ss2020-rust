@@ -58,24 +58,24 @@ function validUsername(a) {
     return true;
 }
 function validFirstName(a) {
-    var num = /^\d+$/;
+    var num = /^[A-Z][a-z]*$/;
     if (a == '') { // empty 
         return false;
     }
     else if (num.test(a)) { // contains digit
-        return false;
+        return true;
     }
-    return true;
+    return false;
 }
 function validLastName(a) {
-    var num = /^\d+$/;
+    var num = /^[A-Z][a-z]*$/;
     if (a == '') {
         return false;
     }
     else if (num.test(a)) {
-        return false;
+        return true;
     }
-    return true;
+    return false;
 }
 function validEmail(a) {
     var email = /[A-Za-z0-9]+@[A-Za-z]+.(edu|com)/
@@ -92,3 +92,5 @@ function validPassword(a) {
     return true;
 }
 // end of register.js
+
+module.exports = {register, validUsername, validFirstName, validEmail, validLastName, validPassword}; 

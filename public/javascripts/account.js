@@ -16,7 +16,7 @@ function editMode() {
 		var fTextArea = document.getElementById('first-text');
 		var lTextArea = document.getElementById('last-text');
 		var bTextArea = document.getElementById('bio-text');
-		var username = localStorage.getItem('username');
+		var username = getUsername();
 		var first = fTextArea.value;
 		var last = lTextArea.value;
 		var bio = bTextArea.value;
@@ -80,7 +80,7 @@ function openAccTab(event, tab) {
 }
 
 function initUser() {
-	username = localStorage.getItem('username');
+	username = getUsername(); 
 	if (username != null) {
 		$.post("/initacct?username=" + username, function (user) {
 			document.getElementById('name').innerHTML = user[0].FIRSTNAME + " " + user[0].LASTNAME;
@@ -106,7 +106,7 @@ function changePassword() {
 		return; 
 	}
 	// post to change password from USER table 
-	$.post("/changePassword?username=" + localStorage.getItem('username') + "&old=" + oldpw + "&new=" + newpw,
+	$.post("/changePassword?username=" + getUsername() + "&old=" + oldpw + "&new=" + newpw,
 		function (user) {
 			if (user == null) {
 				alert("Incorrect password. Hana hou!"); // notify user that incorrect password was entered 
@@ -124,7 +124,7 @@ function changePassword() {
  * @desc retrieves users favorite's list 
  */
 function getFavorites() {
-	var username = localStorage.getItem('username'); // saved username 
+	var username = getUsername(); // saved username 
 
 	// post to retrieve favorites 
 	$.post('/retrieveFavorite?user=' + username, function (result) {
@@ -141,18 +141,7 @@ function getFavorites() {
 				for (var j = 1; j < list[i].length; j++) {
 					title += list[i][j];
 				}
-				if (entry == "0") {
-					cat = "Artwork";
-				}
-				else if (entry == "1") {
-					cat = "Outdoor Activities";
-				}
-				else if (entry == "2") {
-					cat = "Community Service";
-				}
-				else {
-					cat = "Events";
-				}
+				cat = selectCategory(entry);
 				table.innerHTML += "<tr> <td>" + cat + "</td> <td>" +
 					title + "</td></tr>";
 			}
@@ -230,4 +219,26 @@ function sortTable(n) {
 	}
 }
 
+function getUsername(){
+	var username = localStorage.getItem('username'); 
+	return username; 
+}
+
+function selectCategory(entry){
+	if (entry == "0") {
+		cat = "Artwork";
+	}
+	else if (entry == "1") {
+		cat = "Outdoor Activities";
+	}
+	else if (entry == "2") {
+		cat = "Community Service";
+	}
+	else {
+		cat = "Events";
+	}
+	return cat; 
+}
+
+module.exports = {splitList, getUsername, selectCategory}; 
 // end of account.js
