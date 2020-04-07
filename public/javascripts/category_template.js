@@ -113,9 +113,15 @@ function search_table() {
     input = input.toLowerCase();
     let x = document.getElementsByClassName('categoryclass');
 
+    let y = 0;
+
     for (i = 0; i < x.length; i++) {
         if (!x[i].innerHTML.toLowerCase().includes(input)) {
             x[i].style.display = "none";
+            y++;
+            if(y == x.length){
+                alert("test");
+            }
         }
         else {
             x[i].style.display = "table-cell";
