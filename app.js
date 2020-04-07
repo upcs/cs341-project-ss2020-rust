@@ -14,6 +14,7 @@ var dataRouter = require('./routes/retrieve');
 var InfoRouter = require('./routes/retrieveInfo');
 var favoriteRouter = require('./routes/retrieveFavorite');
 var changeFavRouter = require('./routes/changeFavorites');
+var reviewRouter = require('./routes/addReview'); 
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use('/retrieve', dataRouter);
 app.use('/retrieveInfo', InfoRouter);
 app.use('/retrieveFavorite', favoriteRouter);
 app.use('/changeFavorites', changeFavRouter);
+app.use('/addReview', reviewRouter); 
 
 
 //redirect 404 error to the 404.html page

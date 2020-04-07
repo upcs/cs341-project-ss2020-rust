@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 
-
 <head>
   <title>Makaleha Account Page</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/account.css" />
@@ -12,10 +11,13 @@
 <script src="javascripts/account.js"> </script>
 <script src="javascripts/logout.js"> </script>
 
-<body onload="initUser()"> <!-- retrieve user info in USERS database on load -->
+
+<body onload="initUser()">
+  <!-- retrieve user info in USERS database on load -->
 
   <div class="leftt">
-    <button class="top-btn" type="button" id="review" onclick="window.location.href = 'reviewpage.html';">Make a review</button>
+    <button class="top-btn" type="button" id="review" onclick="window.location.href = 'reviewpage.html';">Make a
+      review</button>
   </div>
 
   <div class="rightt">
@@ -25,15 +27,15 @@
   <center>
 
     <!-- TODO: Resize image in CSS to fit the page more -->
-    <input onclick="window.location.href='indexUser.html'" type="image" id="makalehalogo" src="images/makaleha_logo__v2.png"
-      alt="Makaleha Logo" width="300" height="140" />
+    <input onclick="window.location.href='indexUser.html'" type="image" id="makalehalogo"
+      src="images/makaleha_logo__v2.png" alt="Makaleha Logo" width="300" height="140" />
   </center>
   <div class="navbar">
     <a href="eventpageUser.html">Events</a>
     <a href="artpageUser.html">Artwork</a>
     <a href="recreationpageUser.html">Outdoor Activities</a>
     <a href="servicepageUser.html">Community Service</a>
-</div>
+  </div>
 
   <div class="tab">
     <button class="tablinks" onclick="openAccTab(event,'Profile')" id="default">Profile</button>
@@ -41,12 +43,6 @@
       Favorites</button>
     <button class="tablinks" onclick="openAccTab(event,'Password')">
       Password</button>
-      <!--
-    <button class="tablinks" onclick="openAccTab(event,'Email/Notifications')">
-      Email/Notifications</button>
-    <button class="tablinks" onclick="openAccTab(event,'Privacy Settings')">
-      Privacy Settings</button>
-    -->
   </div>
 
   <div id="Profile" class="tabcontent">
@@ -65,11 +61,11 @@
     <h2 class="header-title"> Change Password </h2>
     <div>
       <h3> Current Password: </h3>
-      <textarea id="old-pw"></textarea>
+      <input type="password" id="old-pw">
     </div>
     <div>
       <h3> New Password: </h3>
-      <textarea id="new-pw"></textarea>
+      <input type="password" id="new-pw">
     </div>
     <button id="pw-btn" onclick="changePassword()" type="button"> Submit </button>
   </div>
@@ -77,18 +73,15 @@
   <div id="Favorites" class="tabcontent">
     <h2 class="header-title"> Favorites </h2>
     <p id="favorites" onload="getFavorites()"></p>
+    <table id="myTable">
+      <tr>
+        <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
+        <th onclick="sortTable(0)">Category</th>
+        <th onclick="sortTable(1)">Title</th>
+      </tr>
+    </table>
   </div>
 
 </body>
-
 </html>
-
-<!-- 
-  version: 23 FEB 2020
-  TODO:
-  - Favorites functionality
-  - Email/Notification functionality
-  - Privacy Settings functionality
-  - Password *** instead of '123' for user privacy 
-  - center nav page menu bar (completed)
--->
+<!-- end of account page -->

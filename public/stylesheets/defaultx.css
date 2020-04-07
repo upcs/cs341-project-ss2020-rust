@@ -1,0 +1,123 @@
+/* team rust default.css file */
+
+/* general button design*/
+
+button {
+    position: absolute;
+    color: white;
+    background: black;
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 100px;
+    height: 50px;
+}
+
+/* specific button modifications */
+
+#login:hover {
+    background-color: white;
+    font-style: italic;
+    color: black;
+}
+
+#signup:hover {
+    background-color: white;
+    font-style: italic;
+    color: black;
+}
+
+#review:hover {
+    background-color: white;
+    font-style: italic;
+    color: black;
+}
+
+h1 {
+    font-family: Georgia, serif;
+    font-style: italic;
+}
+
+body {
+    background: #add8e6;
+    background: linear-gradient(90deg, rgba(153, 255, 255, 1) 0%, rgba(153, 255, 153, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    border-style: dashed;
+    border-radius: all;
+}
+
+.right {
+    position: absolute;
+    right: 25px;
+    width: 100px;
+    padding: 10px;
+}
+
+.left {
+    position: absolute;
+    left: 25px;
+    width: 100px;
+    padding: 10px;
+}
+
+.bg {
+    /* The image used */
+    background-image: url("diamond_head.jpg");
+    /* Full height */
+    height: 100%;
+    width: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.full {
+    height: 100%;
+    width: 100%;
+}
+
+.navbar {
+    width: 100%;
+    background-color: rgb(34, 32, 32);
+    overflow: auto;
+}
+
+.navbar a {
+    float: left;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    width: 23.4%;
+    /* Four links of equal widths */
+    text-align: center;
+}
+
+.navbar a:hover {
+    background-color: black;
+}
+
+@media screen and (max-width: 500px) {
+    .navbar a {
+        float: none;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+}
+
+.saved-btn {
+    background-color: yellow;
+    color: black;
+    border: none;
+}
+
+.unsaved-btn {
+    background-color: #f6f7df;
+    color: black;
+    border: none;
+}
+
+.favoriteButton {
+    font-size: 250%;
+    color: yellow;
+}

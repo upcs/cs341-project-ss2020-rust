@@ -1,8 +1,11 @@
-#arttable {
+/* team rust table.css file */
+
+#categorytable {
     border: 1px solid black;
     height: 500px;
     width: 100%;
     overflow-y: scroll;
+    line-height: 300%;
 }
 
 #displaytext {
@@ -10,6 +13,16 @@
     width: 75%;
 }
 
-.artclass {
+.categoryclass {
     display: table-cell;
+}
+td,tr {
+    background-color: #3b3b3b;
+    color: #e8e8e8;
+    padding-left: 10%; 
+    cursor: pointer;
+}
+
+td:hover,tr:hover{
+    background-color: #292929;
 }
