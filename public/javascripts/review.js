@@ -120,4 +120,5 @@ function getItems(value) {
     }
 }
 
+module.exports = {getRating, validSubmission}; 
 // end of review.js
