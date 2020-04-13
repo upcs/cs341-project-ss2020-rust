@@ -39,8 +39,8 @@
         <div class='bar2'></div>
         <div class='bar3'></div>
         <div id='dropdwn' class='dropdwn-content'>
-          <a onclick="document.getElementById('id01').style.display='block'" class='nav' href='#'>Log In</a>
-          <a onclick="document.getElementById('id02').style.display='block'" class='nav' href='#'>Register</a>
+          <a onclick="document.getElementById('id01').style.display='block', document.getElementById('id02').style.display='none'" class='nav' href='#'>Log In</a>
+          <a onclick="document.getElementById('id02').style.display='block', document.getElementById('id01').style.display='none'" class='nav' href='#'>Register</a>
           <a class='nav' href='reviewpage.html'>Write a Review</a>
         </div>
       </div>
@@ -69,10 +69,9 @@
         <span class="psw">
           <font color="red" id="invalidLogin"></font>
         </span>
-      </div>
-
-      <div class="container">
-        <button onclick="login()">Login</button>
+        <br>
+        <br>
+        <button style="position: relative;" onclick="login()">Login</button>
         <span class="psw"><a href="#">Forgot password?</a></span>
       </div>
     </div>
@@ -103,13 +102,14 @@
 
         <label><b>Password</b></label>
         <input type="password" class="inputText" placeholder="Enter Password" id="signupPassword">
-      </div>
-
-      <div class="container">
-        <span class="su">
-          <font color="red" id="invalidSignUp"></font>
-        </span>
-        <span class="registrationButton"><button onclick="register()">Complete Registration</button></span>
+        <br>
+        <br>
+        <div style="position: relative;">
+          <button style="position: absolute; right:0px" onclick="register()">Complete Registration</button>
+        </div>
+        <br>
+        <br>
+        <br>
       </div>
     </div>
   </div>
