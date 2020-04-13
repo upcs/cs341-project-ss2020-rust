@@ -70,5 +70,6 @@ test('testing password invalid', () => {
 });
 
 test('testing register function', () => {
-    expect(f.register()).toBeFalsy();
+    var html = fs.readFileSync('./public/index.html', 'utf8');
+    expect(html.register()).toBeFalsy();
 });
