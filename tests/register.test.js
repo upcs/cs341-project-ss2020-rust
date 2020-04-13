@@ -68,3 +68,7 @@ test('testing password invalid', () => {
     var pw = 'password';
     expect(f.validPassword(pw)).toBeFalsy();
 });
+
+test('testing register function', () => {
+    expect(f.register()).toBeFalsy();
+});

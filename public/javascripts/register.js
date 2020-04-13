@@ -14,44 +14,44 @@ function register() {
     var email = document.getElementById('signupEmail').value;
     var password = document.getElementById('signupPassword').value;
     var confirmPassword = document.getElementById('signupConfirmPassword').value;
-    var validLogin = true;
+    var validSignup = true;
     if (!validUsername(username)) {
         document.getElementById('usernameError').style.display = 'block';
-        validLogin = false;
+        validSignup = false;
     } else{
         document.getElementById('usernameError').style.display = 'none';
     }
     if (!validFirstName(firstName)) {
         document.getElementById('firstNameError').style.display = 'block';
-        validLogin = false;
+        validSignup = false;
     } else{
         document.getElementById('firstNameError').style.display = 'none';
     }
     if (!validLastName(lastName)) {
         document.getElementById('lastNameError').style.display = 'block';
-        validLogin = false;
+        validSignup = false;
     } else{
         document.getElementById('lastNameError').style.display = 'none';
     }
     if (!validEmail(email)) {
         document.getElementById('emailError').style.display = 'block';
-        validLogin = false;
+        validSignup = false;
     } else{
         document.getElementById('emailError').style.display = 'none';
     }
     if (!validPassword(password)) {
         document.getElementById('passwordError').style.display = 'block';
-        validLogin = false;
+        validSignup = false;
     } else{
         document.getElementById('passwordError').style.display = 'none';
     }
     if (password != confirmPassword){
         document.getElementById('confirmPasswordError').style.display = 'block';
-        validLogin = false;
+        validSignup = false;
     } else{
         document.getElementById('confirmPasswordError').style.display = 'none';
     }
-    if (validLogin) {
+    if (validSignup) {
         $.post("/register?username=" + username + '&password=' + password + '&firstName=' + firstName + '&lastName=' + lastName + '&email=' + email, function (data) {
             if (data == "success") {
                 document.getElementById('usernameExists').style.display = 'none';
@@ -72,7 +72,7 @@ function register() {
 
         }); //creates user in database logs them in and brings them to homepage
     } else {
-
+        return false;
     } //do nothing
 }
 
