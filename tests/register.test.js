@@ -60,11 +60,11 @@ test('not valid first name', () => {
 });
 
 test('testing password valid', () => {
-    var pw = '12345678';
+    var pw = 'P@ssword1';
     expect(f.validPassword(pw)).toBeTruthy();
 });
 
 test('testing password invalid', () => {
-    var pw = '12345';
+    var pw = 'password';
     expect(f.validPassword(pw)).toBeFalsy();
 });
