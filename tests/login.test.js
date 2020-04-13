@@ -1,6 +1,5 @@
 var $ = require('jquery');
 var f = require('../public/javascripts/login');
-
 test('getting username input', () => {
     document.body.innerHTML = '<div> \
     <input type="text" id="loginUsername"> </div>'; 
