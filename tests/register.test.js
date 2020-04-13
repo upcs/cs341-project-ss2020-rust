@@ -69,7 +69,15 @@ test('testing password invalid', () => {
     expect(f.validPassword(pw)).toBeFalsy();
 });
 
-test('testing register function', () => {
+var fs = require('fs');
+test('testing register function with no valid', () => {
     var html = fs.readFileSync('./public/index.html', 'utf8');
-    expect(html.register()).toBeFalsy();
+    document.body.innerHTML = html;
+    expect(f.register()).toBeFalsy();
+});
+
+test('testing register function with valid username', () => {
+    var html = fs.readFileSync('./public/index.html', 'utf8');
+    document.body.innerHTML = html;
+    expect(f.register()).toBeFalsy();
 });
