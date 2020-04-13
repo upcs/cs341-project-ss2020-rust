@@ -1,7 +1,7 @@
 /**
  * register.js
  * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
- * @version 02April2020
+ * @version 12April2020
  */
 
  /**
@@ -26,7 +26,7 @@ function register() {
     if (!validEmail(email)) {
         validLogin = false;
     }
-    if (!validPassword(password)) {
+    if (!validPassword(username, password)) {
         validLogin = false;
     }
     if (validLogin) {
@@ -51,11 +51,19 @@ function register() {
 
 /** BELOW ARE VALIDATION FUNCTIONS TO MAKE SURE THAT USER INPUT IS VALID */
 function validUsername(a) {
-    if (a.length < 4) {
-        alert("minimum username length of 4");
+    var num = /^[0-9A-Za-z\.\_\-]+$/; // can be combo of letters, numbers,_,-,.
+    if (a.length < 6) {
+        alert("Minimum username length of 6");
         return false;
     }
-    return true;
+    else if (a.length > 15) {
+        alert("Maximum username length of 15");
+        return false;
+    }
+    else if(num.test(a)){
+        return true; 
+    }
+    return false;
 }
 function validFirstName(a) {
     var num = /^[A-Z][a-z]*$/;
@@ -84,12 +92,29 @@ function validEmail(a) {
     }
     return false;
 }
-function validPassword(a) {
-    if (a.length < 8) {
-        alert("minimum password length of 8");
+function validPassword(user, pw) {
+    if (user == pw) {
+        alert("Password cannot match username")
+        return false; 
+    }
+    if (pw.length < 8) {
+        alert("Minimum password length of 8");
         return false;
     }
-    return true;
+    else if (pw.length > 33) {
+        alert("Maximum password length of 33");
+        return false;
+    }
+    var oneUpper = /.*[A-Z].*/
+    var oneDigit = /.*[0-9].*/
+    var oneSpecial = /.*[-\_\.\$\#\@\!].*/
+    if(oneUpper.test(pw) && oneDigit.test(pw) && oneSpecial.test(pw)){
+        return true; 
+    }
+    else{
+        alert("Invalid password. A password must contain at least ONE:\nUppercase\nDigit\nSpecial Character (- _ . $ # @ !)")
+        return false; 
+    }
 }
 // end of register.js
 
