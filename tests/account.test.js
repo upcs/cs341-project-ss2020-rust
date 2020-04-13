@@ -45,3 +45,8 @@ test('check that each entry leads to specific category', () => {
     var ev = f.selectCategory('3');
     expect(ev).toBe('Events');
 }); 
+
+test('visit account page', () => {
+	var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    expect(html).toEqual(expect.anything());
+ });
