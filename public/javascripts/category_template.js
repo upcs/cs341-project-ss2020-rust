@@ -88,16 +88,19 @@ function search_table() {
 
     let y = 0;
 
+    let noResult = document.getElementById('result');
+
     for (i = 0; i < x.length; i++) {
         if (!x[i].innerHTML.toLowerCase().includes(input)) {
             x[i].style.display = "none";
             y++;
             if(y == x.length){
-                alert("test");
+                result.style.visibility = "visible";
             }
         }
         else {
             x[i].style.display = "table-cell";
+            result.style.visibility = "hidden";
         }
     }
 }

@@ -17,6 +17,16 @@ html, body {
     background: transparent;
 }
 
+h3.hidden{
+    visibility: hidden;
+}
+
+#result{
+    position: absolute;
+    left: 5%;
+    top: 30%;
+}
+
 /* main dividers */
 
 /*************** header *****************/
