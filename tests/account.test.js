@@ -47,6 +47,30 @@ test('check that each entry leads to specific category', () => {
 }); 
 
 test('visit account page', () => {
-	var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
+    var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    document.body.innerHTML = html;
     expect(html).toEqual(expect.anything());
+    window.alert = jsdomAlert;  // restore the jsdom alert
+ });
+
+ test('visit account page', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
+    var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    document.body.innerHTML = html;
+    expect(f.initUser()).toBeFalsy(); 
+    window.alert = jsdomAlert;  // restore the jsdom alert
+ });
+
+ test('changing new pw = old pw', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
+    var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    document.body.innerHTML = html;
+    document.getElementById('old-pw').value = '1234';
+    document.getElementById('new-pw').value = '1234';
+    expect(f.changePassword()).toBeFalsy(); 
+    window.alert = jsdomAlert;  // restore the jsdom alert
  });

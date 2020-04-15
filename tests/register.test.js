@@ -8,21 +8,21 @@ test('testing username valid', () => {
 
 test('username length under 8', () => {
     const jsdomAlert = window.alert;  // remember the jsdom alert
-    window.alert = () => {};  // provide an empty implementation for window.alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
     var username = '';
     expect(f.validUsername(username)).toBeFalsy();
     window.alert = jsdomAlert;  // restore the jsdom alert
 });
 test('username length over 15', () => {
     const jsdomAlert = window.alert;  // remember the jsdom alert
-    window.alert = () => {};  // provide an empty implementation for window.alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
     var username = '1234567891123456';
     expect(f.validUsername(username)).toBeFalsy();
     window.alert = jsdomAlert;  // restore the jsdom alert
 });
 test('username does not meet requirements besides length', () => {
     const jsdomAlert = window.alert;  // remember the jsdom alert
-    window.alert = () => {};  // provide an empty implementation for window.alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
     var username = '$$$$$$$$$';
     expect(f.validUsername(username)).toBeFalsy();
     window.alert = jsdomAlert;  // restore the jsdom alert
@@ -35,7 +35,7 @@ test('valid email', () => {
 
 test('not valid email', () => {
     const jsdomAlert = window.alert;  // remember the jsdom alert
-    window.alert = () => {};  // provide an empty implementation for window.alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
     var email = 'doej21$';
     expect(f.validEmail(email)).toBeFalsy();
     email = '';
@@ -54,7 +54,7 @@ test('valid last name', () => {
 
 test('not valid last name', () => {
     const jsdomAlert = window.alert;  // remember the jsdom alert
-    window.alert = () => {};  // provide an empty implementation for window.alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
     var name = 'simonk21$';
     expect(f.validLastName(name)).toBeFalsy();
     name = 'simon';
@@ -73,7 +73,7 @@ test('valid first name', () => {
 
 test('not valid first name', () => {
     const jsdomAlert = window.alert;  // remember the jsdom alert
-    window.alert = () => {};  // provide an empty implementation for window.alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
     var name = 'simonk21$';
     expect(f.validFirstName(name)).toBeFalsy();
     name = 'john';
@@ -86,26 +86,50 @@ test('not valid first name', () => {
 });
 
 test('testing password valid', () => {
-var pw = 'Da$12345';
-var user = 'doej21';
-expect(f.validPassword(user, pw)).toBeTruthy();
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
+    var pw = 'Da$12345';
+    var user = 'doej21';
+    expect(f.validPassword(user, pw)).toBeTruthy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
 });
 var fs = require('fs');
 test('testing register function with no valid', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
     var html = fs.readFileSync('./public/index.html', 'utf8');
     document.body.innerHTML = html;
     expect(f.register()).toBeFalsy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
 });
 
-test('testing register function with valid username', () => {
+test('testing register function with no valid confirm password', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
     var html = fs.readFileSync('./public/index.html', 'utf8');
     document.body.innerHTML = html;
+    document.getElementById('signupUsername').value = 'simonk21';
+    document.getElementById('signupFirstName').value = 'Kama';
+    document.getElementById('signupLastName').value = 'Simon';
+    document.getElementById('signupEmail').value = 'simonk21@up.edu';
+    document.getElementById('signupPassword').value = 'Da$1111';
     expect(f.register()).toBeFalsy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
 });
 
+test('testing register function with password = confirm password', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
+    var html = fs.readFileSync('./public/index.html', 'utf8');
+    document.body.innerHTML = html;
+    document.getElementById('signupPassword').value = 'Da$111111';
+    document.getElementById('signupConfirmPassword').value = 'Da$111111';
+    expect(f.register()).toBeFalsy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
+});
 test('testing password invalid', () => {
     const jsdomAlert = window.alert;  // remember the jsdom alert
-    window.alert = () => {};  // provide an empty implementation for window.alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
     var pw = '12345';
     var user = '12345';
     expect(f.validPassword(user, pw)).toBeFalsy();
@@ -114,7 +138,7 @@ test('testing password invalid', () => {
 
 test('testing pw length to be under 8', () => {
     const jsdomAlert = window.alert;  // remember the jsdom alert
-    window.alert = () => {};  // provide an empty implementation for window.alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
     var pw = 'Da_1';
     var user = 'doej21';
     expect(f.validPassword(user, pw)).toBeFalsy();
@@ -123,7 +147,7 @@ test('testing pw length to be under 8', () => {
 
 test('testing pw length to be over 33', () => {
     const jsdomAlert = window.alert;  // remember the jsdom alert
-    window.alert = () => {};  // provide an empty implementation for window.alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
     var pw = 'Da_1234567890123456789012345678901234567890123456789012345678901234567890';
     var user = 'doej21';
     expect(f.validPassword(user, pw)).toBeFalsy();
@@ -132,7 +156,7 @@ test('testing pw length to be over 33', () => {
 
 test('testing pw to not contain specific parts', () => {
     const jsdomAlert = window.alert;  // remember the jsdom alert
-    window.alert = () => {};  // provide an empty implementation for window.alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
     var pw = 'Daaaaaaaaaaa808';
     var user = 'doej21';
     expect(f.validPassword(user, pw)).toBeFalsy();
