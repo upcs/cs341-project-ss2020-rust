@@ -6,7 +6,7 @@
 
 // global variables 
 var map; // google map
-var cat; // page category (i.e. art, service, events, outdoor)
+var cat = 'art'; // page category (i.e. art, service, events, outdoor)
 var activeInfoWindow;
 var markers = []; // map marker array 
 
@@ -18,36 +18,9 @@ function init(category) {
     cat = category; // initialize global variable
     var user = localStorage.getItem('username');
     var curr = window.location.pathname;
-    var next;
-    if (user != null) { // only can access user pages 
-        switch (category) {
-            case "art": next = "/artpageUser.html";
-                break;
-            case "outdoor": next = "/recreationpageUser.html";
-                break;
-            case "events": next = "/eventpageUser.html";
-                break;
-            case "service": next = "/servicepageUser.html";
-                break;
-        }
-        if (curr != next) {
-            window.location.replace(next);
-        }
-    }
-    else { // only can access non-user pages 
-        switch (category) {
-            case "art": next = "/artpage.html";
-                break;
-            case "outdoor": next = "/recreationpage.html";
-                break;
-            case "events": next = "/eventpage.html";
-                break;
-            case "service": next = "/servicepage.html";
-                break;
-        }
-        if (curr != next) {
-            window.location.replace(next);
-        }
+    var path = redirect(user, curr, cat);
+    if(path != curr){
+        window.location.replace(path);
     }
     // post to retrieve table entries 
     $.post('/retrieve?type=' + cat, function (list) { // POST for art info
@@ -519,4 +492,17 @@ function getServiceContent(description, phone, website) {
     content += '<p>' + phone + ' ' + website + '</p>';
     return content;
 }
+
+function redirect(user, curr, cat) {
+    var next = curr;
+    if (user != null) { // only can access user pages 
+        next = `/${cat}pageUser.html`;
+    }
+    else { // only can access non-user pages 
+        next = `/${cat}page.html`;
+    }
+    return next; 
+}
+
+module.exports = {redirect, getServiceContent, getEventContent, getOutdoorContent, getArtContent}; 
 // end of category_template.js
