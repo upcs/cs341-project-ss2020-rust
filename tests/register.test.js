@@ -86,9 +86,21 @@ test('not valid first name', () => {
 });
 
 test('testing password valid', () => {
-    var pw = 'Da$12345';
-    var user = 'doej21';
-    expect(f.validPassword(user, pw)).toBeTruthy();
+var pw = 'Da$12345';
+var user = 'doej21';
+expect(f.validPassword(user, pw)).toBeTruthy();
+});
+var fs = require('fs');
+test('testing register function with no valid', () => {
+    var html = fs.readFileSync('./public/index.html', 'utf8');
+    document.body.innerHTML = html;
+    expect(f.register()).toBeFalsy();
+});
+
+test('testing register function with valid username', () => {
+    var html = fs.readFileSync('./public/index.html', 'utf8');
+    document.body.innerHTML = html;
+    expect(f.register()).toBeFalsy();
 });
 
 test('testing password invalid', () => {

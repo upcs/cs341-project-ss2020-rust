@@ -13,39 +13,66 @@ function register() {
     var lastName = document.getElementById('signupLastName').value;
     var email = document.getElementById('signupEmail').value;
     var password = document.getElementById('signupPassword').value;
-    var validLogin = true;
+    var confirmPassword = document.getElementById('signupConfirmPassword').value;
+    var validSignup = true;
     if (!validUsername(username)) {
-        validLogin = false;
+        document.getElementById('usernameError').style.display = 'block';
+        validSignup = false;
+    } else{
+        document.getElementById('usernameError').style.display = 'none';
     }
     if (!validFirstName(firstName)) {
-        validLogin = false;
+        document.getElementById('firstNameError').style.display = 'block';
+        validSignup = false;
+    } else{
+        document.getElementById('firstNameError').style.display = 'none';
     }
     if (!validLastName(lastName)) {
-        validLogin = false;
+        document.getElementById('lastNameError').style.display = 'block';
+        validSignup = false;
+    } else{
+        document.getElementById('lastNameError').style.display = 'none';
     }
     if (!validEmail(email)) {
-        validLogin = false;
+        document.getElementById('emailError').style.display = 'block';
+        validSignup = false;
+    } else{
+        document.getElementById('emailError').style.display = 'none';
     }
     if (!validPassword(username, password)) {
-        validLogin = false;
+        document.getElementById('passwordError').style.display = 'block';
+        validSignup = false;
+    } else{
+        document.getElementById('passwordError').style.display = 'none';
     }
-    if (validLogin) {
+    if (password != confirmPassword){
+        document.getElementById('confirmPasswordError').style.display = 'block';
+        validSignup = false;
+    } else{
+        document.getElementById('confirmPasswordError').style.display = 'none';
+    }
+    if (validSignup) {
         $.post("/register?username=" + username + '&password=' + password + '&firstName=' + firstName + '&lastName=' + lastName + '&email=' + email, function (data) {
             if (data == "success") {
+                document.getElementById('usernameExists').style.display = 'none';
+                document.getElementById('emailExists').style.display = 'none';
                 document.getElementById('id02').style.display = 'none';
                 localStorage.setItem('username', username);
                 window.location.href = "indexUser.html";
             } else if (data == "usernameFound=trueemailFound=false") {
-                alert("username already exists");
+                document.getElementById('usernameExists').style.display = 'block';
+                document.getElementById('emailExists').style.display = 'none';
             } else if (data == "usernameFound=falseemailFound=true") {
-                alert("email already exists");
+                document.getElementById('usernameExists').style.display = 'none';
+                document.getElementById('emailExists').style.display = 'block';
             } else {
-                alert("username and email already exist");
+                document.getElementById('usernameExists').style.display = 'block';
+                document.getElementById('emailExists').style.display = 'block';
             }
 
         }); //creates user in database logs them in and brings them to homepage
     } else {
-
+        return false;
     } //do nothing
 }
 

@@ -73,12 +73,12 @@ span.psw {
 
 .modal-content {
   background-color: #fefefe;
-  margin: 5% auto 5% auto;
+  margin: 3% auto 5% auto;
   /* 5% from the top, 15% from the bottom and centered */
   border: 1px solid #888;
   width: 80%;
   /* Could be more or less, depending on screen size */
-  height: 76%;
+  height: fit-content;
 }
 
 /* The Close Button (x) */
@@ -132,14 +132,4 @@ span.psw {
   .cancelbtn {
     width: 100%;
   }
-}
-
-span.registrationButton {
-  float: right;
-  padding-right: 115px;
-}
-
-span.su {
-  float: left;
-  padding-left: 2%;
 }
