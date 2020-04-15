@@ -6,9 +6,26 @@ test('testing username valid', () => {
     expect(f.validUsername(username)).toBeTruthy();
 });
 
-test('testing username not valid', () => {
+test('username length under 8', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => {};  // provide an empty implementation for window.alert
     var username = '';
     expect(f.validUsername(username)).toBeFalsy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
+});
+test('username length over 15', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => {};  // provide an empty implementation for window.alert
+    var username = '1234567891123456';
+    expect(f.validUsername(username)).toBeFalsy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
+});
+test('username does not meet requirements besides length', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => {};  // provide an empty implementation for window.alert
+    var username = '$$$$$$$$$';
+    expect(f.validUsername(username)).toBeFalsy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
 });
 
 test('valid email', () => {
@@ -17,6 +34,8 @@ test('valid email', () => {
 });
 
 test('not valid email', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => {};  // provide an empty implementation for window.alert
     var email = 'doej21$';
     expect(f.validEmail(email)).toBeFalsy();
     email = '';
@@ -25,6 +44,7 @@ test('not valid email', () => {
     expect(f.validEmail(email)).toBeFalsy();
     email = 'doesj21@fake.net';
     expect(f.validEmail(email)).toBeFalsy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
 });
 
 test('valid last name', () => {
@@ -33,6 +53,8 @@ test('valid last name', () => {
 });
 
 test('not valid last name', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => {};  // provide an empty implementation for window.alert
     var name = 'simonk21$';
     expect(f.validLastName(name)).toBeFalsy();
     name = 'simon';
@@ -41,6 +63,7 @@ test('not valid last name', () => {
     expect(f.validLastName(name)).toBeFalsy();
     name = '';
     expect(f.validLastName(name)).toBeFalsy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
 });
 
 test('valid first name', () => {
@@ -49,6 +72,8 @@ test('valid first name', () => {
 });
 
 test('not valid first name', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => {};  // provide an empty implementation for window.alert
     var name = 'simonk21$';
     expect(f.validFirstName(name)).toBeFalsy();
     name = 'john';
@@ -57,18 +82,14 @@ test('not valid first name', () => {
     expect(f.validFirstName(name)).toBeFalsy();
     name = '';
     expect(f.validFirstName(name)).toBeFalsy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
 });
 
 test('testing password valid', () => {
-    var pw = 'P@ssword1';
-    expect(f.validPassword(pw)).toBeTruthy();
+var pw = 'Da$12345';
+var user = 'doej21';
+expect(f.validPassword(user, pw)).toBeTruthy();
 });
-
-test('testing password invalid', () => {
-    var pw = 'password';
-    expect(f.validPassword(pw)).toBeFalsy();
-});
-
 var fs = require('fs');
 test('testing register function with no valid', () => {
     var html = fs.readFileSync('./public/index.html', 'utf8');
@@ -81,3 +102,51 @@ test('testing register function with valid username', () => {
     document.body.innerHTML = html;
     expect(f.register()).toBeFalsy();
 });
+
+test('testing password invalid', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => {};  // provide an empty implementation for window.alert
+    var pw = '12345';
+    var user = '12345';
+    expect(f.validPassword(user, pw)).toBeFalsy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
+});
+
+test('testing pw length to be under 8', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => {};  // provide an empty implementation for window.alert
+    var pw = 'Da_1';
+    var user = 'doej21';
+    expect(f.validPassword(user, pw)).toBeFalsy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
+});
+
+test('testing pw length to be over 33', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => {};  // provide an empty implementation for window.alert
+    var pw = 'Da_1234567890123456789012345678901234567890123456789012345678901234567890';
+    var user = 'doej21';
+    expect(f.validPassword(user, pw)).toBeFalsy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
+});
+
+test('testing pw to not contain specific parts', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => {};  // provide an empty implementation for window.alert
+    var pw = 'Daaaaaaaaaaa808';
+    var user = 'doej21';
+    expect(f.validPassword(user, pw)).toBeFalsy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
+});
+
+/*
+test('testing getElementById', () => {
+    document.body.innerHTML = '<input type="text" class="inputText" placeholder="Enter Username" id="signupUsername"> \
+    <input type="text" class="inputText" placeholder="Enter First Name" id="signupFirstName">\
+    <input type="text" class="inputText" placeholder="Enter Last Name" id="signupLastName">\
+    <input type="text" class="inputText" placeholder="Enter Email" id="signupEmail">\
+    <input type="password" class="inputText" placeholder="Enter Password" id="signupPassword">';
+    document.getElementById('signupUsername').value = '';
+    expect(f.validPassword(user, pw)).toBeFalsy();
+});
+*/
