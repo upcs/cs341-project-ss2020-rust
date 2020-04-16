@@ -74,3 +74,14 @@ test('visit account page', () => {
     expect(f.changePassword()).toBeFalsy(); 
     window.alert = jsdomAlert;  // restore the jsdom alert
  });
+
+ /*
+ test('changing new pw = old pw', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
+    var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    document.body.innerHTML = html;
+    expect(f.openAccTab("tablinks", "Profile")).toBe(expect.anything()); 
+    window.alert = jsdomAlert;  // restore the jsdom alert
+ });
+ */

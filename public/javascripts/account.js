@@ -135,7 +135,7 @@ function openAccTab(event, tab) {
 		tablinks[i].className = tablinks[i].className.replace(" active", "");
 	}
 	document.getElementById(tab).style.display = "block";
-	evt.currentTarget.className += " active";
+	event.currentTarget.className += " active";
 }
 
 function initUser() {
@@ -243,5 +243,5 @@ function selectCategory(entry) {
 	return cat;
 }
 
-module.exports = { splitList, getUsername, selectCategory, initUser, changePassword };
+module.exports = { splitList, getUsername, selectCategory, initUser, changePassword, openAccTab };
 // end of account.js

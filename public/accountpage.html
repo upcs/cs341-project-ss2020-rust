@@ -3,8 +3,9 @@
 <html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Makaleha Account Page</title>
-  <link rel="stylesheet" type="text/css" href="stylesheets/account.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/default.css" />
 </head>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -13,75 +14,114 @@
 
 
 <body onload="initUser()">
-  <!-- retrieve user info in USERS database on load -->
-
-  <div class="leftt">
-    <button class="top-btn" type="button" id="review" onclick="window.location.href = 'reviewpage.html';">Make a
-      review</button>
-  </div>
-
-  <div class="rightt">
-    <button onclick="logout()" class="top-btn" type="button" id="logout">Log out</button>
-  </div> <!-- set log out to go back to index.html -->
-
-  <center>
-
-    <!-- TODO: Resize image in CSS to fit the page more -->
-    <input onclick="window.location.href='indexUser.html'" type="image" id="makalehalogo"
-      src="images/makaleha_logo__v2.png" alt="Makaleha Logo" width="300" height="140" />
-  </center>
-  <div class="navbar">
-    <a href="eventspageUser.html">Events</a>
-    <a href="artpageUser.html">Artwork</a>
-    <a href="outdoorpageUser.html">Outdoor Activities</a>
-    <a href="servicepageUser.html">Community Service</a>
-  </div>
-
-  <div class="tab">
-    <button class="tablinks" onclick="openAccTab(event,'Profile')" id="default">Profile</button>
-    <button class="tablinks" onclick="openAccTab(event,'Favorites')">
-      Favorites</button>
-    <button class="tablinks" onclick="openAccTab(event,'Password')">
-      Password</button>
-  </div>
-
-  <div id="Profile" class="tabcontent">
-    <h2 class="header-title"> Profile </h2>
-    <div id="name-div">
-      <h3 id="name"> </h3>
+  <!-- header divider -->
+  <!-- Should look like this: 
+    Makaleha      Events  Community Service  Outdoor Activities  Artwork  About     #(3 lines)
+  -->
+  <div class='header-div'>
+    <!-- divider containing 'Makaleha' title -->
+    <div class='title-div'>
+      <a href='indexUser.html'>
+        <h1 class='title'>Makaleha</h1>
+      </a>
     </div>
-    <div id="bio-div">
-      <h3> Bio </h3>
-      <p id="bio"></p>
+    <!-- divider containing navigation menu -->
+    <div class='nav-div'>
+      <a class='nav' href='eventspageUser.html'>Events</a>
+      <a class='nav' href='servicepageUser.html'>Community Service</a>
+      <a class='nav' href='outdoorpageUser.html'>Outdoor Activities</a>
+      <a class='nav' href='artpageUser.html'>Artwork</a>
+      <a class='nav' href='aboutUser.html'>About</a>
     </div>
-    <button id="edit-btn" onclick="editMode()" type="button"> Edit Profile </button>
-  </div>
-
-  <div id="Password" class="tabcontent">
-    <h2 class="header-title"> Change Password </h2>
-    <div>
-      <h3> Current Password: </h3>
-      <input type="password" id="old-pw">
+    <!-- divider containing account tab -->
+    <div class='account-div'>
+      <div class='menu' onclick='openMenu(this)'>
+        <div class='bar1'></div>
+        <div class='bar2'></div>
+        <div class='bar3'></div>
+        <div id='dropdwn' class='dropdwn-content'>
+          <a class='nav' href='accountpage.html'>Account</a>
+          <a class='nav' onclick='logout()'>Log Out</a>
+          <a class='nav' href='reviewpage.html'>Write a Review</a>
+        </div>
+      </div>
     </div>
-    <div>
-      <h3> New Password: </h3>
-      <input type="password" id="new-pw">
+  </div>
+  <!-- end of header divider -->
+  <!-- rest of page divider -->
+  <div class='page-div'>
+    <div class="tab">
+      <button class="tablinks" onclick="openAccTab(event,'Profile')" id="default">Profile</button>
+      <button class="tablinks" onclick="openAccTab(event,'Favorites')">
+        Favorites</button>
+      <button class="tablinks" onclick="openAccTab(event,'Password')">
+        Password</button>
     </div>
-    <button id="pw-btn" onclick="changePassword()" type="button"> Submit </button>
-  </div>
 
-  <div id="Favorites" class="tabcontent">
-    <h2 class="header-title"> Favorites </h2>
-    <p id="favorites" onload="getFavorites()"></p>
-    <table id="myTable">
-      <tr>
-        <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
-        <th onclick="sortTable(0)">Category</th>
-        <th onclick="sortTable(1)">Title</th>
-      </tr>
-    </table>
-  </div>
+    <div id="Profile" class="tabcontent">
+      <h2 class="header-title"> Profile </h2>
+      <div id="name-div">
+        <h3 id="name"> </h3>
+      </div>
+      <div id="bio-div">
+        <h3> Bio </h3>
+        <p id="bio"></p>
+      </div>
+      <button id="edit-btn" onclick="editMode()" type="button"> Edit Profile </button>
+    </div>
 
+    <div id="Password" class="tabcontent">
+      <h2 class="header-title"> Change Password </h2>
+      <div>
+        <h3> Current Password: </h3>
+        <input type="password" id="old-pw">
+      </div>
+      <div>
+        <h3> New Password: </h3>
+        <input type="password" id="new-pw">
+      </div>
+      <button id="pw-btn" onclick="changePassword()" type="button"> Submit </button>
+    </div>
+
+    <div id="Favorites" class="tabcontent">
+      <h2 class="header-title"> Favorites </h2>
+      <p id="favorites" onload="getFavorites()"></p>
+      <table id="myTable">
+        <tr>
+          <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
+          <th onclick="sortTable(0)">Category</th>
+          <th onclick="sortTable(1)">Title</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <!-- end of page divider -->
+
+  <!-- footer divider -->
+  <div class='foot-div'>
+    <div class='cmp-info'>
+      <img class='logo' src='images/makaleha_logo__v2.png'>
+      <p> Makaleha is an online tool to help locals and visitors embrace the beauty of Hawai'i by
+        learning about the free opportunities and events in the islands. Come and take a walk
+        through the ʻāina with us.</p>
+    </div>
+    <div class='footer'>
+      <p class='footer'>Makaleha &copy; 2020</p>
+      <a class='footer' href='aboutUser.html'>About</a>
+      <a class='footer' href='privpolicyUser.html'>Privacy Policy</a>
+      <a class='footer' href='https://github.com/upcs/cs341-project-ss2020-rust'>GitHub</a>
+    </div>
+
+  </div>
 </body>
+<!-- script to open three line menu -->
+<script>
+  function openMenu(x) {
+    x.classList.toggle("change");
+
+    document.getElementById('dropdwn').style.display = document.getElementById('dropdwn').style.display == 'block' ? 'none' : 'block';
+  }
+</script>
+
 </html>
 <!-- end of account page -->
