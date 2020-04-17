@@ -39,6 +39,9 @@ function init(category) {
 
                     // create row
                     var x = document.createElement("TR");
+
+                    x.className = "categoryrow";
+
                     x.setAttribute("id", "'entry" + i + "'");
                     if (list[i].hasOwnProperty('LATITUDE') && list[i].hasOwnProperty('LONGITUDE')) {
                         var latitude = list[i].LATITUDE;
@@ -85,6 +88,7 @@ function search_table() {
     let input = document.getElementById('searchbar_input').value
     input = input.toLowerCase();
     let x = document.getElementsByClassName('categoryclass');
+    let z = document.getElementsByClassName('categoryrow');
 
     let y = 0;
 
@@ -93,6 +97,10 @@ function search_table() {
     for (i = 0; i < x.length; i++) {
         if (!x[i].innerHTML.toLowerCase().includes(input)) {
             x[i].style.display = "none";
+
+            z[i].style.display = "none";
+
+
             y++;
             if(y == x.length){
                 result.style.visibility = "visible";
@@ -100,6 +108,7 @@ function search_table() {
         }
         else {
             x[i].style.display = "table-cell";
+            z[i].style.display = "table-row";
             result.style.visibility = "hidden";
         }
     }
