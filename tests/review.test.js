@@ -26,14 +26,19 @@ test('validate button rating return of int', () => {
 }); 
 
 test('check valid submission', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
     document.body.innerHTML = "<p id='categoryOptions'></p><p id='titleOptions'></p>";
     document.getElementById('categoryOptions').innerHTML = 'Artwork';
     document.getElementById('titleOptions').innerHTML = 'test title';
     let bool = f.validSubmission();
     expect(bool).toBeTruthy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
 }); 
 
 test('check invalid submission', () => {
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
     document.body.innerHTML = "<select id='categoryOptions'></select><select id='titleOptions'></select>";
     document.getElementById('categoryOptions').value = 'Artwork';
     document.getElementById('titleOptions').value = '';
@@ -42,4 +47,5 @@ test('check invalid submission', () => {
     document.getElementById('categoryOptions').value = '';
     bool = f.validSubmission();
     expect(bool).not.toBeTruthy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
 }); 

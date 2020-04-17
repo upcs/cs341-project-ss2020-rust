@@ -1,9 +1,9 @@
+"use strict";
 /**
  * login.js
  * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
  * @version 02April2020
  */
-
  /**
   * @desc attempt to login  
   */
@@ -30,6 +30,6 @@ function getUsername(){
 function getPassword(){
     var password = document.getElementById('loginPassword').value;
     return password; 
-}
+} 
 module.exports = {login, getUsername, getPassword};
 // end of login.js
