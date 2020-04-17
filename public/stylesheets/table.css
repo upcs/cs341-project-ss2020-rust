@@ -2,10 +2,11 @@
 
 #categorytable {
     border: 1px solid black;
-    height: 500px;
+    height: 50px;
     width: 100%;
     overflow-y: scroll;
-    line-height: 300%;
+    line-height: 50px;
+    table-layout: fixed;
 }
 
 #displaytext {
@@ -16,6 +17,11 @@
 .categoryclass {
     display: table-cell;
 }
+
+.categoryrow {
+    display: table-row;
+}
+
 td,tr {
     background-color: #3b3b3b;
     color: #e8e8e8;
