@@ -6,6 +6,10 @@
 
 /* default setting for html and body */
 
+* {
+    font-size: 1.25vw; 
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -15,6 +19,16 @@ html, body {
     width: 100%;
     height: 100%;
     background: transparent;
+}
+
+h3.hidden{
+    visibility: hidden;
+}
+
+#result{
+    position: absolute;
+    left: 5%;
+    top: 30%;
 }
 
 /* main dividers */
@@ -54,11 +68,11 @@ html, body {
 
 .title {
     /*font-family: "Bookman Old Style";*/
-    font-size: 40px;
+    font-size: 3vw;
     font-style: normal;
     font-variant: normal;
     font-weight: bold;
-    line-height: 24px;
+    /*line-height: 2vw;*/
     padding-left: 10%;
 }
 
@@ -110,10 +124,10 @@ a.nav:hover {
 }
 
 .bar1, .bar2, .bar3 {
-    width: 35px;
-    height: 5px;
+    width: 3vw;
+    height: 0.5vw;
     background-color: #333;
-    margin: 6px 0;
+    margin: 0.5vw 0;
     transition: 0.4s;
 }
 
@@ -166,7 +180,7 @@ a.nav:hover {
 
 .ft-text {
     font-family: "Bookman Old Style";
-    font-size: 20px;
+    font-size: 2vw;
     font-weight: bold;
     margin-left: 2.7%;
     padding-top: 2%;
