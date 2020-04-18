@@ -75,6 +75,42 @@ test('visit account page', () => {
     window.alert = jsdomAlert;  // restore the jsdom alert
  });
 
+ test('test setForm()', () => {
+    var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    document.body.innerHTML = html;
+    f.setForm();
+    expect(document.getElementById('fname').value).toBe('');
+}); 
+
+test('test getIndex()', () => {
+    var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    document.body.innerHTML = html;
+    expect(f.getIndex()).toBe('0');
+    document.getElementById('avtr').src = 'images/img_avatar.png';
+    expect(f.getIndex()).toBe('1');
+    document.getElementById('avtr').src = 'images/penguin.png';
+    expect(f.getIndex()).toBe('2');
+    document.getElementById('avtr').src = 'images/ninja.png';
+    expect(f.getIndex()).toBe('3');
+}); 
+
+test('test setAvatar()', () => {
+    var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    document.body.innerHTML = html;
+    expect(f.setAvatar()).toBe("images/img_avatar2.png");
+}); 
+
+test('test toggle()', () => {
+    var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    document.body.innerHTML = html;
+    f.toggle('on');
+    var def = document.getElementById("default-prof");
+    expect(def.style.display).toBe('none');
+    f.toggle('off');
+    expect(def.style.display).toBe('block');
+}); 
+
+
  /*
  test('changing new pw = old pw', () => {
     const jsdomAlert = window.alert;  // remember the jsdom alert

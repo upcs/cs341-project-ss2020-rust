@@ -69,56 +69,83 @@ function sortTable(n) {
 function editMode() {
 	// div variables 
 	var btn = document.getElementById('edit-btn');
-	var bioDiv = document.getElementById('bio-div');
-	var nameDiv = document.getElementById('name-div');
+	var fname = document.getElementById('fname').value;
+	var lname = document.getElementById('lname').value;
+	var loc = document.getElementById('loc').value;
+	var bio = document.getElementById('new_bio').value;
 	if (btn.innerHTML == "Save Profile") { // button - transition to saving profile 
-		var fTextArea = document.getElementById('first-text');
-		var lTextArea = document.getElementById('last-text');
-		var bTextArea = document.getElementById('bio-text');
 		var username = getUsername();
-		var first = fTextArea.value;
-		var last = lTextArea.value;
-		var bio = bTextArea.value;
+		saveProfile(username, fname, lname, bio, loc);
 		btn.innerHTML = "Edit Profile"; // changing button
-		$.post("/updateaccount?username=" + username + "&fname=" + first + "&lname=" + last + "&bio=" + bio,
-			function (user) {
-				// changing name, removing textarea
-				document.getElementById('name').innerHTML = user[0].FIRSTNAME + " " + user[0].LASTNAME;
-				nameDiv.removeChild(fTextArea);
-				nameDiv.removeChild(lTextArea);
-
-				// changing bio, removing textarea 
-				var para = document.createElement("p");
-				para.innerHTML = user[0].BIO;
-				para.id = "bio";
-				bioDiv.removeChild(bTextArea);
-				bioDiv.appendChild(para);
-			});
+		toggle('off');
 	}
 	else { // button - transition to editing profile
-		var name = document.getElementById('name').innerHTML;
-		var matches = name.match(/([A-Z][a-z]*) ([A-Z][a-z]*)/);
-		if (matches) { // creating textarea for first and last name
-			var first = document.createElement("textarea");
-			first.innerHTML = matches[1];
-			first.id = "first-text";
-			var last = document.createElement("textarea");
-			last.innerHTML = matches[2];
-			last.id = "last-text";
-			nameDiv.appendChild(first);
-			nameDiv.appendChild(last);
-		}
-		// creating textarea for bio
-		var bio = document.getElementById('bio');
-		var bioTextArea = document.createElement("textarea");
-		bioTextArea.innerHTML = bio.innerHTML;
-		bioTextArea.id = 'bio-text';
-		bioDiv.appendChild(bioTextArea);
-		bioDiv.removeChild(bio);
+		setForm();
+		toggle('on');
 		btn.innerHTML = "Save Profile"; // changing button
 	}
 }
 
+function setForm() {
+	var list = splitList(document.getElementById('name').innerHTML, ' ');
+	var fname = list[0];
+	var lname = list[1];
+	document.getElementById('fname').value = fname;
+	document.getElementById('lname').value = lname;
+	document.getElementById('loc').value = document.getElementById('location').innerHTML;
+	document.getElementById('new_bio').value = document.getElementById('bio').innerHTML;
+	document.getElementById("av-menu").selectedIndex = getIndex();
+}
+function getIndex() {
+	var source = document.getElementById('avtr').src;
+	if(source.includes("img_avatar2.png")){
+		return "0"; 
+	}
+	else if(source.includes("img_avatar.png")){
+		return "1"; 
+	}
+	else if(source.includes("penguin.png")){
+		return "2";
+	}
+	else{
+		return "3"; 
+	}
+}
+function saveProfile(username, fname, lname, bio, location) {
+	var avatar = setAvatar();
+	$.post(`/updateaccount?username=${username}&fname=${fname}&lname=${lname}&bio=${bio}&loc=${location}&av=${avatar}`,
+		function (user) {
+			document.getElementById('name').innerHTML = `${user[0].FIRSTNAME} ${user[0].LASTNAME}`;
+			document.getElementById('bio').innerHTML = user[0].BIO;
+			document.getElementById('location').innerHTML = user[0].LOCATION;
+			if (user[0].AVATAR == '' || user[0].AVATAR == null) {
+				// do nothing 
+			}
+			else {
+				document.getElementById('avtr').src = user[0].AVATAR;
+			}
+		});
+}
+
+function setAvatar() {
+	var e = document.getElementById('av-menu');
+	var newAv = e.options[e.selectedIndex].value;
+	document.getElementById('avtr').src = newAv;
+	return newAv;
+}
+
+function toggle(x) {
+	var def = document.getElementById("default-prof");
+	var form = document.getElementById('prof-form');
+	if (x == 'off') {
+		form.style.display = 'none';
+		def.style.display = 'block';
+	}
+	else if (x == 'on') {
+		def.style.display = 'none';
+		form.style.display = 'block';
+	}
+}
 /**
  * @desc displays tabs on left side (profile, favorite, password)
  * @param {*} event 
@@ -144,6 +171,8 @@ function initUser() {
 		$.post("/initacct?username=" + username, function (user) {
 			document.getElementById('name').innerHTML = user[0].FIRSTNAME + " " + user[0].LASTNAME;
 			document.getElementById('bio').innerHTML = user[0].BIO;
+			document.getElementById('location').innerHTML = user[0].LOCATION;
+			document.getElementById('avtr').src = user[0].AVATAR;
 		});
 		document.getElementById("default").click();
 		getFavorites();
@@ -243,5 +272,17 @@ function selectCategory(entry) {
 	return cat;
 }
 
-module.exports = { splitList, getUsername, selectCategory, initUser, changePassword, openAccTab };
+module.exports = 
+{ 
+	splitList, 
+	getUsername, 
+	selectCategory, 
+	initUser, 
+	changePassword, 
+	openAccTab,
+	setForm,
+	getIndex,
+	setAvatar,
+	toggle
+ };
 // end of account.js
