@@ -65,6 +65,19 @@ function init(category) {
 
             }
         }
+        $.post('/getReviews?cat=' + cat, function (result) {
+            for (var i = 0; i < result.length; i++) {
+                var rw = document.createElement("TR");
+                rw.setAttribute("id", "'review" + i + "'");
+                // add to table
+                document.getElementById("review-tb").appendChild(x);
+                // create column w/ info
+                var ye = document.createElement("TD");
+                var tit = document.createTextNode("title");
+                ye.appendChild(tit);
+                document.getElementById("'review" + i + "'").appendChild(ye);
+            }
+        });
     });
 }
 
@@ -523,5 +536,5 @@ function getAVGReview(title, cat) {
         return total;
     });
 }
-module.exports = { redirect, getServiceContent, getEventContent, getOutdoorContent, getArtContent, getAVGReview };
+module.exports = { redirect, getServiceContent, getEventContent, getOutdoorContent, getArtContent };
 // end of category_template.js

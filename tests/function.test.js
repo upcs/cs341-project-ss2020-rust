@@ -74,7 +74,7 @@ test('checks output of getArtContent', () => {
     expect(res).toBe(output);
 }); 
 
-//var ff = jest.mock('../javascripts/category_template');
+/*
 
 test('returns average review', async(done) => {
     var html = fs.readFileSync('./public/index.html', 'utf8');
@@ -82,3 +82,4 @@ test('returns average review', async(done) => {
 
     expect(f.getAVGReview('Giraffe', 'Artwork')).toBe(5); 
 }); 
+*/
