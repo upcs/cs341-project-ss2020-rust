@@ -7,7 +7,7 @@
 /* default setting for html and body */
 
 * {
-    font-size: 1.25vw; 
+    font-size: 1.25vw;
 }
 
 html, body {
@@ -21,11 +21,11 @@ html, body {
     background: transparent;
 }
 
-h3.hidden{
+h3.hidden {
     visibility: hidden;
 }
 
-#result{
+#result {
     position: absolute;
     left: 5%;
     top: 30%;
@@ -203,13 +203,13 @@ a.nav:hover {
 
 .img-lft {
     height: 15vw;
-    width: 20vw; 
+    width: 20vw;
     border: 10px solid white;
 }
 
 .img {
     height: 15vw;
-    width: 20vw; 
+    width: 20vw;
     display: inline-block;
     border: 10px solid white;
 }
@@ -442,17 +442,17 @@ li a.acc_item:hover {
 }
 
 .name {
-    padding-top: 5%; 
+    padding-top: 5%;
     padding-left: 5%;
-    font-size: 2vw; 
+    font-size: 2vw;
 }
 
-.name-div{
-    display:inline-block;
-    width: 30%; 
+.name-div {
+    display: inline-block;
+    width: 30%;
 }
 
-.loc{
+.loc {
     padding-left: 5%;
-    font-size: 1.5vw; 
+    font-size: 1.5vw;
 }

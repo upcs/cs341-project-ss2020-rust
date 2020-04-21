@@ -65,19 +65,6 @@ function init(category) {
 
             }
         }
-        $.post('/getReviews?cat=' + cat, function (result) {
-            for (var i = 0; i < result.length; i++) {
-                var rw = document.createElement("TR");
-                rw.setAttribute("id", "'review" + i + "'");
-                // add to table
-                document.getElementById("review-tb").appendChild(x);
-                // create column w/ info
-                var ye = document.createElement("TD");
-                var tit = document.createTextNode("title");
-                ye.appendChild(tit);
-                document.getElementById("'review" + i + "'").appendChild(ye);
-            }
-        });
     });
 }
 
@@ -398,32 +385,77 @@ function createMarker(pos, name, text) {
     if (user != null) {
         favoriteButton = '<span class="favoriteButton" onclick="favoriteButton(\'' + user + '\', \'' + name + '\')">&star;</span>';
     }
-    var content = '<div id="content">' +
-        '<div id="siteNotice">' +
-        '</div>' +
-        '<h1 id="firstHeading" class="firstHeading">' +
-        name +
-        '</h1>' +
-        '<div id="bodyContent">' + text + '</p>' +
-        favoriteButton +
-        '</div>' +
-        '</div>';
-    var infowindow = new google.maps.InfoWindow({
-        content: content
-    });
-    google.maps.event.addListener(marker, 'click', function () {
-        if (map.getZoom() < 15)
-            map.setZoom(15);
-        map.panTo(marker.getPosition());
-        if (activeInfoWindow) {
-            activeInfoWindow.close();
+    var newTitle = convertString(name);
+    $.post(`/getReview?type=${cat}&title=${newTitle}`, function (list) {
+        var rev = '';
+        var cList = [];
+        if (list.length != 0) {
+            var total = 0;
+            for (var i = 0; i < list.length; i++) {
+                total += list[i].AVGREVIEW;
+                if(list[i].COMMENT != null){
+                    cList.push(`<tr class='review-tr'><td class='review-td'><h3>${list[i].NAME}</h3>Rating: \
+                    ${list[i].AVGREVIEW}<p>Comments:</p><p>${list[i].COMMENT}</p></td></tr>`);
+                }
+                else{
+                    cList.push(`<tr class='review-tr'><td class='review-td'><h3>${list[i].NAME}</h3>Rating: \
+                    ${list[i].AVGREVIEW}</td></tr>`);
+                }
+            }
+            var avg = (total / list.length).toFixed(2);
+            rev = `<p>Average Review: ${avg}/5</p>`;
         }
-        infowindow.open(map, marker);
-        activeInfoWindow = infowindow;
-        if (user != null) {
-            initFavorite(user, name);
+        else {
+            rev = '<p>Average Review: Not available</p>'
         }
+        var comment_section = '';
+        if(cList.length != 0){
+            comment_section = '<h2>REVIEWS</h2><table class="review-tb">';
+            for(var i = 0; i < cList.length; i++){
+                comment_section += `${cList[i]}`;
+            }
+        }
+        var content = '<div id="content">' +
+            '<div id="siteNotice">' +
+            '</div>' +
+            '<h1 id="firstHeading" class="firstHeading">' +
+            name +
+            '</h1>' +
+            '<div id="bodyContent">' + rev + text +
+            favoriteButton + comment_section
+            '</div>' +
+            '</div>';
+        var infowindow = new google.maps.InfoWindow({
+            content: content
+        });
+        google.maps.event.addListener(marker, 'click', function () {
+            if (map.getZoom() < 15)
+                map.setZoom(15);
+            map.panTo(marker.getPosition());
+            if (activeInfoWindow) {
+                activeInfoWindow.close();
+            }
+            infowindow.open(map, marker);
+            activeInfoWindow = infowindow;
+            if (user != null) {
+                initFavorite(user, name);
+            }
+        });
     });
+}
+
+function convertString(str) {
+    var list = str.split("'");
+    var newStr = '';
+    for (var i = 0; i < list.length; i++) {
+        if (i != list.length - 1) {
+            newStr += list[i] + "\\'";
+        }
+        else {
+            newStr += list[i];
+        }
+    }
+    return newStr;
 }
 
 /** BELOW ARE THE FUNCTIONS RELATED TO CREATING THE TEXT CONTENT TO PLACE IN INFOWINDOW  */
