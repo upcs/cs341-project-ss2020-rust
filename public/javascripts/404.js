@@ -9,6 +9,7 @@
  */
 function goBack() {
     window.history.back();
+    return true;
   }
 module.exports = {goBack}; 
   // end of 404.js
