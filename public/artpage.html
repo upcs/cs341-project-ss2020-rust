@@ -149,12 +149,12 @@
                 <br>
                 <br>
                 <div style="position: relative;">
-                  <button style="position: absolute; right:0px" onclick="register()">Complete Registration</button>
+                    <button style="position: absolute; right:0px" onclick="register()">Complete Registration</button>
                 </div>
                 <br>
                 <br>
                 <br>
-              </div>
+            </div>
         </div>
     </div>
     <!-- end of header divider -->
@@ -176,16 +176,23 @@
         <div style="height: 700px; display:flex; position: relative" id="display">
             <div style="width: 40%; height: 700px; overflow-y: scroll; display:flex">
                 <table class="displaytable" id="categorytable" rules="rows" frame="void">
-            </table>
+                </table>
             </div>
-            <div id="map" style="height: 100%; width:100%"></div>
+            <div style="height:100%; width: 100%">
+            <div id="map" style="height: 75%; width:100%"></div>
+            <div style="height: 25%; width:100%; overflow-y: scroll">
+                <h1 style='padding-left: 2%;'>Reviews</h1>
+                <table id='review-tb'></table>
+            </div>
+        </div>
             <span class="favoriteButton" onClick="toggleFavoritesButton()" id="toggleFavoritesButton"
                 style="position:absolute;right:4%;top:-1%;font-size: 300%;" title="Toggle Favorites"></span>
         </div>
         <div>
-            <h3 class="hidden"; id="result">No result found</h1>
+            <h3 class="hidden" ; id="result">No result found</h1>
         </div>
     </div>
+
     <!-- footer divider -->
     <div class='foot-div'>
         <div class='cmp-info'>
@@ -206,11 +213,11 @@
 <!-- script to open three line menu -->
 <script>
     function openMenu(x) {
-      x.classList.toggle("change");
-  
-      document.getElementById('dropdwn').style.display = document.getElementById('dropdwn').style.display == 'block' ? 'none' : 'block';
+        x.classList.toggle("change");
+
+        document.getElementById('dropdwn').style.display = document.getElementById('dropdwn').style.display == 'block' ? 'none' : 'block';
     }
-  </script>
+</script>
 
 </html>
 <!-- end of artpage.html -->

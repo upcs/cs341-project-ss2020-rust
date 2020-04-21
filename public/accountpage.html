@@ -51,10 +51,10 @@
   <!-- rest of page divider -->
   <div class='page-div'>
     <div class='prof-div'>
-      <img src="/images/img_avatar2.png" alt="Avatar" class="avatar">
+      <img id='avtr' src="/images/img_avatar2.png" alt="Avatar" class="avatar">
       <div class='name-div'>
-        <h3 class='name'>Geryl Vinoya</h3>
-        <h3 class='loc'>Honolulu, HI</h3>
+        <h3 id='name' class='name'></h3>
+        <h3 id='location' class='loc'></h3>
       </div>
     </div>
     <div class="tab">
@@ -70,15 +70,49 @@
     </div>
 
     <div id="Profile" class="tabcontent">
+      <h2 class='header-title'>Profile</h2>
+      <div id='default-prof'>
+        <div id='bio-div'>
+          <h3>About Me</h3>
+          <p id='bio'></p>
+        </div>
+      </div>
+
+      <form id='prof-form' style='display:none;'>
+        <label>First name:</label>
+        <input type='text' id='fname'><br>
+        <label>Last name:</label>
+        <input type='text' id='lname'><br>
+        <label>Location:</label>
+        <input type='text' id='loc'><br>
+        <label>Bio:</label>
+        <input type='text' id='new_bio'><br>
+        <label>Change Avatar:</label>
+        <select id='av-menu'>
+          <option value='images/img_avatar2.png'>Female Avatar</option>
+          <option value='images/img_avatar.png'>Male Avatar</option>
+          <option value='images/penguin.png'>Penguin Avatar</option>
+          <option value='images/ninja.png'>Ninja Avatar</option>
+        </select>
+      </form>
+      <button id="edit-btn" onclick="editMode()" type="button"> Edit Profile </button>
+      <!--
       <h2 class="header-title"> Profile </h2>
       <div id="name-div">
         <h3 id="name"> </h3>
       </div>
+      <div id='loc-div'>
+        <h3 id='location'></h3>
+      </div>
       <div id="bio-div">
-        <h3> Bio </h3>
+        <h3>About Me</h3>
         <p id="bio"></p>
       </div>
+      <div id='img-locator'>
+        <h3>Change Profile Avatar</h3>
+      </div>
       <button id="edit-btn" onclick="editMode()" type="button"> Edit Profile </button>
+    -->
     </div>
 
     <div id="Password" class="tabcontent">

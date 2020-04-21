@@ -8,15 +8,14 @@ router.post('/', function (req, res, next) {
     var first = req.query.fname;
     var last = req.query.lname;
     var bio = req.query.bio;
-
+    var location = req.query.loc; 
+    var avatar = req.query.av; 
     db.dbquery("SELECT * FROM USERS WHERE USERNAME LIKE '" + username + "'", function (err, result) { // looks at IDs
         if (err) { // error handling
             console.log(err);
             return;
         }
-
-        db.dbquery("UPDATE USERS SET FIRSTNAME = '" + first + "', LASTNAME = '" + last + "', BIO = '" +
-            bio + "' WHERE USERNAME = '" + username + "'", // updates user info in database
+        db.dbquery(`UPDATE USERS SET FIRSTNAME = '${first}', LASTNAME = '${last}', BIO = '${bio}', LOCATION = '${location}', AVATAR = '${avatar}' WHERE USERNAME = '${username}'`, // updates user info in database
             function (error, update) {
                 if (error) {
                     console.log(error);

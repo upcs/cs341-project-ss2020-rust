@@ -73,3 +73,14 @@ test('checks output of getArtContent', () => {
     const res = f.getArtContent(descr,acc,creator,cred,date);
     expect(res).toBe(output);
 }); 
+
+/*
+var ff = jest.mock('../javascripts/category_template');
+
+test('returns average review', async(done) => {
+    var html = fs.readFileSync('./public/index.html', 'utf8');
+    document.body.innerHTML = html;
+
+    expect(f.getAVGReview('Giraffe', 'Artwork')).toBe(5); 
+}); 
+*/

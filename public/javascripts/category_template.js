@@ -19,7 +19,7 @@ function init(category) {
     var user = localStorage.getItem('username');
     var curr = window.location.pathname;
     var path = redirect(user, curr, cat);
-    if(path != curr){
+    if (path != curr) {
         window.location.replace(path);
     }
     // post to retrieve table entries 
@@ -65,6 +65,19 @@ function init(category) {
 
             }
         }
+        $.post('/getReviews?cat=' + cat, function (result) {
+            for (var i = 0; i < result.length; i++) {
+                var rw = document.createElement("TR");
+                rw.setAttribute("id", "'review" + i + "'");
+                // add to table
+                document.getElementById("review-tb").appendChild(x);
+                // create column w/ info
+                var ye = document.createElement("TD");
+                var tit = document.createTextNode("title");
+                ye.appendChild(tit);
+                document.getElementById("'review" + i + "'").appendChild(ye);
+            }
+        });
     });
 }
 
@@ -102,7 +115,7 @@ function search_table() {
 
 
             y++;
-            if(y == x.length){
+            if (y == x.length) {
                 result.style.visibility = "visible";
             }
         }
@@ -328,6 +341,7 @@ function initMap() {
                     var date = list[i].DATE;
                     content = getArtContent(description, access, creator, credit, date);
                     createMarker(location, title, content);
+
                 }
                 else if (cat == "service") {
                     description = list[i].DESCRIPTION;
@@ -457,7 +471,7 @@ function getArtContent(description, access, creator, credit, date) {
             }
         }
     }
-    var content = '<p>' + description + '</p>' + creatorCreditDate + '<p>' + " Access: " + access +
+    content += '<p>' + description + '</p>' + creatorCreditDate + '<p>' + " Access: " + access +
         '</p>';
     return content;
 }
@@ -510,8 +524,17 @@ function redirect(user, curr, cat) {
     else { // only can access non-user pages 
         next = `/${cat}page.html`;
     }
-    return next; 
+    return next;
 }
 
-module.exports = {redirect, getServiceContent, getEventContent, getOutdoorContent, getArtContent}; 
+function getAVGReview(title, cat) {
+    var total = 0;
+    $.post('/getReview?cat=' + cat, function (list) {
+        for (var i = 0; i < list.length; i++) {
+            total += list[i].AVGREVIEW;
+        }
+        return total;
+    });
+}
+module.exports = { redirect, getServiceContent, getEventContent, getOutdoorContent, getArtContent };
 // end of category_template.js

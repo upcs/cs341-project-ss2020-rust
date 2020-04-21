@@ -10,4 +10,7 @@
 function logout() {
     localStorage.removeItem('username');
     window.location.href = "index.html";
+    return true;
 }
+
+module.exports = {logout}; 

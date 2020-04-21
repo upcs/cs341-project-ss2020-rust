@@ -15,6 +15,7 @@ var InfoRouter = require('./routes/retrieveInfo');
 var favoriteRouter = require('./routes/retrieveFavorite');
 var changeFavRouter = require('./routes/changeFavorites');
 var reviewRouter = require('./routes/addReview'); 
+var getRevRouter = require('./routes/getReview');
 
 var app = express();
 
@@ -39,7 +40,7 @@ app.use('/retrieveInfo', InfoRouter);
 app.use('/retrieveFavorite', favoriteRouter);
 app.use('/changeFavorites', changeFavRouter);
 app.use('/addReview', reviewRouter); 
-
+app.use('/getReview', getRevRouter);
 
 //redirect 404 error to the 404.html page
 //source: https://www.semicolonworld.com/question/44879/how-to-redirect-404-errors-to-a-page-in-expressjs
