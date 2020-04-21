@@ -17,12 +17,7 @@ h1 {
   font-style: italic;
 }
 
-body {
-  background: #add8e6;
-  background: linear-gradient(90deg, rgba(153, 255, 255, 1) 0%, rgba(153, 255, 153, 1) 35%, rgba(0, 212, 255, 1) 100%);
-  /*border-style: dashed; no longer needed for 404*/
-  border-radius: all;
-}
+
 
 .right {
   position: absolute;
@@ -38,71 +33,15 @@ body {
   padding: 10px;
 }
 
-.bg {
-  /* The image used */
-  background-image: url("diamond_head.jpg");
-  /* Full height */
-  height: 100%;
-  width: 100%;
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
 
 .full {
   height: 100%;
   width: 100%;
 }
 
-/* Full-width input fields */
-
-/* this is conflicting with the search bar */
-
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  /*border: 1px solid #ccc;*/
-  box-sizing: border-box;
-}
 
 button:hover {
   opacity: 0.8;
 }
 
 /* The Modal (background) */
-
-.modal {
-  display: none;
-  /* Hidden by default */
-  position: fixed;
-  /* Stay in place */
-  z-index: 1;
-  /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%;
-  /* Full width */
-  height: 100%;
-  /* Full height */
-  overflow: auto;
-  /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0);
-  /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */
-  padding-top: 60px;
-}
-
-/* Modal Content/Box */
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 5% auto 15% auto;
-  /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
-  width: 80%;
-  /* Could be more or less, depending on screen size */
-}
