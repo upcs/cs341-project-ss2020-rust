@@ -73,7 +73,20 @@ h3.hidden{
     font-variant: normal;
     font-weight: bold;
     /*line-height: 2vw;*/
-    padding-left: 10%;
+    padding-left: 2.5%;
+    top: -15%;
+    position: absolute;
+}
+
+.reviewtitle {
+    font-size: 3vw;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+    /*line-height: 2vw;*/
+    padding-left: 2.5%;
+    top: 25%;
+    position: absolute;
 }
 
 .title-div {
@@ -175,7 +188,7 @@ a.nav:hover {
     background-color: #ebebeb;
     height: 100%;
     width: 100%;
-    padding-left: 2%;
+    
 }
 
 .ft-text {

@@ -75,7 +75,6 @@ test('checks output of getArtContent', () => {
 }); 
 
 /*
-var ff = jest.mock('../javascripts/category_template');
 
 test('returns average review', async(done) => {
     var html = fs.readFileSync('./public/index.html', 'utf8');

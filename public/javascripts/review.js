@@ -13,7 +13,6 @@ function submitReview() {
     var category = (document.getElementById('categoryOptions')).value; // TODO: how to select category
     var item = (document.getElementById('titleOptions')).value;
     var rating = getRating();
-    alert(category);
     if(validSubmission()){
         $.post("/addReview?name='" + reviewerName + "'&cat='" + category + "'&item='" + item + "'"
         + "&rating=" + rating, function(result){

@@ -9,6 +9,7 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/default.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/login.css" />
   <link rel='stylesheet' type='text/css' href='stylesheets/rating.css'/>
+  <link rel='stylesheet' type='text/css' href='stylesheets/review.css'/>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="javascripts/login.js"></script>
   <script src="javascripts/review.js"></script>
@@ -24,7 +25,7 @@
     <!-- divider containing 'Makaleha' title -->
     <div id='rev-title' class='title-div'>
       <a href='index.html'>
-        <h1 class='title'>Makaleha</h1>
+        <h1 class='reviewtitle'>Makaleha</h1>
       </a>
     </div>
     <!-- divider containing navigation menu -->
@@ -151,63 +152,80 @@
   <!-- rest of page divider -->
   <div class='review-div'>
 
-      <h2> Write a Review </h2>
-      <form>
-        <table>
-          <tr>
-            <td>
-              Name:
-            </td>
-            <td>
-              <input id='name' type="text" name="">
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>Select Category:</label>
-              <select id="categoryOptions" onChange="getItems(this.value);">
-                <option value="" disabled selected> Select </option>
-                <option value='art'> Artwork </option>
-                <option value='service'> Community Service </option>
-                <option value='outdoor'> Outdoor Activities </option>
-                <option value='events'> Events </option>
-              </select>
-            </td>
-            <td>
-              <label>Select one:</label>
-              <select id="titleOptions">
-                <option value="" disabled selected> Select </option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Rating
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="rate">
-                <input type="radio" id="star5" name="rate" value="5" />
-                <label id="5" for="star5" title="text">5 stars</label>
-                <input type="radio" id="star4" name="rate" value="4" />
-                <label id="4" for="star4" title="text">4 stars</label>
-                <input type="radio" id="star3" name="rate" value="3" />
-                <label id="3" for="star3" title="text">3 stars</label>
-                <input type="radio" id="star2" name="rate" value="2" />
-                <label id="2" for="star2" title="text">2 stars</label>
-                <input type="radio" id="star1" name="rate" value="1" />
-                <label id="1" for="star1" title="text">1 star</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <button onclick="submitReview()"> Submit </button>
-            </td>
-          </tr>
-        </table>
-      </form>
+    <h2 id='writereview'> Write a Review </h2>
+    <form>
+      <table id='reviewtable'>
+        <tr class='spaceUnder'>
+          <td>
+            <label class='label'>Category:</label>
+
+          </td>
+        </tr>
+        <tr class='spaceUnder'>
+          <td class='reviewLeftPadding' id="categoryOptions">
+            <select onChange="getItems(this.value);">
+              <option value="" disabled selected> Select </option>
+              <option value='art'> Artwork </option>
+              <option value='service'> Community Service </option>
+              <option value='outdoor'> Outdoor Activities </option>
+              <option value='events'> Events </option>
+            </select>
+          </td>
+        </tr>
+        <tr class='spaceUnder' >
+          <td>
+            <label class='label'>Title:</label>
+          </td>
+        </tr>
+        <tr class='spaceUnder'>
+          <td class='reviewLeftPadding'>
+            <select id="titleOptions">
+              <option value="" disabled selected> Select </option>
+            </select>
+          </td>
+        </tr>
+
+        <tr class='spaceUnder'>
+          <td class='label'>
+            Rating
+          </td>
+        </tr>
+        <tr class='spaceUnder'>
+          <td>
+            <div class="rate">
+              <input type="radio" id="star5" name="rate" value="5" />
+              <label id="5" for="star5" title="text">5 stars</label>
+              <input type="radio" id="star4" name="rate" value="4" />
+              <label id="4" for="star4" title="text">4 stars</label>
+              <input type="radio" id="star3" name="rate" value="3" />
+              <label id="3" for="star3" title="text">3 stars</label>
+              <input type="radio" id="star2" name="rate" value="2" />
+              <label id="2" for="star2" title="text">2 stars</label>
+              <input type="radio" id="star1" name="rate" value="1" />
+              <label id="1" for="star1" title="text">1 star</label>
+            </div>
+          </td>
+        </tr>
+
+        <tr class='spaceUnder'>
+          <td class='label'>
+            Name:
+          </td>
+        </tr>
+
+        <tr class='spaceUnder'>
+          <td>
+            <input id='name' type="text" name="">
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <button onclick="submitReview()"> Submit </button>
+          </td>
+        </tr>
+      </table>
+    </form>
   </div>
   <!-- footer divider -->
   <div class='foot-div'>
