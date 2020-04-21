@@ -536,5 +536,5 @@ function getAVGReview(title, cat) {
         return total;
     });
 }
-module.exports = { redirect, getServiceContent, getEventContent, getOutdoorContent, getArtContent };
+module.exports = { redirect, getServiceContent, getEventContent, getOutdoorContent, getArtContent, search_table };
 // end of category_template.js
