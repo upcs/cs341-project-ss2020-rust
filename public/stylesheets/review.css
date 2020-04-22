@@ -31,3 +31,8 @@ tr.spaceUnder>td {
 .reviewLeftPadding {
     padding-left: 2.5%
 }
+
+.hidden {
+    display: none; 
+    color: red; 
+}
