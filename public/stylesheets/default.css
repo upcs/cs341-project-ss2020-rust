@@ -166,6 +166,24 @@ a.nav:hover {
     display: none;
 }
 
+#div_one {
+    text-align: center;
+    border-style: ridge;
+    background-color: white;
+}
+
+#div_two {
+    text-align: center;
+    border-style: ridge;
+    background-color: white;
+}
+
+#div_three {
+    text-align: center;
+    border-style: ridge;
+    background-color: white;
+}
+
 /*************** page *****************/
 
 .page-div {
