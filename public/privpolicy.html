@@ -30,7 +30,7 @@
             <a class='nav' href='servicepage.html'>Community Service</a>
             <a class='nav' href='outdoorpage.html'>Outdoor Activities</a>
             <a class='nav' href='artpage.html'>Artwork</a>
-            <a class='nav' href='about.html'>About</a>
+            <a class='nav' href='about.html'>About/Help</a>
         </div>
         <!-- divider containing account tab -->
         <div class='account-div'>
@@ -39,10 +39,10 @@
                 <div class='bar2'></div>
                 <div class='bar3'></div>
                 <div id='dropdwn' class='dropdwn-content'>
-                    <a onclick="document.getElementById('loginPassword').value = '',
+                    <div id='div_one'><a onclick="document.getElementById('loginPassword').value = '',
                     document.getElementById('id01').style.display='block',
-                    document.getElementById('id02').style.display='none'" class='nav' href='#'>Log In</a>
-                   <a onclick="document.getElementById('id02').style.display='block',
+                    document.getElementById('id02').style.display='none'" class='nav' href='#'>Log In</a></div>
+                    <div id='div_one'><a onclick="document.getElementById('id02').style.display='block',
                     document.getElementById('usernameError').style.display = 'none',
                     document.getElementById('signupUsername').value = '',
                     document.getElementById('firstNameError').style.display = 'none',
@@ -55,9 +55,9 @@
                     document.getElementById('signupPassword').value = '',
                     document.getElementById('confirmPasswordError').style.display = 'none',
                     document.getElementById('signupConfirmPassword').value = '',
-                    document.getElementById('id01').style.display='none'" class='nav' href='#'>Register</a>
+                    document.getElementById('id01').style.display='none'" class='nav' href='#'>Register</a></div>
            document.getElementById('id01').style.display='none'" class='nav' href='#'>Register</a>
-                    <a class='nav' href='reviewpage.html'>Write a Review</a>
+                    <div id='div_one'><a class='nav' href='reviewpage.html'>Write a Review</a></div>
                 </div>
             </div>
         </div>
