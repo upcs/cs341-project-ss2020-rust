@@ -54,35 +54,38 @@
   <!-- end of header divider -->
   <!-- rest of page divider -->
   <div class='review-div'>
-
     <h2 id='writereview'> Write a Review </h2>
-    <form>
-      <table id='reviewtable'>
+    <p style='padding-left: 2%'>Please select a category.</p>
+    <p style='padding-left: 2%'>If no title is manually selected, the showing title will be selected for review.</p>
+    <p style='padding-left: 2%'>Must enter a rating but comments and name are optional. If no name is provided, then it
+      will show up as review named 'Anonymous'.</p>
+    <form onsubmit='return validSubmission();'>
+      <table style='width:100%;' id='reviewtable'>
         <tr class='spaceUnder'>
           <td>
             <label class='label'>Category:</label>
-
           </td>
         </tr>
         <tr class='spaceUnder'>
           <td class='reviewLeftPadding'>
-            <select id="categoryOptions" onChange="getItems(this.value);">
+            <select style='width:40%;' id="categoryOptions" onChange="getItems(this.value);">
               <option value="" disabled selected> Select </option>
               <option value='art'> Artwork </option>
               <option value='service'> Community Service </option>
               <option value='outdoor'> Outdoor Activities </option>
               <option value='events'> Events </option>
             </select>
+            <p id='cat-err' class='hidden'>* No category was selected</p>
           </td>
         </tr>
-        <tr class='spaceUnder' >
+        <tr class='spaceUnder'>
           <td>
             <label class='label'>Title:</label>
           </td>
         </tr>
         <tr class='spaceUnder'>
           <td class='reviewLeftPadding'>
-            <select id="titleOptions">
+            <select style='width:40%;' id="titleOptions">
               <option value="" disabled selected> Select </option>
             </select>
           </td>
@@ -90,7 +93,7 @@
 
         <tr class='spaceUnder'>
           <td class='label'>
-            Rating
+            Rating:
           </td>
         </tr>
         <tr class='spaceUnder'>
@@ -106,25 +109,44 @@
               <label id="2" for="star2" title="text">2 stars</label>
               <input type="radio" id="star1" name="rate" value="1" />
               <label id="1" for="star1" title="text">1 star</label>
-            </div>
+            </div><br>
           </td>
         </tr>
-
+        <tr>
+          <td>
+            <span id='rate-err' class='hidden'>* Please enter a rating between 1 - 5</span>
+          </td>
+        </tr>
+        <tr class='spaceUnder'>
+          <td class='label'>
+            Comments:
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <textarea maxlength='300' onkeyup="commentCount(this)" id="comments" style='width:40%;' rows="4"
+              cols="50"></textarea>
+          </td>
+        </tr>
+        <tr class='spaceUnder'>
+          <td>
+            <p id='rem-mess'>300 characters remaining</p>
+          </td>
+        </tr>
         <tr class='spaceUnder'>
           <td class='label'>
             Name:
           </td>
         </tr>
-
         <tr class='spaceUnder'>
           <td>
-            <input id='name' type="text" name="">
+            <input style="width: 40%;" id='name' type="text" name="">
           </td>
         </tr>
 
         <tr>
           <td>
-            <button onclick="submitReview()"> Submit </button>
+            <input type='submit' onclick="submitReview()" />
           </td>
         </tr>
       </table>

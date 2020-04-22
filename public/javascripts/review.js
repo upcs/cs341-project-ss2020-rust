@@ -1,7 +1,7 @@
 /**
  * review.js
  * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
- * @version 02April2020
+ * @version 22April2020
  */
 
 
@@ -9,17 +9,65 @@
   * @desc attempt to submit review to REVIEW table on db 
   */
 function submitReview() {
-    var reviewerName = (document.getElementById('name')).value;
-    var category = (document.getElementById('categoryOptions')).value; 
-    var item = (document.getElementById('titleOptions')).value;
-    var rating = getRating();
-    if(validSubmission()){
-        $.post("/addReview?name='" + reviewerName + "'&cat='" + category + "'&item='" + item + "'"
-        + "&rating=" + rating, function(result){
-
+    var reviewerName = convertString(document.getElementById('name').value); // name input (can be empty)
+    var category = document.getElementById('categoryOptions').value; // category 
+    var item = convertString(document.getElementById('titleOptions').value); // item/title
+    var comment = convertString(document.getElementById('comments').value); // comment input (can be empty)
+    var rating = getRating(); // rating
+    if(validSubmission()){ // checks if submission is valid 
+        $.post(`/addReview?name='${reviewerName}'&cat='${category}'&item='${item}'&comm='${comment}'&rating=${rating}`, 
+        function(result){
         });
+        alert('Thank you for your submission.'); // alerts user that POST was successful
     }
 
+}
+
+ /**
+  * @desc converts special characters ' and & to work when accessing db
+  * @return new converted string
+  */
+function convertString(str){
+    var new_str = '';
+    new_str = checkAmp(str); 
+    new_str = checkCom(new_str); 
+    return new_str; 
+}
+
+ /**
+  * @desc converts special characters ' to work when accessing db
+  * @return new converted string
+  */
+function checkCom(str){
+    var list = str.split("'");
+    var newStr = '';
+    for(var i = 0; i < list.length; i++){
+        if (i != list.length - 1) {
+            newStr += list[i] + "\\'";
+        }
+        else {
+            newStr += list[i];
+        }
+    }
+    return newStr; 
+}
+
+ /**
+  * @desc converts special characters & to work when accessing db
+  * @return new converted string
+  */
+function checkAmp(str){
+    var list = str.split("&");
+    var newStr = '';
+    for(var i = 0; i < list.length; i++){
+        if (i != list.length - 1) {
+            newStr += list[i] + "\\&";
+        }
+        else {
+            newStr += list[i];
+        }
+    }
+    return newStr; 
 }
 
 /**
@@ -28,16 +76,17 @@ function submitReview() {
  */
 function validSubmission(){
     var category = (document.getElementById('categoryOptions')).value;
-    var item = (document.getElementById('titleOptions')).value;
+    var rating = getRating(); 
+    var bool = true; 
     if(category == ''){
-        alert("No category was selected.");
-        return false;
+        document.getElementById('cat-err').style.display = 'block'; // show error message
+        bool = false; 
     }
-    if(item == ''){
-        alert("No item to rate was selected.");
-        return false;
+    if(rating == 0){
+        document.getElementById('rate-err').style.display = 'block'; // show error message
+        bool = false; 
     }
-    return true; 
+    return bool; 
 }
 
 /**
@@ -119,5 +168,17 @@ function getItems(value) {
     }
 }
 
-module.exports = {getRating, validSubmission}; 
+function commentCount(x){
+    var text = x.value; // comment section
+    var used = 0; // used characters
+    var rem = 300; // remaining characters
+    for(var i = 0; i < text.length; i++){
+        used++; 
+    }
+    rem -= used; 
+    document.getElementById('rem-mess').textContent = `${rem} remaining characters`; // updates remaining characters
+    return rem; 
+}
+
+module.exports = {getRating, validSubmission, checkAmp, checkCom, convertString, commentCount}; 
 // end of review.js
