@@ -10,7 +10,7 @@
   */
 function submitReview() {
     var reviewerName = (document.getElementById('name')).value;
-    var category = (document.getElementById('categoryOptions')).value; // TODO: how to select category
+    var category = (document.getElementById('categoryOptions')).value; 
     var item = (document.getElementById('titleOptions')).value;
     var rating = getRating();
     if(validSubmission()){
