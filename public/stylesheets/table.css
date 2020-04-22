@@ -32,3 +32,30 @@ td,tr {
 td:hover,tr:hover{
     background-color: #292929;
 }
+
+.review-tb {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: gray;
+    width:100%; 
+}
+
+.review-tr {
+    background-color: white;
+    display: table-row;
+    color:black;
+    padding-left: 1%; 
+    vertical-align: inherit;
+    border-color: inherit;
+}
+.review-td:hover,.review-tr:hover{
+    background-color: #f7f7f7;
+}
+.review-td {
+    background-color: white;
+    color: black;
+    padding-left: 1%; 
+    display: table-cell;
+    vertical-align: inherit;
+}
