@@ -11,9 +11,9 @@
 * @desc table sorter 
 * @param {*} n index
 */
-function sortTable(n) {
+function sortTable(n, el) {
 	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-	table = document.getElementById("myTable");
+	table = document.getElementById(el);
 	switching = true;
 	//Set the sorting direction to ascending:
 	dir = "asc";
@@ -64,6 +64,7 @@ function sortTable(n) {
 			}
 		}
 	}
+	return true; 
 }
 
 /**
@@ -206,9 +207,8 @@ function changePassword() {
 	// retrieve input by account user 
 	var oldpw = document.getElementById('old-pw').value;
 	var newpw = document.getElementById('new-pw').value;
-	if (oldpw == newpw) {
-		alert("Current password entry is the same as new password. Hana hou!");
-		return false;
+	if (!validPassword(localStorage.getItem('username'), oldpw, newpw)) {
+		return false; 
 	}
 	else {
 		// post to change password from USER table 
@@ -224,6 +224,35 @@ function changePassword() {
 					document.getElementById('new-pw').value = '';
 				}
 			});
+	}
+}
+
+function validPassword(user, old_pw, new_pw) {
+    if (user == new_pw) {
+		alert("Current password entry is the same as username. Hana hou!");
+        return false; 
+	}
+	if(old_pw == new_pw){
+		alert("Current password entry is the same as new password. Hana hou!");
+		return false; 
+	}
+    if (new_pw.length < 8) {
+		alert("New password needs to be at least length of 8. Hana hou!");
+        return false;
+    }
+    else if (new_pw.length > 33) {
+		alert("New password needs to be less than length of 33. Hana hou!");
+        return false;
+    }
+    var oneUpper = /.*[A-Z].*/
+    var oneDigit = /.*[0-9].*/
+	var oneSpecial = /.*[-\_\.\$\#\@\!].*/
+    if(oneUpper.test(new_pw) && oneDigit.test(new_pw) && oneSpecial.test(new_pw)){
+        return true; 
+    }
+    else{
+		alert("New password needs to have at least one uppercase letter, one digit, and one special character (-,_,.,$,#,@,!) Hana hou!");
+        return false; 
 	}
 }
 
@@ -336,6 +365,8 @@ module.exports =
 	setAvatar,
 	toggle,
 	checkNull,
-	defaultAv
+	defaultAv,
+	validPassword,
+	sortTable
  };
 // end of account.js

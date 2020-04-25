@@ -115,8 +115,8 @@
       <table id="myTable">
         <tr>
           <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
-          <th onclick="sortTable(0)">Category</th>
-          <th onclick="sortTable(1)">Title</th>
+          <th onclick="sortTable(0,'myTable')">Category</th>
+          <th onclick="sortTable(1,'myTable')">Title</th>
         </tr>
       </table>
     </div>
@@ -128,10 +128,10 @@
       <table id="myReviews">
         <tr>
           <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
-          <th onclick='sortTable(0)'>Category</th>
-          <th onclick='sortTable(1)'>Title</th>
-          <th onclick='sortTable(2)'>Rating</th>
-          <th onclick='sortTable(3)'>Comments</th>
+          <th onclick='sortTable(0,"myReviews")'>Category</th>
+          <th onclick='sortTable(1,"myReviews")'>Title</th>
+          <th onclick='sortTable(2,"myReviews")'>Rating</th>
+          <th onclick='sortTable(3,"myReviews")'>Comments</th>
         </tr>
       </table>
     </div>

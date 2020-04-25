@@ -123,7 +123,38 @@ test('test defaultAv()', () => {
     expect(f.defaultAv(null)).toBe("/images/img_avatar2.png"); 
 }); 
 
+test('test validPassword()', () => {
+    var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    document.body.innerHTML = html;
+    const jsdomAlert = window.alert;  // remember the jsdom alert
+    window.alert = () => { };  // provide an empty implementation for window.alert
+    expect(f.validPassword('test', '1234','1234')).toBeFalsy();
+    expect(f.validPassword('test', '1234','test')).toBeFalsy();
+    expect(f.validPassword('test', '11','1234')).toBeFalsy();
+    expect(f.validPassword('test', '11','1234567890123456789012345678901234')).toBeFalsy();
+    expect(f.validPassword('test', '11','P@ssword1')).toBeTruthy();
+    expect(f.validPassword('test', '11','P@sswordd')).toBeFalsy();
+    window.alert = jsdomAlert;  // restore the jsdom alert
+}); 
 
+test('test sortTable',()=>{
+    var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    document.body.innerHTML = html;
+    document.getElementById('myTable').innerHTML = '<tr><td>Col 1</td><td>Col 2</td></tr>';
+    document.getElementById('myTable').innerHTML += '<tr><td>Next Col 1</td><td>Next Col 2</td></tr>';
+    document.getElementById('myTable').innerHTML += '<tr><td>Next Col 1</td><td>Next Col 2</td></tr>';
+    document.getElementById('myTable').innerHTML += '<tr><td>A Col 1</td><td>Next Col 2</td></tr>';
+    expect(f.sortTable(0,'myTable')).toBeTruthy();
+});
+
+test('test sortTable',()=>{
+    var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    document.body.innerHTML = html;
+    document.getElementById('myTable').innerHTML = '<tr><td>Col 1</td><td>Col 2</td></tr>';
+    document.getElementById('myTable').innerHTML += '<tr><td>Next Col 1</td><td>Next Col 2</td></tr>';
+    document.getElementById('myTable').innerHTML += '<tr><td>Next Col 1</td><td>Next Col 2</td></tr>';
+    expect(f.sortTable(0,'myTable')).toBeTruthy();
+});
  /*
  test('changing new pw = old pw', () => {
     const jsdomAlert = window.alert;  // remember the jsdom alert
