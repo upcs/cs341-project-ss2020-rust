@@ -1,16 +1,19 @@
 /**
  * account.js
  * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
- * @version 02April2020
+ * @version 25April2020
  */
-
+ 
+ // TODO: Fix load time of user info 
+ // TODO: REMOVE EVENT HISTORY
+ // TODO: ADD FUNCTIONALITY TO ACCOUNT PAGE: REVIEWS
 /**
 * @desc table sorter 
 * @param {*} n index
 */
-function sortTable(n) {
+function sortTable(n, el) {
 	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-	table = document.getElementById("myTable");
+	table = document.getElementById(el);
 	switching = true;
 	//Set the sorting direction to ascending:
 	dir = "asc";
@@ -61,6 +64,7 @@ function sortTable(n) {
 			}
 		}
 	}
+	return true; 
 }
 
 /**
@@ -170,9 +174,9 @@ function initUser() {
 	if (username != null) {
 		$.post("/initacct?username=" + username, function (user) {
 			document.getElementById('name').innerHTML = user[0].FIRSTNAME + " " + user[0].LASTNAME;
-			document.getElementById('bio').innerHTML = user[0].BIO;
-			document.getElementById('location').innerHTML = user[0].LOCATION;
-			document.getElementById('avtr').src = user[0].AVATAR;
+			document.getElementById('bio').innerHTML = checkNull(user[0].BIO);
+			document.getElementById('location').innerHTML = checkNull(user[0].LOCATION);
+			document.getElementById('avtr').src = defaultAv(user[0].AVATAR);
 		});
 		document.getElementById("default").click();
 		getFavorites();
@@ -182,7 +186,20 @@ function initUser() {
 		return false;
 	}
 }
-
+function defaultAv(str){
+	var av = '/images/img_avatar2.png';
+	if(str != null && str != ''){
+		av = str; 
+	}
+	return av; 
+}
+function checkNull(str){
+	var newStr = ''; 
+	if(str != null){
+		newStr = str; 
+	}
+	return newStr; 
+}
 /**
  * @desc changes user password when button is clicked 
  */
@@ -190,9 +207,8 @@ function changePassword() {
 	// retrieve input by account user 
 	var oldpw = document.getElementById('old-pw').value;
 	var newpw = document.getElementById('new-pw').value;
-	if (oldpw == newpw) {
-		alert("Current password entry is the same as new password. Hana hou!");
-		return false;
+	if (!validPassword(localStorage.getItem('username'), oldpw, newpw)) {
+		return false; 
 	}
 	else {
 		// post to change password from USER table 
@@ -208,6 +224,35 @@ function changePassword() {
 					document.getElementById('new-pw').value = '';
 				}
 			});
+	}
+}
+
+function validPassword(user, old_pw, new_pw) {
+    if (user == new_pw) {
+		alert("Current password entry is the same as username. Hana hou!");
+        return false; 
+	}
+	if(old_pw == new_pw){
+		alert("Current password entry is the same as new password. Hana hou!");
+		return false; 
+	}
+    if (new_pw.length < 8) {
+		alert("New password needs to be at least length of 8. Hana hou!");
+        return false;
+    }
+    else if (new_pw.length > 33) {
+		alert("New password needs to be less than length of 33. Hana hou!");
+        return false;
+    }
+    var oneUpper = /.*[A-Z].*/
+    var oneDigit = /.*[0-9].*/
+	var oneSpecial = /.*[-\_\.\$\#\@\!].*/
+    if(oneUpper.test(new_pw) && oneDigit.test(new_pw) && oneSpecial.test(new_pw)){
+        return true; 
+    }
+    else{
+		alert("New password needs to have at least one uppercase letter, one digit, and one special character (-,_,.,$,#,@,!) Hana hou!");
+        return false; 
 	}
 }
 
@@ -235,6 +280,42 @@ function getFavorites() {
 				cat = selectCategory(entry);
 				table.innerHTML += "<tr> <td>" + cat + "</td> <td>" +
 					title + "</td></tr>";
+			}
+		}
+	});
+	getReviews();
+}
+
+function isEmpty(str){
+	if(str == '' || str == null){
+		return '';
+	}
+	else{
+		return str; 
+	}
+}
+/**
+ * @desc retrieves users favorite's list 
+ */
+function getReviews() {
+	var username = getUsername(); // saved username 
+
+	// post to retrieve favorites 
+	$.post('/getReview?user=' + username, function (result) {
+		if (result != null) {
+			// split list 
+			var table = document.getElementById('myReviews');
+
+			// visually display favorites list
+			for(var i = 0; i < result.length; i++){
+				var cat = result[i].CATEGORY;
+				var title = result[i].ITEM;
+				var rating = result[i].AVGREVIEW;
+				var comments = isEmpty(result[i].COMMENTS);
+				if(result[i].USER == 'YES'){
+					table.innerHTML += `<tr> <td>${cat}</td> <td> \
+					${title}</td><td>${rating}</td><td>${comments}</td></tr>`;
+				}
 			}
 		}
 	});
@@ -278,11 +359,14 @@ module.exports =
 	getUsername, 
 	selectCategory, 
 	initUser, 
-	changePassword, 
-	openAccTab,
+	changePassword,
 	setForm,
 	getIndex,
 	setAvatar,
-	toggle
+	toggle,
+	checkNull,
+	defaultAv,
+	validPassword,
+	sortTable
  };
 // end of account.js

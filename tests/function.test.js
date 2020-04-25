@@ -7,7 +7,7 @@ test('redirects page from user html to non-user html', () => {
     const path = '/artpageUser.html';
     const user = null;
     const cat = 'art';
-    const new_path = f.redirect(user,path, cat);
+    const new_path = f.verifyURL(user,path, cat);
     expect(new_path).not.toBe(path);
 }); 
 
@@ -16,7 +16,7 @@ test('redirects page from non-user to user html', () => {
     const path = '/artpage.html';
     const user = 'test-user';
     const cat = 'art';
-    const new_path = f.redirect(user,path, cat);
+    const new_path = f.verifyURL(user,path, cat);
     expect(new_path).not.toBe(path);
 }); 
 
@@ -24,7 +24,7 @@ test('does not redirect', () => {
     const path = '/artpage.html';
     const user = null;
     const cat = 'art';
-    const new_path = f.redirect(user,path, cat);
+    const new_path = f.verifyURL(user,path, cat);
     expect(new_path).toBe(path);
 }); 
 
@@ -74,12 +74,15 @@ test('checks output of getArtContent', () => {
     expect(res).toBe(output);
 }); 
 
-/*
-
-test('returns average review', async(done) => {
-    var html = fs.readFileSync('./public/index.html', 'utf8');
-    document.body.innerHTML = html;
-
-    expect(f.getAVGReview('Giraffe', 'Artwork')).toBe(5); 
+test('test convertString()', () => {
+    const str = "Hello'";
+    expect(f.convertString(str)).toBe("Hello\\'");
 }); 
-*/
+
+test('test getCategoryValue()', () => {
+    expect(f.getCategoryValue('art')).toBe('0');
+    expect(f.getCategoryValue('outdoor')).toBe('1');
+    expect(f.getCategoryValue('events')).toBe('3');
+    expect(f.getCategoryValue('service')).toBe('2');
+    expect(f.getCategoryValue('')).toBeFalsy();
+}); 

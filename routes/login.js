@@ -14,10 +14,16 @@ router.post('/', function (req, res) {
                 console.log("ERROR: " + error);
                 return;
             }
-            const found = bcrypt.compareSync(req.query.password, result[0].PASSWORD);
-            if (found) {
-                res.json(result);
-            } else {
+            console.log(result);
+            if(result.length != 0){
+                const found = bcrypt.compareSync(req.query.password, result[0].PASSWORD);
+                if (found) {
+                    res.json(result);
+                } else {
+                    res.json(null);
+                }
+            }
+            else{
                 res.json(null);
             }
         });

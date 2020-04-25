@@ -1,7 +1,7 @@
 /**
  * register.js
  * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
- * @version 12April2020
+ * @version 25April2020
  */
 
  /**
@@ -13,8 +13,35 @@ function register() {
     var lastName = document.getElementById('signupLastName').value;
     var email = document.getElementById('signupEmail').value;
     var password = document.getElementById('signupPassword').value;
+    var validSignup = checkValidSignup(username, firstName, lastName, email, password);
+    if (validSignup) {
+        $.post(`/register?username=${username}&password=${password}&firstName=${firstName}&lastName=${lastName}&email=${email}`, function (data) {
+            if (data == "success") {
+                document.getElementById('usernameExists').style.display = 'none';
+                document.getElementById('emailExists').style.display = 'none';
+                document.getElementById('id02').style.display = 'none';
+                localStorage.setItem('username', username);
+                window.location.href = "indexUser.html";
+            } else if (data == "usernameFound=trueemailFound=false") {
+                document.getElementById('usernameExists').style.display = 'block';
+                document.getElementById('emailExists').style.display = 'none';
+            } else if (data == "usernameFound=falseemailFound=true") {
+                document.getElementById('usernameExists').style.display = 'none';
+                document.getElementById('emailExists').style.display = 'block';
+            } else {
+                document.getElementById('usernameExists').style.display = 'block';
+                document.getElementById('emailExists').style.display = 'block';
+            }
+
+        }); //creates user in database logs them in and brings them to homepage
+    } else {
+        return false;
+    } //do nothing
+}
+
+function checkValidSignup(username, firstName, lastName, email, password){
     var confirmPassword = document.getElementById('signupConfirmPassword').value;
-    var validSignup = true;
+    var validSignup = true; 
     if (!validUsername(username)) {
         document.getElementById('usernameError').style.display = 'block';
         validSignup = false;
@@ -51,40 +78,16 @@ function register() {
     } else{
         document.getElementById('confirmPasswordError').style.display = 'none';
     }
-    if (validSignup) {
-        $.post("/register?username=" + username + '&password=' + password + '&firstName=' + firstName + '&lastName=' + lastName + '&email=' + email, function (data) {
-            if (data == "success") {
-                document.getElementById('usernameExists').style.display = 'none';
-                document.getElementById('emailExists').style.display = 'none';
-                document.getElementById('id02').style.display = 'none';
-                localStorage.setItem('username', username);
-                window.location.href = "indexUser.html";
-            } else if (data == "usernameFound=trueemailFound=false") {
-                document.getElementById('usernameExists').style.display = 'block';
-                document.getElementById('emailExists').style.display = 'none';
-            } else if (data == "usernameFound=falseemailFound=true") {
-                document.getElementById('usernameExists').style.display = 'none';
-                document.getElementById('emailExists').style.display = 'block';
-            } else {
-                document.getElementById('usernameExists').style.display = 'block';
-                document.getElementById('emailExists').style.display = 'block';
-            }
-
-        }); //creates user in database logs them in and brings them to homepage
-    } else {
-        return false;
-    } //do nothing
+    return validSignup; 
 }
 
 /** BELOW ARE VALIDATION FUNCTIONS TO MAKE SURE THAT USER INPUT IS VALID */
 function validUsername(a) {
     var num = /^[0-9A-Za-z\.\_\-]+$/; // can be combo of letters, numbers,_,-,.
     if (a.length < 6) {
-        alert("Minimum username length of 6");
         return false;
     }
     else if (a.length > 15) {
-        alert("Maximum username length of 15");
         return false;
     }
     else if(num.test(a)){
@@ -121,15 +124,12 @@ function validEmail(a) {
 }
 function validPassword(user, pw) {
     if (user == pw) {
-        alert("Password cannot match username")
         return false; 
     }
     if (pw.length < 8) {
-        alert("Minimum password length of 8");
         return false;
     }
     else if (pw.length > 33) {
-        alert("Maximum password length of 33");
         return false;
     }
     var oneUpper = /.*[A-Z].*/
@@ -139,7 +139,6 @@ function validPassword(user, pw) {
         return true; 
     }
     else{
-        alert("Invalid password. A password must contain at least ONE:\nUppercase\nDigit\nSpecial Character (- _ . $ # @ !)")
         return false; 
     }
 }

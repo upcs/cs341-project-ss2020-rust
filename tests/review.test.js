@@ -39,10 +39,11 @@ test('check valid submission', () => {
     window.alert = jsdomAlert;  // restore the jsdom alert
 }); 
 */
-
 test('check invalid submission', () => {
     const jsdomAlert = window.alert;  // remember the jsdom alert
     window.alert = () => { };  // provide an empty implementation for window.alert
+    var ht = fs.readFileSync('./public/reviewpage.html', 'utf8');
+    document.body.innerHTML = ht;
     let bool = f.validSubmission();
     expect(bool).toBeFalsy();
     window.alert = jsdomAlert;  // restore the jsdom alert
@@ -66,4 +67,19 @@ test('check function convertString', () => {
 test('check comment count func', () => {
     document.getElementById('comments').value = "H";
     expect(f.commentCount(document.getElementById('comments'))).toBe(299);
+}); 
+
+
+test('check checkAnon', () => {
+    expect(f.checkAnon('')).toBe('Anonymous');
+    expect(f.checkAnon('Hello')).not.toBe('Anonymous');
+}); 
+test('test initForm', () => {
+    expect(f.initForm()).toBeFalsy();
+    localStorage.setItem('username','test-hash'); 
+    expect(f.initForm()).toBeTruthy();
+}); 
+
+test('test no submission', () => {
+    expect(f.submitReview()).toBeFalsy();
 }); 
