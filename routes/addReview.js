@@ -9,9 +9,9 @@ router.post('/', function (req, res, next) {
     var category = req.query.cat; // selected category
     var item = req.query.item; // selected item/title
     var comment = req.query.comm; // user comment
-
-    db.dbquery(`INSERT INTO REVIEWS (NAME, CATEGORY, ITEM, AVGREVIEW, COMMENT) VALUES (${name},
-            ${category},${item},${rating},${comment})`, function (err, result) { 
+    var isUser = req.query.isUser; // Yes or No (If user)
+    db.dbquery(`INSERT INTO REVIEWS (NAME, CATEGORY, ITEM, AVGREVIEW, COMMENT, USER) VALUES (${name},
+            ${category},${item},${rating},${comment}, ${isUser})`, function (err, result) { 
             if (err) { // error handling
                 console.log(err);
                 return;

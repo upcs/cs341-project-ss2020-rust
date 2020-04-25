@@ -2,7 +2,7 @@
 /**
  * login.js
  * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
- * @version 02April2020
+ * @version 25April2020
  */
  /**
   * @desc attempt to login  
@@ -10,7 +10,7 @@
 function login() {
     var username = getUsername();
     var password = getPassword(); 
-    $.post("/login?username=" + username + '&password=' + password, function (data) {
+    $.post(`/login?username=${username}&password=${password}`, function (data) {
         if (data == null) {
             document.getElementById('loginPassword').value = '';
             document.getElementById('invalidLogin').innerHTML = "Invalid Username or Password!";

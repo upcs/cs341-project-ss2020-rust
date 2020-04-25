@@ -111,6 +111,19 @@ test('test toggle()', () => {
 }); 
 
 
+test('test checkNull()', () => {
+    var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    document.body.innerHTML = html;
+    expect(f.checkNull(null)).toBe(""); 
+}); 
+
+test('test defaultAv()', () => {
+    var html = fs.readFileSync('public/accountpage.html', 'utf8');
+    document.body.innerHTML = html;
+    expect(f.defaultAv(null)).toBe("/images/img_avatar2.png"); 
+}); 
+
+
  /*
  test('changing new pw = old pw', () => {
     const jsdomAlert = window.alert;  // remember the jsdom alert

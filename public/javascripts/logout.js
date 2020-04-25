@@ -1,7 +1,7 @@
 /**
  * logout.js
  * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
- * @version 02April2020
+ * @version 25April2020
  */
 
  /**

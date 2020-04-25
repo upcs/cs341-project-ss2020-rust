@@ -42,7 +42,7 @@
         <div id='dropdwn' class='dropdwn-content'>
           <div id='div_one'><a class='nav' href='accountpage.html'>Account</a></div>
           <div id='div_one'><a class='nav' onclick='logout()'>Log Out</a></div>
-          <div id='div_one'><a class='nav' href='reviewpage.html'>Write a Review</a></div>
+          <div id='div_one'><a class='nav' href='reviewpageUser.html'>Write a Review</a></div>
         </div>
       </div>
     </div>
@@ -65,8 +65,6 @@
         Password</button>
       <button class="tablinks" onclick="openAccTab(event,'Reviews')">
         Reviews</button>
-      <button class="tablinks" onclick="openAccTab(event,'Events')">
-        Event History</button>
     </div>
 
     <div id="Profile" class="tabcontent">
@@ -96,23 +94,6 @@
         </select>
       </form>
       <button id="edit-btn" onclick="editMode()" type="button"> Edit Profile </button>
-      <!--
-      <h2 class="header-title"> Profile </h2>
-      <div id="name-div">
-        <h3 id="name"> </h3>
-      </div>
-      <div id='loc-div'>
-        <h3 id='location'></h3>
-      </div>
-      <div id="bio-div">
-        <h3>About Me</h3>
-        <p id="bio"></p>
-      </div>
-      <div id='img-locator'>
-        <h3>Change Profile Avatar</h3>
-      </div>
-      <button id="edit-btn" onclick="editMode()" type="button"> Edit Profile </button>
-    -->
     </div>
 
     <div id="Password" class="tabcontent">
@@ -140,6 +121,21 @@
       </table>
     </div>
   </div>
+
+  <div id="Reviews" class="tabcontent">
+    <h2 class="header-title">Your Past Reviews</h2>
+    <div>
+      <table id="myReviews">
+        <tr>
+          <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
+          <th onclick='sortTable(0)'>Category</th>
+          <th onclick='sortTable(1)'>Title</th>
+          <th onclick='sortTable(2)'>Rating</th>
+          <th onclick='sortTable(3)'>Comments</th>
+        </tr>
+      </table>
+    </div>
+    </div>
   <!-- end of page divider -->
 
   <!-- footer divider -->
