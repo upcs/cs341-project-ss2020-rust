@@ -84,5 +84,5 @@ test('test getCategoryValue()', () => {
     expect(f.getCategoryValue('outdoor')).toBe('1');
     expect(f.getCategoryValue('events')).toBe('3');
     expect(f.getCategoryValue('service')).toBe('2');
-    expect(f.getCategoryValue('')).toBeFalsy();
+    expect(f.getCategoryValue('')).toBe(-1);
 }); 
