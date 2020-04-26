@@ -1,6 +1,12 @@
+# Sprint 5 Requirements
+## Improving Runtime
+## Application Behavior
+## Code Coverage [![Build Status](https://travis-ci.org/upcs/sprint-0-sq19-kamala21.svg?branch=master)](https://travis-ci.org/upcs/sprint-0-sq19-kamala21) [![codecov](https://codecov.io/gh/upcs/cs341-project-ss2020-rust/branch/master/graph/badge.svg)](https://codecov.io/gh/upcs/cs341-project-ss2020-rust)
+Our testing is quite adequate. We didn't start testing from the beginning like we should've and only really considered testing during Sprint 4 and Sprint 5. Our coverage is approximately 53% which is really good considering that at the beginning of Sprint 4 we had like no testing. For awhile our test coverage showed 100% but that's because we had not tested any of our functions. All of our testing is on changes to HTML from calling a function or helper functions. We were unable to figure out how to test our POST calls to database. We tried using asynchronous stuff like await but had trouble figuring out how to test that and make sure it was working as needed. I think our testing helped to simplify our functions and to understand what we were trying to achieve with each one. 
+## Achieving Specifications
+## Security
+## Bug Fixes 
 # Makaleha
-
-[![Build Status](https://travis-ci.org/upcs/sprint-0-sq19-kamala21.svg?branch=master)](https://travis-ci.org/upcs/sprint-0-sq19-kamala21) [![codecov](https://codecov.io/gh/upcs/cs341-project-ss2020-rust/branch/master/graph/badge.svg)](https://codecov.io/gh/upcs/cs341-project-ss2020-rust)
 
 ## Software Requirements Specification for Makaleha
 
