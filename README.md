@@ -189,10 +189,12 @@ The main software component that our application depends on is the public art da
 5.    Nonfunctional Requirements
 5.1    Performance Requirements
 Average response time to update user location should be less than one second. For use of the application when traveling to get accurate directions to a desired location.  We will not require page reloading with map updates, so that less data is reloaded.
+We do have one small delay when using the favoriting button. It takes 2-3 seconds for the "ping" on the map to change from yellow and back.
+All other delays or website crash issues are through our deployment app, Heroku, since it is a free-to-use service.
 5.2    Safety Requirements
 User locations will all remain in client-side data, to ensure that the location of users cannot be breached and used against them.
 5.3    Security Requirements
-User login information will be hashed to protect user login info and any other info that we will be storing.
+User login information will be hashed to protect user login info and any other info that we will be storing. We have also updated the requirements needed to create a "good" password that would be harder to guess.
 5.4    Software Quality Attributes
 We will be adding more points of interest in time when they are discovered and viewing customer feedback on locations with negative reviews and removing those from our database.
 6.    Other Requirements
