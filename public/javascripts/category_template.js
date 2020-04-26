@@ -207,7 +207,7 @@ function loadFavorites() {
     document.getElementById('toggleFavoritesButton').innerHTML = '&starf;';
     var artFavorites = [];
     var catValue = getCategoryValue(cat);
-    if(catValue == false){ alert("Error at line 211"); return; }
+    if(catValue == -1){ alert("Error at line 211"); return; }
     $.post(`/retrieveFavorite?user=${user}`, function (result) {
         if (result[0].FAVORITES != null) {
             var favoriteList = (result[0].FAVORITES).split(',');
@@ -271,7 +271,7 @@ function addItem(user, title) {
  */
 function removeItem(user, title) {
     var catValue = getCategoryValue(cat);
-    if(catValue == false){ console.log('Error at line 287'); return; }
+    if(catValue == -1){ console.log('Error at line 287'); return; }
     $.post(`/changeFavorites?type=remove&user=${user}&title=${catValue}${title}`, function (result) {
     });
 }
@@ -564,12 +564,7 @@ function getCategoryValue(cat) {
         case "outdoor": catValue = '1';
             break;
     }
-    if (catValue != -1) {
-        return catValue;
-    }
-    else{
-        return false; 
-    }
+   return catValue; 
 }
 
 module.exports =
