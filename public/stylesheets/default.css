@@ -37,14 +37,14 @@ h3.hidden {
     text-align: left;
     padding-right: 20%;
     padding-left: 20%;
-    font-size: x-large;
+    font-size: 1.5vw;
 }
 
 .help_message {
     text-align: left;
     padding-right: 20%;
     padding-left: 20%;
-    font-size: large;
+    font-size: 1.25vw;
 }
 
 .help_titles {
@@ -200,9 +200,9 @@ a.nav:hover {
 }
 
 .review-div {
-    padding-top: 6%;
+    padding-top: 5%;
     background-color: #ebebeb;
-    height: 100%;
+    height: auto;
     width: 100%;
     
 }
