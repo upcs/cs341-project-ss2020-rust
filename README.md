@@ -1,6 +1,15 @@
 # Sprint 5 Requirements
 ## Improving Runtime
+| Page        | Avg Time to Load (s) | Difference Since Last Sprint (s)	|
+|-------------|----------------------|----------------------------------|
+| Home        | 0.558                |0.558 - 0.565 = -0.007			|
+| Events      | 1.866                |1.866 - 1.873 = -0.007			|
+| Community   | 1.840                |1.840 - 1.302 =  0.538			|
+| Outdoors    | 2.153                |2.153 - 1.439 =  0.714			|
+| Artwork     | 3.074                |3.074 - 1.668 =  1.406			|
+| About       | 0.587                |0.587 - 0.611 = -0.024			|
 ## Application Behavior
+To speed up the runtime of our pages I sifted through our CSS and Javascript files cleaning out unnessary comments and blank space. Also, I got rid of files and images that we were no longer using. I made these changes because images are a main culprit of adding loading time, and eliminating whitespace in CSS and Javascript files reduces runtime by allowing those files to parse faster. It proved to be effective because our homepage loaded faster despite it having more images than it did on the last sprint. The other pages seem to have slowed down significantly, but this is because the community and outdoors page did not have a map or database on them during the last sprint. Many features have been added that reasonably take time such as adding databases, adding markers for every database entry on our map, and adding a footer to each page that includes a picture. Overall, our website has good runtimes for the amount of features and images included on every page.
 ## Code Coverage [![Build Status](https://travis-ci.org/upcs/sprint-0-sq19-kamala21.svg?branch=master)](https://travis-ci.org/upcs/sprint-0-sq19-kamala21) [![codecov](https://codecov.io/gh/upcs/cs341-project-ss2020-rust/branch/master/graph/badge.svg)](https://codecov.io/gh/upcs/cs341-project-ss2020-rust)
 Our testing is quite adequate. We didn't start testing from the beginning like we should've and only really considered testing during Sprint 4 and Sprint 5. Our coverage is approximately 53% which is really good considering that at the beginning of Sprint 4 we had like no testing. For awhile our test coverage showed 100% but that's because we had not tested any of our functions. All of our testing is on changes to HTML from calling a function or helper functions. We were unable to figure out how to test our POST calls to database. We tried using asynchronous stuff like await but had trouble figuring out how to test that and make sure it was working as needed. I think our testing helped to simplify our functions and to understand what we were trying to achieve with each one. 
 ## Achieving Specifications

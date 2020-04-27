@@ -2,21 +2,18 @@
 * {
   box-sizing: border-box
 }
-
 .right {
   position: absolute;
   right: 0px;
   width: 100px;
   padding: 10px;
 }
-
 .left {
   position: absolute;
   left: 0px;
   width: 100px;
   padding: 10px;
 }
-
 .bg {
   /* The image used */
   background-image: url("diamond_head.jpg");
@@ -28,7 +25,6 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-
 .full {
   height: 100%;
   width: 100%;
@@ -41,7 +37,6 @@
   overflow: hidden;
   background-color: #333;
 }
-
 .acc_menu {
   /* vertical navigation bar */
   list-style-type: none;
@@ -51,11 +46,9 @@
   overflow: hidden;
   background-color: #333;
 }
-
 li {
   float: left;
 }
-
 li a {
   display: block;
   color: white;
@@ -63,20 +56,16 @@ li a {
   padding: 14px 16px;
   text-decoration: none;
 }
-
 li a:hover {
   background-color: #111;
 }
-
 li a.acc_item:hover {
   background-color: #111;
   width: 160px;
 }
-
 .header-title {
   text-decoration: underline;
 }
-
 .tab {
   float: left;
   border: 1px solid #ccc;
@@ -84,9 +73,7 @@ li a.acc_item:hover {
   width: 30%;
   height: 300px;
 }
-
 /* Style the buttons inside the tab */
-
 .tab button {
   display: block;
   background-color: inherit;
@@ -100,21 +87,15 @@ li a.acc_item:hover {
   transition: 0.3s;
   font-size: 17px;
 }
-
 /* Change background color of buttons on hover */
-
 .tab button:hover {
   background-color: #ddd;
 }
-
 /* Create an active/current "tab button" class */
-
 .tab button.active {
   background-color: #ccc;
 }
-
 /* Style the tab content */
-
 .tabcontent {
   float: left;
   padding: 0px 12px;
@@ -123,55 +104,45 @@ li a.acc_item:hover {
   border-left: none;
   height: 300px;
 }
-
 /* general button design*/
-
 /* specific button modifications */
-
 #login:hover {
   background-color: white;
   font-style: italic;
   color: black;
 }
-
 #signup:hover {
   background-color: white;
   font-style: italic;
   color: black;
 }
-
 #review:hover {
   background-color: white;
   font-style: italic;
   color: black;
 }
-
 h1 {
   font-family: Georgia, serif;
   font-style: italic;
 }
-
 body {
   background: #add8e6;
   background: linear-gradient(90deg, rgba(153, 255, 255, 1) 0%, rgba(153, 255, 153, 1) 35%, rgba(0, 212, 255, 1) 100%);
   border-style: dashed;
   border-radius: all;
 }
-
 .rightt {
   position: absolute;
   right: 25px;
   width: 100px;
   padding: 10px;
 }
-
 .leftt {
   position: absolute;
   left: 25px;
   width: 100px;
   padding: 10px;
 }
-
 .top-btn {
   position: absolute;
   color: white;
@@ -181,13 +152,11 @@ body {
   width: 100px;
   height: 50px;
 }
-
 .navbar {
   width: 100%;
   background-color: rgb(34, 32, 32);
   overflow: auto;
 }
-
 .navbar a {
   float: left;
   padding: 10px;
@@ -198,11 +167,9 @@ body {
   /* Four links of equal widths */
   text-align: center;
 }
-
 .navbar a:hover {
   background-color: black;
 }
-
 @media screen and (max-width: 500px) {
   .navbar a {
     float: none;

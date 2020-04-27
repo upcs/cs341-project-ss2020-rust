@@ -3,14 +3,12 @@
  * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
  * @version 25April2020
  */
-
 // global variables 
 var map; // google map
 var cat; // page category (i.e. art, service, events, outdoor)
 var activeInfoWindow; // each item's info window
 var markers = []; // map marker array 
 var user; // current username
-
 /**
  * @desc initializes page with table entries from db tables
  * @param {*} category the page category 
@@ -25,7 +23,6 @@ function init(category) { // function called on window load
     }
     initItems(); // initialize table entries 
 }
-
 /**
  * @desc initialize table entries
  */
@@ -34,22 +31,15 @@ function initItems() {
     $.post(`/retrieve?type=${cat}`, function (list) {
         // loop through all objects 
         var titleList = new Array();
-
         for (var i = 0; i < list.length; i++) {
             if (list[i].TITLE != '') { // don't want category entries with no title
                 // object title
                 var title = list[i].TITLE;
-
-
                 if (!titleList.includes(title)) {
-
                     titleList.push(title);
-
                     // create row
                     var x = document.createElement('TR');
-
                     x.className = 'categoryrow';
-
                     x.setAttribute('id', `entry${i}`);
                     if (list[i].hasOwnProperty('LATITUDE') && list[i].hasOwnProperty('LONGITUDE')) {
                         var latitude = list[i].LATITUDE;
@@ -59,23 +49,18 @@ function initItems() {
                     }
                     // add to table
                     document.getElementById('categorytable').appendChild(x);
-
                     // create column w/ info
                     var y = document.createElement('TD');
-
                     // put newly created element in the art class
                     y.className = 'categoryclass';
-
                     var t = document.createTextNode(title);
                     y.appendChild(t);
                     document.getElementById(`entry${i}`).appendChild(y);
                 }
-
             }
         }
     });
 }
-
 /******************************* SEARCH FUNCTIONS ***********************************/
 /**
  * @desc search function to find entries in table
@@ -85,18 +70,12 @@ function search_table() {
     input = input.toLowerCase();
     let x = document.getElementsByClassName('categoryclass');
     let z = document.getElementsByClassName('categoryrow');
-
     let y = 0;
-
     let noResult = document.getElementById('result');
-
     for (i = 0; i < x.length; i++) {
         if (!x[i].innerHTML.toLowerCase().includes(input)) {
             x[i].style.display = 'none';
-
             z[i].style.display = 'none';
-
-
             y++;
             if (y == x.length) {
                 result.style.visibility = 'visible';
@@ -109,7 +88,6 @@ function search_table() {
         }
     }
 }
-
 /******************************* FAVORITES FUNCTIONS ***********************************/
 /**
  * @desc initializing favorites 
@@ -142,7 +120,6 @@ function initFavorite(user, title) {
         }
     });
 }
-
 /**
  * @desc adding favorite button (star) to infoWindow
  * @param {*} user username
@@ -178,7 +155,6 @@ function favoriteButton(user, title) {
         }
     });
 }
-
 function waitForChange(prevResult) {
     $.post(`/retrieveFavorite?user=${user}`, function (result) {
         if (result[0].FAVORITES == prevResult) {
@@ -188,7 +164,6 @@ function waitForChange(prevResult) {
         }
     });
 }
-
 /**
  * @desc loading favorites on map 
  */
@@ -235,7 +210,6 @@ function loadFavorites() {
         } // do nothing no favorites
     });
 }
-
 /**
  * @desc add toggle favorite functionality on top of map, either shows favorites or not 
  */
@@ -249,7 +223,6 @@ function toggleFavoritesButton() {
         loadFavorites();
     }
 }
-
 /*
 FIXED ISSUE WITH NOT GOING IN ADDITEM AND REMOVEITEM FUNCTION
 https://stackoverflow.com/questions/256754/how-to-pass-arguments-to-addeventlistener-listener-function.
@@ -263,7 +236,6 @@ function addItem(user, title) {
     $.post(`/changeFavorites?type=add&cat=${cat}&user=${user}&title=${title}`, function (result) {
     });
 }
-
 /**
  * @desc removing item from user favorites 
  * @param {*} user username
@@ -275,7 +247,6 @@ function removeItem(user, title) {
     $.post(`/changeFavorites?type=remove&user=${user}&title=${catValue}${title}`, function (result) {
     });
 }
-
 /******************************* MAP FUNCTIONS ***********************************/
 /**
  * @desc adding event listener to specific locations 
@@ -294,7 +265,6 @@ function addRowListener(row, location) {
  */
 function initMap() {
     cat = document.getElementsByClassName('category')[0].id;
-
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 21.4689, lng: -158.0001 },
         zoom: 10.25
@@ -319,7 +289,6 @@ function initMap() {
                     var date = list[i].DATE;
                     content = getArtContent(description, access, creator, credit, date);
                     createMarker(location, title, content);
-
                 }
                 else if (cat == "service") {
                     description = list[i].DESCRIPTION;
@@ -356,7 +325,6 @@ function initMap() {
         }
     });
 }
-
 /**
  * @desc creates marker on map 
  * @param {*} pos location of marker
@@ -434,8 +402,6 @@ function createMarker(pos, name, text) {
         });
     });
 }
-
-
 /******************************* HELPER FUNCTIONS ***********************************/
 function convertString(str) {
     var list = str.split("'");
@@ -450,7 +416,6 @@ function convertString(str) {
     }
     return newStr;
 }
-
 /** BELOW ARE THE FUNCTIONS RELATED TO CREATING THE TEXT CONTENT TO PLACE IN INFOWINDOW  */
 function getArtContent(description, access, creator, credit, date) {
     var creatorCreditDate = "";
@@ -500,7 +465,6 @@ function getArtContent(description, access, creator, credit, date) {
         '</p>';
     return content;
 }
-
 function getOutdoorContent(island, length, elevation, start, end, difficulty, amenities) {
     var content = '';
     if (island != '') {
@@ -526,21 +490,18 @@ function getOutdoorContent(island, length, elevation, start, end, difficulty, am
     }
     return content;
 }
-
 function getEventContent(addr, description, startdate, enddate, starttime, endtime) { // TODO: need to implement startdate and enddate
     var content = '';
     content += '<p>' + addr + '</p>'
     content += '<p>' + description + '</p>';
     return content;
 }
-
 function getServiceContent(description, phone, website) {
     var content = '';
     content += '<p>' + description + '</p>';
     content += '<p>' + phone + ' ' + website + '</p>';
     return content;
 }
-
 function verifyURL(user, curr, cat) {
     var next = curr;
     if (user != null) { // only can access user pages 
@@ -551,7 +512,6 @@ function verifyURL(user, curr, cat) {
     }
     return next;
 }
-
 function getCategoryValue(cat) {
     var catValue = -1;
     switch (cat) { // TODO?: This can be FUNC
@@ -566,7 +526,6 @@ function getCategoryValue(cat) {
     }
    return catValue; 
 }
-
 module.exports =
 {
     verifyURL,

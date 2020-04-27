@@ -1,16 +1,13 @@
 /* team rust searchbar.css file */
-
 .tb {
     display: table;
     width: 100%;
 }
-
 .td {
     display: table-cell;
     vertical-align: middle;
     width: 100%;
 }
-
 input, #submitSearch {
     color: #b3b3b3;
     font-family: Nunito;
@@ -20,7 +17,6 @@ input, #submitSearch {
     background-color: transparent;
     font-size: 3em;
 }
-
 #cover_art {
     position: relative;
     top: 0%;
@@ -46,11 +42,9 @@ input, #submitSearch {
     height: auto;
     width: 100%;
 }
-
 form {
     height: 96px;
 }
-
 .searchBar {
     width: 100%;
     height: 96px;
@@ -58,16 +52,13 @@ form {
     line-height: 1;
     color: black;
 }
-
 .searchBar::placeholder {
     color: black;
 }
-
 #s-cover {
     width: 1px;
     padding-left: 35px;
 }
-
 #submitSearch {
     position: relative;
     display: block;
@@ -75,7 +66,6 @@ form {
     height: 96px;
     cursor: pointer;
 }
-
 #s-circle {
     position: relative;
     top: -8px;
@@ -91,7 +81,6 @@ form {
     border-radius: 50%;
     transition: 0.5s ease all;
 }
-
 #submitSearch span {
     position: absolute;
     top: 68px;
@@ -104,7 +93,6 @@ form {
     transform: rotateZ(52deg);
     transition: 0.5s ease all;
 }
-
 #submitSearch span:before, #submitSearch span:after {
     content: '';
     position: absolute;
@@ -118,7 +106,6 @@ form {
     transform: rotateZ(0);
     transition: 0.5s ease all;
 }
-
 #s-cover:hover #s-circle {
     top: -1px;
     width: 67px;
@@ -127,7 +114,6 @@ form {
     background-color: #b3b3b3;
     border-radius: 20px;
 }
-
 #s-cover:hover span {
     top: 50%;
     left: 56px;
@@ -135,25 +121,20 @@ form {
     margin-top: -9px;
     transform: rotateZ(0);
 }
-
 #s-cover:hover #submitSearch span:before {
     bottom: 11px;
     transform: rotateZ(52deg);
 }
-
 #s-cover:hover #submitSearch span:after {
     bottom: -11px;
     transform: rotateZ(-52deg);
 }
-
 #s-cover:hover #submitSearch span:before, #s-cover:hover #submitSearch span:after {
     right: -6px;
     width: 40px;
     background-color: #b3b3b3;
 }
-
 /* end of css for search bar ^ */
-
 .inputText {
     font-family: Arial;
     font-size: 16px;

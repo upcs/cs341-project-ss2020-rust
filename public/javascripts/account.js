@@ -3,7 +3,6 @@
  * @author Geryl Vinoya, Kama Simon, Pele Kamala, Mikey Antkiewicz
  * @version 25April2020
  */
- 
  // TODO: Fix load time of user info 
  // TODO: REMOVE EVENT HISTORY
  // TODO: ADD FUNCTIONALITY TO ACCOUNT PAGE: REVIEWS
@@ -66,7 +65,6 @@ function sortTable(n, el) {
 	}
 	return true; 
 }
-
 /**
  * @desc updates display when edit/save button is clicked
  */
@@ -89,7 +87,6 @@ function editMode() {
 		btn.innerHTML = "Save Profile"; // changing button
 	}
 }
-
 function setForm() {
 	var list = splitList(document.getElementById('name').innerHTML, ' ');
 	var fname = list[0];
@@ -130,14 +127,12 @@ function saveProfile(username, fname, lname, bio, location) {
 			}
 		});
 }
-
 function setAvatar() {
 	var e = document.getElementById('av-menu');
 	var newAv = e.options[e.selectedIndex].value;
 	document.getElementById('avtr').src = newAv;
 	return newAv;
 }
-
 function toggle(x) {
 	var def = document.getElementById("default-prof");
 	var form = document.getElementById('prof-form');
@@ -168,7 +163,6 @@ function openAccTab(event, tab) {
 	document.getElementById(tab).style.display = "block";
 	event.currentTarget.className += " active";
 }
-
 function initUser() {
 	username = getUsername();
 	if (username != null) {
@@ -226,7 +220,6 @@ function changePassword() {
 			});
 	}
 }
-
 function validPassword(user, old_pw, new_pw) {
     if (user == new_pw) {
 		alert("Current password entry is the same as username. Hana hou!");
@@ -255,7 +248,6 @@ function validPassword(user, old_pw, new_pw) {
         return false; 
 	}
 }
-
 /**
  * @desc retrieves users favorite's list 
  */
@@ -320,7 +312,6 @@ function getReviews() {
 		}
 	});
 }
-
 /**
  * @desc list splitter function
  * @param {*} list the list you want to split
@@ -331,12 +322,10 @@ function splitList(list, splitter) {
 	var l = list.split(splitter);
 	return l;
 }
-
 function getUsername() {
 	var username = localStorage.getItem('username');
 	return username;
 }
-
 function selectCategory(entry) {
 	if (entry == "0" || entry == 'art') {
 		cat = "Artwork";
@@ -352,7 +341,6 @@ function selectCategory(entry) {
 	}
 	return cat;
 }
-
 module.exports = 
 { 
 	splitList, 
