@@ -13,8 +13,10 @@ To speed up the runtime of our pages I sifted through our CSS and Javascript fil
 ## Code Coverage [![Build Status](https://travis-ci.org/upcs/sprint-0-sq19-kamala21.svg?branch=master)](https://travis-ci.org/upcs/sprint-0-sq19-kamala21) [![codecov](https://codecov.io/gh/upcs/cs341-project-ss2020-rust/branch/master/graph/badge.svg)](https://codecov.io/gh/upcs/cs341-project-ss2020-rust)
 Our testing is quite adequate. We didn't start testing from the beginning like we should've and only really considered testing during Sprint 4 and Sprint 5. Our coverage is approximately 53% which is really good considering that at the beginning of Sprint 4 we had like no testing. For awhile our test coverage showed 100% but that's because we had not tested any of our functions. All of our testing is on changes to HTML from calling a function or helper functions. We were unable to figure out how to test our POST calls to database. We tried using asynchronous stuff like await but had trouble figuring out how to test that and make sure it was working as needed. I think our testing helped to simplify our functions and to understand what we were trying to achieve with each one. 
 ## Achieving Specifications
+In order to improve some of the security of the logging in and creating an account, we went through the regex for creating all important user fields. The password was made to be more strict than before, so there is at least some amount of complexity in the accounts. We went over small areas that needed fixing and perfected it in sprint 5.
 ## Security
 ## Bug Fixes 
+For bug fixes, there were many that were the result in our website being incomplete by the end of sprint 4. After reading through all the bugs, they were assigned to whoever was responsible for that specific section. Finishing up everything to a more complete website in the first two weeeks of sprint 5 fixed most of the bugs that were reported.
 # Makaleha
 
 ## Software Requirements Specification for Makaleha
@@ -31,7 +33,8 @@ Last Updated: 6 April 2020
 Name	              Date	         Reason For Changes	        Version
 
 Kamalei Simon 	  4 April 2020  	New features and release	  2.0 
-Mikey Antkiewicz  6 April 2020									  3.0 	 	 
+Mikey Antkiewicz  6 April 2020									  3.0 	 
+Geryl Vinoya      26 April 2020	 
  	 	 	 
 ## 1.    Introduction
 Using maps interlaced with all types of data from various databases has been a key tool in efficiently organizing and displaying information to users for years. This technology has become optimized to an extreme point where google maps seems to have mapped every road and building on the face of the planet. All of this innovation and integration has padded modern day lives with loads of convenience. With that being said, the internet is now cluttered with an overwhelming amount of information that can prove ineffective when using the internet to do things such as plan a trip or find something new about the place you live. Our software will combine maps and databases to provide a seamless experience to finding exactly what you want to do in the beautiful island of O’ahu, Hawaii. With a simple-to-use interface, users will be able to search through databases to find new and reliable sources of entertainment on the island. This is of great importance because with this strict focus on providing the best experience for those who want to get the most out of their time in O’ahu, we will outshine the other products that have more of a global focus.
