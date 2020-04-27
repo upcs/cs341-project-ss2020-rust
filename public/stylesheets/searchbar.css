@@ -16,15 +16,16 @@ input, #submitSearch {
     border: 0;
     background-color: transparent;
     font-size: 3em;
+    padding-top: 1px;
 }
 #cover_art {
     position: relative;
-    top: 0%;
+    top: 5%;
     /*left: -400px;*/
     left: -30%;
     right: 0;
     width: 1000px;
-    padding: 5px;
+    padding: 7px;
     margin: -30px auto 0 auto;
     /* color of search bar */
     background-color: white;
