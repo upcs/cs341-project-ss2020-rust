@@ -1,34 +1,70 @@
-<!-- Team Rust Home Page -->
+<!-- Team Rust Art Page -->
 <!DOCTYPE html>
 <html>
 
-
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Makaleha Review Page</title>
+  <title>Makaleha | Reviews</title>
+
   <link rel="stylesheet" type="text/css" href="stylesheets/default.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/login.css" />
+  <link rel='stylesheet' type='text/css' href='stylesheets/rating.css'/>
+  <link rel='stylesheet' type='text/css' href='stylesheets/review.css'/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="javascripts/login.js"></script>
   <script src="javascripts/review.js"></script>
-  <link rel="stylesheet" type="text/css" href="stylesheets/rating.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
-<body onload="init()">
+<body>
 
-  <!-- top buttons: "write a review", log in, and sign up -->
-  <div class="left">
-    <button type="button" style="width:100px" id="review" onclick="window.location.href = 'reviewpage.html';">Write a
-      review</button>
+  <!-- header divider -->
+  <!-- Should look like this: 
+    Makaleha      Events  Community Service  Outdoor Activities  Artwork  About     #(3 lines)
+  -->
+  <div class='header-div'>
+    <!-- divider containing 'Makaleha' title -->
+    <div id='rev-title' class='title-div'>
+      <a href='index.html'>
+        <h1 class='reviewtitle'>Makaleha</h1>
+      </a>
+    </div>
+    <!-- divider containing navigation menu -->
+    <div class='nav-div'>
+      <a class='nav' href='eventspage.html'>Events</a>
+      <a class='nav' href='servicepage.html'>Community Service</a>
+      <a class='nav' href='outdoorpage.html'>Outdoor Activities</a>
+      <a class='nav' href='artpage.html'>Artwork</a>
+      <a class='nav' href='about.html'>About/Help</a>
+    </div>
+    <!-- divider containing account tab -->
+    <div class='account-div'>
+      <div class='menu' onclick='openMenu(this)'>
+        <div class='bar1'></div>
+        <div class='bar2'></div>
+        <div class='bar3'></div>
+        <div id='dropdwn' class='dropdwn-content'>
+                    <div id='div_one'><a onclick="document.getElementById('loginPassword').value = '',
+                     document.getElementById('id01').style.display='block',
+                     document.getElementById('id02').style.display='none'" class='nav' href='#'>Log In</a></div>
+                    <div id='div_one'><a onclick="document.getElementById('id02').style.display='block',
+                     document.getElementById('usernameError').style.display = 'none',
+                     document.getElementById('signupUsername').value = '',
+                     document.getElementById('firstNameError').style.display = 'none',
+                     document.getElementById('signupFirstName').value = '',
+                     document.getElementById('lastNameError').style.display = 'none',
+                     document.getElementById('signupLastName').value = '',
+                     document.getElementById('emailError').style.display = 'none',
+                     document.getElementById('signupEmail').value = '',
+                     document.getElementById('passwordError').style.display = 'none',
+                     document.getElementById('signupPassword').value = '',
+                     document.getElementById('confirmPasswordError').style.display = 'none',
+                     document.getElementById('signupConfirmPassword').value = '',
+                     document.getElementById('id01').style.display='none'" class='nav' href='#'>Register</a></div>
+                    <div id='div_one'><a class='nav' href='reviewpage.html'>Write a Review</a></div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div id="loginbtns" class="right">
-    <button onclick="document.getElementById('id01').style.display='block'" style="width:100px" id="login">Log
-      in</button><br><br><br>
-    <button onclick="document.getElementById('id02').style.display='block'" type="button" style="width:100px"
-      id="signup">Register</button>
-  </div>
-
   <!-- log in pop up -->
   <div id="id01" class="modal">
 
@@ -74,77 +110,89 @@
       <div class="container">
         <label><b>Username</b></label>
         <input type="text" class="inputText" placeholder="Enter Username" id="signupUsername">
-
+        <span style='display: none; color: red;' id="usernameError">Username must be 6-15 characters including letters, digits, -, and _.</span>
+        <span style='display: none; color: red;' id="usernameExists">Sorry that username already exists.</span>
         <label><b>First Name</b></label>
         <input type="text" class="inputText" placeholder="Enter First Name" id="signupFirstName">
-
+        <span style='display: none; color: red;' id="firstNameError">First name can only contain letters.</span>
         <label><b>Last Name</b></label>
         <input type="text" class="inputText" placeholder="Enter Last Name" id="signupLastName">
-
+        <span style='display: none; color: red;' id="lastNameError">Last name can only contain letters.</span>
         <label><b>Email</b></label>
         <input type="text" class="inputText" placeholder="Enter Email" id="signupEmail">
-
+        <span style='display: none; color: red;' id="emailError">Must be a valid email.</span>
+        <span style='display: none; color: red;' id="emailExists">Sorry that email already exists.</span>
         <label><b>Password</b></label>
         <input type="password" class="inputText" placeholder="Enter Password" id="signupPassword">
-      </div>
-
-      <div class="container">
-        <span class="su">
-          <font color="red" id="invalidSignUp"></font>
+        <span style='display: none; color: red;' id="passwordError">
+          <ul>
+            <li>Password cannot match username.</li>
+            <br>
+            <li>Password must be 8-33 characters long.</li>
+            <br>
+            <li>Password must contain a lowercase letter, uppercase letter, digit, and special character</li>
+            <br>
+          </ul>
         </span>
-        <span class="registrationButton"><button onclick="register()">Complete Registration</button></span>
+        <label><b>Confirm Password</b></label>
+        <input type="password" class="inputText" placeholder="Confirm Password" id="signupConfirmPassword">
+        <span style='display: none; color: red;' id="confirmPasswordError">Does not match password field.</span>
+        <br>
+        <br>
+        <div style="position: relative;">
+          <button style="position: absolute; right:0px" onclick="register()">Complete Registration</button>
+        </div>
+        <br>
+        <br>
+        <br>
       </div>
     </div>
   </div>
-
-  <center>
-    <!-- logo -->
-    <input onclick="window.location.href='index.html'" type="image" id="makalehalogo" src="images/makaleha_logo__v2.png"
-      alt="Makaleha Logo" width="300" height="140" />
-  </center>
-  <!-- navigation bar i.e. page menu -->
-  <div class="navbar">
-    <a href="eventpage.html">Events</a>
-    <a href="artpage.html">Artwork</a>
-    <a href="recreationpage.html">Outdoor Activities</a>
-    <a href="servicepage.html">Community Service</a>
-  </div>
-  <div>
-    <h2> Write a Review </h2>
-    <form>
-      <table>
-        <tr>
+  <!-- end of header divider -->
+  <!-- rest of page divider -->
+  <div class='review-div'>
+    <h2 id='writereview'> Write a Review </h2>
+    <p style='padding-left: 2%'>Please select a category.</p>
+    <p style='padding-left: 2%'>If no title is manually selected, the showing title will be selected for review.</p>
+    <p style='padding-left: 2%'>Must enter a rating but comments and name are optional. If no name is provided, then it will show up as review named 'Anonymous'.</p>
+    <form onsubmit='return validSubmission();'>
+      <table style='width:100%;' id='reviewtable'>
+        <tr class='spaceUnder'>
           <td>
-            Name:
-          </td>
-          <td>
-            <input id='name' type="text" name="">
+            <label class='label'>Category:</label>
           </td>
         </tr>
-        <tr>
-          <td>
-            <label>Select Category:</label>
-            <select id="categoryOptions" onChange="getItems(this.value);">
-              <option value="" disabled selected > Select </option>
+        <tr class='spaceUnder'>
+          <td class='reviewLeftPadding'>
+            <select style='width:40%;' id="categoryOptions" onChange="getItems(this.value);">
+              <option value="" disabled selected> Select </option>
               <option value='art'> Artwork </option>
               <option value='service'> Community Service </option>
               <option value='outdoor'> Outdoor Activities </option>
               <option value='events'> Events </option>
             </select>
+            <p id='cat-err' class='hidden'>* No category was selected</p>
           </td>
+        </tr>
+        <tr class='spaceUnder' >
           <td>
-            <label>Select one:</label>
-            <select id="titleOptions">
-              <option value="" disabled selected > Select </option>
+            <label class='label'>Title:</label>
+          </td>
+        </tr>
+        <tr class='spaceUnder'>
+          <td class='reviewLeftPadding'>
+            <select style='width:40%;' id="titleOptions">
+              <option value="" disabled selected> Select </option>
             </select>
           </td>
         </tr>
-        <tr>
-          <td>
-            Rating
+
+        <tr class='spaceUnder'>
+          <td class='label'>
+            Rating:
           </td>
         </tr>
-        <tr>
+        <tr class='spaceUnder'>
           <td>
             <div class="rate">
               <input type="radio" id="star5" name="rate" value="5" />
@@ -157,17 +205,73 @@
               <label id="2" for="star2" title="text">2 stars</label>
               <input type="radio" id="star1" name="rate" value="1" />
               <label id="1" for="star1" title="text">1 star</label>
-            </div>
+            </div><br>
           </td>
         </tr>
         <tr>
           <td>
-            <button onclick="submitReview()"> Submit </button>
+            <span id='rate-err' class='hidden'>* Please enter a rating between 1 - 5</span>
+          </td>
+        </tr>
+        <tr class='spaceUnder'>
+          <td class='label'>
+            Comments:
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <textarea maxlength='300' onkeyup="commentCount(this)" id="comments" style='width:40%;' rows="4" cols="50"></textarea>
+          </td>
+        </tr>
+        <tr class='spaceUnder'>
+          <td>
+            <p id='rem-mess'>300 characters remaining</p>
+          </td>
+        </tr>
+        <tr class='spaceUnder'>
+          <td class='label'>
+            Name:
+          </td>
+        </tr>
+        <tr class='spaceUnder'>
+          <td>
+            <input style="width: 40%;" id='name' type="text" name="">
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <input type='submit' onclick="submitReview()"/>
           </td>
         </tr>
       </table>
     </form>
   </div>
+  <!-- footer divider -->
+  <div class='foot-div'>
+    <div class='cmp-info'>
+      <img class='logo' src='images/makaleha_logo__v2.png'>
+      <p> Makaleha is an online tool to help locals and visitors embrace the beauty of Hawai'i by
+        learning about the free opportunities and events in the islands. Come and take a walk
+        through the ʻāina with us.</p>
+    </div>
+    <div class='footer'>
+      <p class='footer'>Makaleha &copy; 2020</p>
+      <a class='footer' href='about.html'>About</a>
+      <a class='footer' href='privpolicy.html'>Privacy Policy</a>
+      <a class='footer' href='https://github.com/upcs/cs341-project-ss2020-rust'>GitHub</a>
+    </div>
+
+  </div>
 </body>
+<!-- script to open three line menu -->
+<script>
+  function openMenu(x) {
+    x.classList.toggle("change");
+
+    document.getElementById('dropdwn').style.display = document.getElementById('dropdwn').style.display == 'block' ? 'none' : 'block';
+  }
+</script>
 
 </html>
+<!-- end of artpage.html -->

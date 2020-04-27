@@ -1,0 +1,208 @@
+<!-- Team Rust Home Page -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Makaleha</title>
+  <script src="javascripts/login.js"></script>
+  <script src="javascripts/register.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel='stylesheet' type='text/css' href='stylesheets/default.css' />
+  <link rel='stylesheet' type='text/css' href='stylesheets/login.css'/>
+</head>
+
+<body>
+  <!-- header divider -->
+  <!-- Should look like this: 
+    Makaleha      Events  Community Service  Outdoor Activities  Artwork  About     #(3 lines)
+  -->
+  <div class='header-div'>
+    <!-- divider containing 'Makaleha' title -->
+    <div class='title-div'>
+      <a href='index.html'>
+        <h1 class='title'>Makaleha</h1>
+    </a>
+    </div>
+    <!-- divider containing navigation menu -->
+    <div class='nav-div'>
+      <a class='nav' href='eventspage.html'>Events</a>
+      <a class='nav' href='servicepage.html'>Community Service</a>
+      <a class='nav' href='outdoorpage.html'>Outdoor Activities</a>
+      <a class='nav' href='artpage.html'>Artwork</a>
+      <a class='nav' href='about.html'>About/Help</a>
+    </div>
+    <!-- divider containing account tab -->
+    <div class='account-div'>
+      <div class='menu' onclick='openMenu(this)'>
+        <div class='bar1'></div>
+        <div class='bar2'></div>
+        <div class='bar3'></div>
+        <div id='dropdwn' class='dropdwn-content'>
+          <div id='div_one'><a onclick="document.getElementById('loginPassword').value = '',
+           document.getElementById('id01').style.display='block',
+           document.getElementById('id02').style.display='none'" class='nav' href='#'>Log In</a></div>
+          <div id='div_one'><a onclick="document.getElementById('id02').style.display='block',
+           document.getElementById('usernameError').style.display = 'none',
+           document.getElementById('signupUsername').value = '',
+           document.getElementById('firstNameError').style.display = 'none',
+           document.getElementById('signupFirstName').value = '',
+           document.getElementById('lastNameError').style.display = 'none',
+           document.getElementById('signupLastName').value = '',
+           document.getElementById('emailError').style.display = 'none',
+           document.getElementById('signupEmail').value = '',
+           document.getElementById('passwordError').style.display = 'none',
+           document.getElementById('signupPassword').value = '',
+           document.getElementById('confirmPasswordError').style.display = 'none',
+           document.getElementById('signupConfirmPassword').value = '',
+           document.getElementById('id01').style.display='none'" class='nav' href='#'>Register</a></div>
+          <div id='div_one'><a class='nav' href='reviewpage.html'>Write a Review</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- log in pop up -->
+  <div id="id01" class="modal">
+
+    <div class="modal-content animate">
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close"
+          title="Close Modal">&times;</span>
+        <img src="images/img_avatar2.png" alt="Avatar" class="avatar">
+      </div>
+
+      <div class="container">
+        <label><b>Username</b></label>
+        <input type="text" class="inputText" placeholder="Enter Username" id="loginUsername">
+
+        <label><b>Password</b></label>
+        <input type="password" class="inputText" placeholder="Enter Password" id="loginPassword">
+
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+        <span class="psw">
+          <font color="red" id="invalidLogin"></font>
+        </span>
+        <br>
+        <br>
+        <button style="position: relative;" onclick="login()">Login</button>
+        <span class="psw"><a href="#">Forgot password?</a></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- sign up pop up -->
+  <div id="id02" class="modal">
+
+    <div class="modal-content animate">
+      <div class="imgcontainer">
+        <h><b>Create Your Makaleha Account</b></h>
+        <span onclick="document.getElementById('id02').style.display='none'" class="close"
+          title="Close Modal">&times;</span>
+      </div>
+
+      <div class="container">
+        <label><b>Username</b></label>
+        <input type="text" class="inputText" placeholder="Enter Username" id="signupUsername">
+        <span style='display: none; color: red;' id="usernameError">Username must be 6-15 characters including letters, digits, -, and _.</span>
+        <span style='display: none; color: red;' id="usernameExists">Sorry that username already exists.</span>
+        <label><b>First Name</b></label>
+        <input type="text" class="inputText" placeholder="Enter First Name" id="signupFirstName">
+        <span style='display: none; color: red;' id="firstNameError">First name can only contain letters.</span>
+        <label><b>Last Name</b></label>
+        <input type="text" class="inputText" placeholder="Enter Last Name" id="signupLastName">
+        <span style='display: none; color: red;' id="lastNameError">Last name can only contain letters.</span>
+        <label><b>Email</b></label>
+        <input type="text" class="inputText" placeholder="Enter Email" id="signupEmail">
+        <span style='display: none; color: red;' id="emailError">Must be a valid email.</span>
+        <span style='display: none; color: red;' id="emailExists">Sorry that email already exists.</span>
+        <label><b>Password</b></label>
+        <input type="password" class="inputText" placeholder="Enter Password" id="signupPassword">
+        <span style='display: none; color: red;' id="passwordError">
+          <ul>
+            <li>Password cannot match username.</li>
+            <br>
+            <li>Password must be 8-33 characters long.</li>
+            <br>
+            <li>Password must contain a lowercase letter, uppercase letter, digit, and special character</li>
+            <br>
+          </ul>
+        </span>
+        <label><b>Confirm Password</b></label>
+        <input type="password" class="inputText" placeholder="Confirm Password" id="signupConfirmPassword">
+        <span style='display: none; color: red;' id="confirmPasswordError">Does not match password field.</span>
+        <br>
+        <br>
+        <div style="position: relative;">
+          <button style="position: absolute; right:0px" onclick="register()">Complete Registration</button>
+        </div>
+        <br>
+        <br>
+        <br>
+      </div>
+    </div>
+  </div>
+  <!-- end of header divider -->
+
+  <!-- rest of page divider -->
+  <div class='page-div'>
+    <div>
+      <h1 align="center"> About Makaleha </h1>
+      <p id=about_message> Makaleha is an online tool to help locals and visitors embrace the beauty of Hawai'i by learning about the free opportunities and events in the islands. We are a government sponsored tool designed to allow an unbiased display of all the wonderful events and attractions
+      that our island has to offer.</p>
+      <h1 align="center"> Help </h1>
+      <h3 class="help_titles"> Navigation </h3>
+      <p class="help_message">
+          Account info: click the hamburger icon in the top right corner to log in, log out, sign up for an account (register), or write a review (instructions below). 
+          Homepage: click the picture above the description of a page and it will take you there. Also, use the navagation bar to go to a desired page.
+          Other pages: Click the Makaleha header in top left corner to return to homepage. Use navagation bar to go to other pages.</p>
+      <h3 class="help_titles"> Write a Review </h3>
+      <p class="help_message">
+          Here are the steps to follow to write a review an entry: 
+          <ol class="help_message" type = "1">
+            <li>Press the hamburger icon in the top right corner of the page</li><br>
+            <li>Click the 'Write a Review' button</li><br>
+            <li>Fill in the empty boxes and select a star rating</li><br>
+            <li>Press the 'Submit' button</li></br>
+         </ol></p>
+      <h3 class="help_titles"> Find Catelog of Favorited Attractions </h3>
+      <p class="help_message">
+          To favorite an attraction to save to your account you must be logged in.
+          Then you will browse one of the pages and click on a location icon on the map
+          or a table entry. This will prompt a pop up on the map which has a star icon on it.
+          Click the star icon in the top right corner of the map to add this attraction to your favorites. </p>
+      <p class="help_message">
+          To find your favorites you must be logged on. Then you click the hamburger icon in the top right corner of the screen. Click the dropdown option labeled 'account'. Once on the account page, select favorites from the options on the left and the website will display the attractions you have favorited.</p>
+    </div>
+  </div>
+  <!-- end of page divider -->
+
+  <!-- footer divider -->
+  <div class='foot-div'>
+    <div class='cmp-info'>
+      <img class='logo' src='images/makaleha_logo__v2.png'>
+      <p> Makaleha is an online tool to help locals and visitors embrace the beauty of Hawai'i by
+        learning about the free opportunities and events in the islands. Come and take a walk
+        through the ʻāina with us.</p>
+    </div>
+    <div class='footer'>
+      <p class='footer'>Makaleha &copy; 2020</p>
+      <a class='footer' href='about.html'>About</a>
+      <a class='footer' href='privpolicy.html'>Privacy Policy</a>
+      <a class='footer' href='https://github.com/upcs/cs341-project-ss2020-rust'>GitHub</a>
+    </div>
+
+  </div>
+</body>
+<!-- script to open three line menu -->
+<script>
+  function openMenu(x) {
+    x.classList.toggle("change");
+
+    document.getElementById('dropdwn').style.display = document.getElementById('dropdwn').style.display == 'block' ? 'none' : 'block';
+  }
+</script>
+
+</html>
+<!-- end of index.html -->

@@ -1,18 +1,14 @@
-.tb
-{
+/* team rust searchbar.css file */
+.tb {
     display: table;
     width: 100%;
 }
-
-.td
-{
+.td {
     display: table-cell;
     vertical-align: middle;
     width: 100%;
 }
-
-input, #submitSearch
-{
+input, #submitSearch {
     color: #b3b3b3;
     font-family: Nunito;
     padding: 0;
@@ -21,46 +17,7 @@ input, #submitSearch
     background-color: transparent;
     font-size: 3em;
 }
-
 #cover_art {
-    position: relative;
-    top: 30%;
-    /*left: -400px;*/
-    left: -30%;
-    right: 0;
-    width: 1000px;
-    padding: 5px;
-    margin: -30px auto 0 auto;
-    /* color of search bar */
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px #87ceeb;
-    transform: scale(0.5);
-    opacity: 75%;
-    /* change max width to format well on Grants computer */
-    max-width: 75%;
-}
-
-#cover_rec {
-    position: relative;
-    top: 30%;
-    /*left: -400px;*/
-    left: -30%;
-    right: 0;
-    width: 1000px;
-    padding: 5px;
-    margin: -30px auto 0 auto;
-    /* color of search bar */
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px #87ceeb;
-    transform: scale(0.5);
-    opacity: 75%;
-    /* change max width to format well on Grants computer */
-    max-width: 75%;
-}
-
-#cover_event {
     position: relative;
     top: 0%;
     /*left: -400px;*/
@@ -78,81 +35,38 @@ input, #submitSearch
     /* change max width to format well on Grants computer */
     max-width: 75%;
 }
-
-#cover_serv {
-    position: relative;
-    top: 30%;
-    /*left: -400px;*/
-    left: -30%;
-    right: 0;
-    width: 1000px;
-    padding: 5px;
-    margin: -30px auto 0 auto;
-    /* color of search bar */
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px #87ceeb;
-    transform: scale(0.5);
-    opacity: 75%;
-    /* change max width to format well on Grants computer */
-    max-width: 75%;
+.map-div{
+    text-align: left; 
+    padding-top: 5%;
+    background-color: #ebebeb;
+    height: auto;
+    width: 100%;
 }
-
-#cover
-{
-    position: absolute;
-    top: 50%;
-    left: -250px;
-    right: 0;
-    width: 2000px;
-    padding: 15px;
-    margin: -30px auto 0 auto;
-    /* color of search bar */
-    background-color: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px #87ceeb;
-    transform: scale(0.5);
-    opacity: 75%;
-    /* change max width to format well on Grants computer */
-    max-width: 135%;
-}
-
-form
-{
+form {
     height: 96px;
 }
-
-.searchBar
-{
+.searchBar {
     width: 100%;
     height: 96px;
     font-size: 60px;
     line-height: 1;
     color: black;
 }
-
-.searchBar::placeholder
-{
+.searchBar::placeholder {
     color: black;
 }
-
-#s-cover
-{
+#s-cover {
     width: 1px;
     padding-left: 35px;
 }
-
-#submitSearch
-{
+#submitSearch {
     position: relative;
     display: block;
     width: 84px;
     height: 96px;
     cursor: pointer;
 }
-
-#s-circle
-{
+#s-circle {
     position: relative;
     top: -8px;
     left: 0;
@@ -167,9 +81,7 @@ form
     border-radius: 50%;
     transition: 0.5s ease all;
 }
-
-#submitSearch span
-{
+#submitSearch span {
     position: absolute;
     top: 68px;
     left: 43px;
@@ -181,9 +93,7 @@ form
     transform: rotateZ(52deg);
     transition: 0.5s ease all;
 }
-
-#submitSearch span:before, #submitSearch span:after
-{
+#submitSearch span:before, #submitSearch span:after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -196,9 +106,7 @@ form
     transform: rotateZ(0);
     transition: 0.5s ease all;
 }
-
-#s-cover:hover #s-circle
-{
+#s-cover:hover #s-circle {
     top: -1px;
     width: 67px;
     height: 15px;
@@ -206,38 +114,30 @@ form
     background-color: #b3b3b3;
     border-radius: 20px;
 }
-
-#s-cover:hover span
-{
+#s-cover:hover span {
     top: 50%;
     left: 56px;
     width: 25px;
     margin-top: -9px;
     transform: rotateZ(0);
 }
-
-#s-cover:hover #submitSearch span:before
-{
+#s-cover:hover #submitSearch span:before {
     bottom: 11px;
     transform: rotateZ(52deg);
 }
-
-#s-cover:hover #submitSearch span:after
-{
+#s-cover:hover #submitSearch span:after {
     bottom: -11px;
     transform: rotateZ(-52deg);
 }
-#s-cover:hover #submitSearch span:before, #s-cover:hover #submitSearch span:after
-{
+#s-cover:hover #submitSearch span:before, #s-cover:hover #submitSearch span:after {
     right: -6px;
     width: 40px;
     background-color: #b3b3b3;
 }
 /* end of css for search bar ^ */
-
 .inputText {
-  font-family: Arial;
-  font-size: 16px;
-  text-align: left;
-  color: black;
+    font-family: Arial;
+    font-size: 16px;
+    text-align: left;
+    color: black;
 }

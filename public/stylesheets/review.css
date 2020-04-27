@@ -1,0 +1,38 @@
+#writereview {
+    font-size: 2vw;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: bold;
+    padding-left: 42%;
+    padding-top: 1%;
+}
+
+.label {
+    font-size: 1.5vw;
+    padding-right: 10%;
+}
+
+#categoryOptions {
+    padding-bottom: 5%;
+}
+
+#reviewtable {
+    padding-left: 2.5%;
+}
+
+.reviewrow {
+    padding-bottom: 10%;
+}
+
+tr.spaceUnder>td {
+    padding-bottom: 1em;
+}
+
+.reviewLeftPadding {
+    padding-left: 2.5%
+}
+
+.hidden {
+    display: none; 
+    color: red; 
+}
