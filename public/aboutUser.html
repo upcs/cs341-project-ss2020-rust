@@ -5,12 +5,11 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Makaleha</title>
-  <script src="javascripts/account.js"></script>
   <script src="javascripts/logout.js"></script>
+  <script src="javascripts/account.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel='stylesheet' type='text/css' href='stylesheets/default.css' />
   <link rel='stylesheet' type='text/css' href='stylesheets/login.css'/>
-  <script src="javascripts/logout.js"></script>
 </head>
 
 <body>
@@ -21,7 +20,7 @@
   <div class='header-div'>
     <!-- divider containing 'Makaleha' title -->
     <div class='title-div'>
-      <a href='indexUser.html'>
+      <a href='index.html'>
         <h1 class='title'>Makaleha</h1>
     </a>
     </div>
@@ -36,18 +35,18 @@
     <!-- divider containing account tab -->
     <div class='account-div'>
       <div class='menu' onclick='openMenu(this)'>
-        <div class='bar1'></div>
-        <div class='bar2'></div>
-        <div class='bar3'></div>
-        <div id='dropdwn' class='dropdwn-content'>
-          <div id='div_one'><a class='nav' href='accountpage.html'>Account</a></div>
-          <div id='div_one'><a class='nav' onclick='logout()'>Log Out</a></div>
-          <div id='div_one'><a class='nav' href='reviewpageUser.html'>Write a Review</a></div>
-        </div>
+          <div class='bar1'></div>
+          <div class='bar2'></div>
+          <div class='bar3'></div>
+          <div id='dropdwn' class='dropdwn-content'>
+              <div id='div_one'><a class='nav' href='accountpage.html'>Account</a></div>
+              <div id='div_one'><a onclick='logout()' class='nav' href='#'>Log Out</a></div>
+              <div id='div_one'><a class='nav' href='reviewpageUser.html'>Write a Review</a></div>
+          </div>
       </div>
-    </div>
   </div>
-  <!-- end of header divider -->
+</div>
+  <!-- end of header div-->
 
   <!-- rest of page divider -->
   <div class='page-div'>
@@ -60,15 +59,16 @@
       <p class="help_message">
           Account info: click the hamburger icon in the top right corner to log in, log out, sign up for an account (register), or write a review (instructions below). 
           Homepage: click the picture above the description of a page and it will take you there. Also, use the navagation bar to go to a desired page.
-          Other pages: Click the Makaleha logo in top left corner to return to homepage. Use navagation bar to go to other pages.</p>
+          Other pages: Click the Makaleha header in top left corner to return to homepage. Use navagation bar to go to other pages.</p>
       <h3 class="help_titles"> Write a Review </h3>
       <p class="help_message">
           Here are the steps to follow to write a review an entry: 
-            1. Press the hamburger icon in the top right corner of the page
-            2. Click the 'Write a Review' button
-            3. Fill in the empty boxes and select a star rating
-            4. Press the 'Submit Query' button
-      </p>
+          <ol class="help_message" type = "1">
+            <li>Press the hamburger icon in the top right corner of the page</li><br>
+            <li>Click the 'Write a Review' button</li><br>
+            <li>Fill in the empty boxes and select a star rating</li><br>
+            <li>Press the 'Submit' button</li></br>
+         </ol></p>
       <h3 class="help_titles"> Find Catelog of Favorited Attractions </h3>
       <p class="help_message">
           To favorite an attraction to save to your account you must be logged in.

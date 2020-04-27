@@ -28,13 +28,13 @@ h3.hidden {
     text-align: left;
     padding-right: 20%;
     padding-left: 20%;
-    font-size: x-large;
+    font-size: 1.5vw;
 }
 .help_message {
     text-align: left;
     padding-right: 20%;
     padding-left: 20%;
-    font-size: large;
+    font-size: 1.25vw;
 }
 .help_titles {
     text-align: left;
@@ -160,10 +160,10 @@ a.nav:hover {
     width: 100%;
 }
 .review-div {
-    padding-top: 6%;
+    padding-top: 5%;
     background-color: #ebebeb;
-    height: 100%;
-    width: 100%;   
+    height: auto;
+    width: 100%;
 }
 .ft-text {
     font-family: "Bookman Old Style";

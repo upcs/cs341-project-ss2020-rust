@@ -300,10 +300,10 @@ function getReviews() {
 
 			// visually display favorites list
 			for(var i = 0; i < result.length; i++){
-				var cat = result[i].CATEGORY;
+				var cat = selectCategory(result[i].CATEGORY);
 				var title = result[i].ITEM;
 				var rating = result[i].AVGREVIEW;
-				var comments = isEmpty(result[i].COMMENTS);
+				var comments = isEmpty(result[i].COMMENT);
 				if(result[i].USER == 'YES'){
 					table.innerHTML += `<tr> <td>${cat}</td> <td> \
 					${title}</td><td>${rating}</td><td>${comments}</td></tr>`;
@@ -327,13 +327,13 @@ function getUsername() {
 	return username;
 }
 function selectCategory(entry) {
-	if (entry == "0") {
+	if (entry == "0" || entry == 'art') {
 		cat = "Artwork";
 	}
-	else if (entry == "1") {
+	else if (entry == "1" || entry == 'outdoor') {
 		cat = "Outdoor Activities";
 	}
-	else if (entry == "2") {
+	else if (entry == "2" || entry == 'service') {
 		cat = "Community Service";
 	}
 	else {
